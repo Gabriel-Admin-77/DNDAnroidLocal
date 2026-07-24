@@ -101,6 +101,12 @@ export default function EndingOverlay({
                         </button>
                     )}
                     <Link
+                        href="/journal"
+                        className="w-full inline-flex items-center justify-center gap-2 bg-stone-800 hover:bg-stone-700 text-gold-400 border border-gold-500/30 px-4 py-3 rounded-xl font-medium text-sm transition-colors"
+                    >
+                        <BookOpen className="w-4 h-4 text-gold-400" /> View Adventure Journal
+                    </Link>
+                    <Link
                         href={`/champions`}
                         className="w-full inline-flex items-center justify-center gap-2 bg-stone-800 hover:bg-stone-700 text-stone-200 px-4 py-3 rounded-xl font-medium text-sm transition-colors"
                     >

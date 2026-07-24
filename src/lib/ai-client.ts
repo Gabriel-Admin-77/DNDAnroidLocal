@@ -167,3 +167,45 @@ export async function callDeepSeekDirectly(payload: QuestPayload): Promise<Quest
     const parsed = cleanAndParseJson(content);
     return parsed.quests || [];
 }
+
+/**
+ * Simple text generation helper using available client keys or fallback server API.
+ */
+export async function generateTextDirectly(prompt: string): Promise<string> {
+    const deepseekKey = getDeepSeekApiKey();
+    if (deepseekKey) {
+        const res = await fetch('https://api.deepseek.com/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${deepseekKey.trim()}`
+            },
+            body: JSON.stringify({
+                model: 'deepseek-chat',
+                messages: [{ role: 'user', content: prompt }],
+                temperature: 0.8
+            })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data.choices?.[0]?.message?.content || '';
+        }
+    }
+    const geminiKey = getGeminiApiKey();
+    if (geminiKey) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }]
+            })
+        });
+        if (res.ok) {
+            const data = await res.json();
+            return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        }
+    }
+    throw new Error('No AI API key configured. Open Settings to add your DeepSeek or Gemini key.');
+}
+

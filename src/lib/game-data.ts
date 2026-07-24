@@ -62,8 +62,18 @@ export const CLASS_ABILITIES: Record<string, ClassAbility[]> = {
  * can use to learn the crafting UI.
  */
 export const CRAFTING_RECIPES: CraftingRecipe[] = [
+    // --- Original recipes ---
     { name: 'Health Potion', materials: [{ name: 'Herb', qty: 2 }, { name: 'Glass Vial', qty: 1 }], result: { item_name: 'Health Potion', description: 'Restores 2d4+2 HP', item_type: 'potion', sell_value: 25 } },
     { name: 'Iron Shortsword', materials: [{ name: 'Iron Ore', qty: 3 }, { name: 'Leather Strips', qty: 1 }], result: { item_name: 'Iron Shortsword', description: '+1 Attack weapon', item_type: 'weapon', sell_value: 30 } },
     { name: 'Leather Armor', materials: [{ name: 'Leather Strips', qty: 4 }], result: { item_name: 'Leather Armor', description: '+1 AC armor', item_type: 'armor', sell_value: 35 } },
     { name: 'Torch Bundle', materials: [{ name: 'Wood', qty: 2 }, { name: 'Cloth', qty: 1 }], result: { item_name: 'Torch Bundle (x5)', description: '5 torches for exploring', item_type: 'misc', sell_value: 3 } },
+    // --- Phase 1.2 — New recipes ---
+    { name: 'Potion of Invisibility', materials: [{ name: 'Herb', qty: 3 }, { name: 'Glass Vial', qty: 1 }, { name: 'Moonstone', qty: 1 }], result: { item_name: 'Potion of Invisibility', description: 'Grants invisibility for one scene', item_type: 'potion', sell_value: 75 } },
+    { name: 'Enchanted Arrows', materials: [{ name: 'Wood', qty: 2 }, { name: 'Iron Ore', qty: 1 }, { name: 'Gem Dust', qty: 1 }], result: { item_name: 'Enchanted Arrows (x5)', description: '+1 magical arrows that bypass resistance', item_type: 'weapon', sell_value: 40 } },
+    { name: 'Bear Trap', materials: [{ name: 'Iron Ore', qty: 3 }, { name: 'Leather Strips', qty: 1 }], result: { item_name: 'Bear Trap', description: 'Immobilizes a creature for 1 turn', item_type: 'misc', sell_value: 20 } },
+    { name: 'Antidote', materials: [{ name: 'Herb', qty: 2 }, { name: 'Glass Vial', qty: 1 }], result: { item_name: 'Antidote', description: 'Cures poison and grants resistance', item_type: 'potion', sell_value: 30 } },
+    { name: 'Fire Bomb', materials: [{ name: 'Cloth', qty: 2 }, { name: 'Iron Ore', qty: 1 }, { name: 'Oil Flask', qty: 1 }], result: { item_name: 'Fire Bomb', description: 'Throwable incendiary dealing 2d6 fire damage', item_type: 'misc', sell_value: 35 } },
+    { name: 'Reinforced Shield', materials: [{ name: 'Iron Ore', qty: 4 }, { name: 'Wood', qty: 2 }, { name: 'Leather Strips', qty: 2 }], result: { item_name: 'Reinforced Shield', description: '+2 AC when equipped', item_type: 'armor', sell_value: 60 } },
+    { name: 'Mana Potion', materials: [{ name: 'Herb', qty: 2 }, { name: 'Glass Vial', qty: 1 }, { name: 'Crystal Shard', qty: 1 }], result: { item_name: 'Mana Potion', description: 'Restores 1 spell slot', item_type: 'potion', sell_value: 50 } },
+    { name: 'Smoke Bomb', materials: [{ name: 'Cloth', qty: 1 }, { name: 'Herb', qty: 1 }, { name: 'Glass Vial', qty: 1 }], result: { item_name: 'Smoke Bomb', description: 'Creates cover, granting advantage on stealth', item_type: 'misc', sell_value: 15 } },
 ];

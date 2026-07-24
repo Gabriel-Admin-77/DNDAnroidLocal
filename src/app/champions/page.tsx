@@ -2,11 +2,13 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Shield, ArrowLeft, Check, X, Loader2, Trash2 } from 'lucide-react';
+import { Shield, ArrowLeft, Check, X, Loader2, Trash2, BookOpen } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { getChampionImage } from '@/lib/utils';
 import { DND_ARCHETYPES } from '@/lib/archetypes';
 import { Character, DndArchetype } from '@/lib/types';
+import BackstoryModal from './BackstoryModal';
+import CharacterEditor from './CharacterEditor';
 
 function ArchetypeCard({ arch, isSelected, onClick }: { arch: DndArchetype; isSelected: boolean; onClick: () => void }) {
     return (
@@ -25,7 +27,7 @@ function ArchetypeCard({ arch, isSelected, onClick }: { arch: DndArchetype; isSe
     );
 }
 
-function ArchetypeDetail({ arch, onCreate, loading }: { arch: DndArchetype; onCreate: (arch: DndArchetype) => void; loading: boolean }) {
+function ArchetypeDetail({ arch, onCreate, loading, onOpenBackstory }: { arch: DndArchetype; onCreate: (arch: DndArchetype) => void; loading: boolean; onOpenBackstory: () => void }) {
     return (
         <div className="animate-in fade-in slide-in-from-right-8 duration-500">
             <div className="flex items-center gap-6 mb-8">
@@ -62,6 +64,13 @@ function ArchetypeDetail({ arch, onCreate, loading }: { arch: DndArchetype; onCr
             </div>
 
             <button
+                onClick={onOpenBackstory}
+                className="w-full mb-4 bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-200 py-3.5 rounded-2xl font-semibold text-sm transition-all flex items-center justify-center gap-2"
+            >
+                <BookOpen className="w-4 h-4 text-gold-400" /> View / Generate Lore Backstory
+            </button>
+
+            <button
                 onClick={() => onCreate(arch)}
                 disabled={loading}
                 className="w-full bg-gold-600 hover:bg-gold-500 disabled:opacity-50 text-stone-950 py-5 rounded-2xl font-bold text-xl transition-all flex items-center justify-center gap-3 shadow-[0_0_30px_rgba(234,179,8,0.2)]"
@@ -73,6 +82,7 @@ function ArchetypeDetail({ arch, onCreate, loading }: { arch: DndArchetype; onCr
 }
 
 function ChampionListItem({ champion, isSelected, onClick }: { champion: Character; isSelected: boolean; onClick: () => void }) {
+    const subclass = typeof window !== 'undefined' ? localStorage.getItem(`dnd_app_subclass_${champion.id}`) : null;
     return (
         <button
             onClick={onClick}
@@ -83,13 +93,13 @@ function ChampionListItem({ champion, isSelected, onClick }: { champion: Charact
             </div>
             <div className="flex-1 min-w-0">
                 <h3 className="font-serif truncate text-stone-200">{champion.name}</h3>
-                <p className="text-xs text-stone-500 uppercase">Lvl {champion.level} {champion.class}</p>
+                <p className="text-xs text-stone-500 uppercase">Lvl {champion.level} {champion.class} {subclass ? `· ${subclass}` : ''}</p>
             </div>
         </button>
     );
 }
 
-function ChampionDetail({ champion, onDelete }: { champion: Character; onDelete: (id: string) => void }) {
+function ChampionDetail({ champion, onDelete, onOpenBackstory, onEdit }: { champion: Character; onDelete: (id: string) => void; onOpenBackstory: () => void; onEdit: () => void }) {
     const archetype = DND_ARCHETYPES.find(a => a.name === champion.name);
     return (
         <div className="max-w-4xl mx-auto w-full grid grid-cols-2 gap-12">
@@ -125,6 +135,8 @@ function ChampionDetail({ champion, onDelete }: { champion: Character; onDelete:
                     </div>
                 </div>
                 <div className="mt-auto flex flex-col gap-3">
+                    <button onClick={onEdit} className="w-full flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 border border-gold-500/40 text-gold-300 p-3 rounded-xl font-semibold text-sm transition-all">Edit Character & Point-Buy</button>
+                    <button onClick={onOpenBackstory} className="w-full flex items-center justify-center gap-2 bg-stone-900 hover:bg-stone-800 border border-stone-700 text-stone-200 p-3 rounded-xl font-semibold text-sm transition-all"><BookOpen className="w-4 h-4 text-gold-400" /> View / Generate Lore</button>
                     <Link href={`/adventures?characterId=${champion.id}`} className="w-full flex items-center justify-center gap-3 bg-crimson-700 hover:bg-crimson-600 text-white p-4 rounded-xl font-bold transition-all"><Check className="w-5 h-5" /> Embark Adventure</Link>
                     <button onClick={() => onDelete(champion.id)} className="w-full flex items-center justify-center gap-3 bg-stone-900 hover:bg-red-950 border border-stone-800 text-stone-500 p-3 rounded-xl font-medium transition-all"><Trash2 className="w-4 h-4" /> Delete</button>
                 </div>
@@ -133,7 +145,7 @@ function ChampionDetail({ champion, onDelete }: { champion: Character; onDelete:
     );
 }
 
-function MobileChampionModal({ champion, onClose, onDelete }: { champion: Character; onClose: () => void; onDelete: (id: string) => void }) {
+function MobileChampionModal({ champion, onClose, onDelete, onOpenBackstory }: { champion: Character; onClose: () => void; onDelete: (id: string) => void; onOpenBackstory: () => void }) {
     const archetype = DND_ARCHETYPES.find(a => a.name === champion.name);
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/90 backdrop-blur-sm lg:hidden">
@@ -182,6 +194,9 @@ export default function ChampionsPage() {
     const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
     const [isCreating, setIsCreating] = useState(false);
     const [selectedArchetype, setSelectedArchetype] = useState<DndArchetype>(DND_ARCHETYPES[0]);
+    const [backstoryTarget, setBackstoryTarget] = useState<DndArchetype | Character | null>(null);
+    const [editingChampion, setEditingChampion] = useState<Character | null>(null);
+
     const supabase = createClient();
     const router = useRouter();
 
@@ -300,7 +315,7 @@ export default function ChampionsPage() {
 
                         <section className="hidden lg:flex flex-1 p-10 bg-stone-950/50 overflow-y-auto">
                             {selectedChampion ? (
-                                <ChampionDetail champion={selectedChampion} onDelete={handleDeleteChampion} />
+                                <ChampionDetail champion={selectedChampion} onDelete={handleDeleteChampion} onOpenBackstory={() => setBackstoryTarget(selectedChampion)} onEdit={() => setEditingChampion(selectedChampion)} />
                             ) : (
                                 <div className="m-auto text-stone-600 text-center">
                                     <Shield className="w-16 h-16 mx-auto mb-4 opacity-20" />
@@ -319,16 +334,33 @@ export default function ChampionsPage() {
                             </div>
                             <div className="lg:col-span-7 bg-stone-900/50 border border-stone-800 rounded-3xl p-8 sticky top-0 h-fit">
                                 {selectedArchetype && (
-                                    <ArchetypeDetail arch={selectedArchetype} onCreate={handleCreateChampion} loading={loading} />
+                                    <ArchetypeDetail arch={selectedArchetype} onCreate={handleCreateChampion} loading={loading} onOpenBackstory={() => setBackstoryTarget(selectedArchetype)} />
                                 )}
                             </div>
                         </div>
                     </div>
                 )}
+                {backstoryTarget && (
+                    <BackstoryModal 
+                        isOpen={!!backstoryTarget}
+                        champion={backstoryTarget} 
+                        onClose={() => setBackstoryTarget(null)} 
+                    />
+                )}
+                {editingChampion && (
+                    <CharacterEditor
+                        isOpen={!!editingChampion}
+                        champion={editingChampion}
+                        onClose={() => setEditingChampion(null)}
+                        onSaveSuccess={(updated) => {
+                            setChampions(prev => prev.map(c => c.id === updated.id ? updated : c));
+                        }}
+                    />
+                )}
             </main>
 
             {isMobileModalOpen && selectedChampion && (
-                <MobileChampionModal champion={selectedChampion} onClose={() => setIsMobileModalOpen(false)} onDelete={handleDeleteChampion} />
+                <MobileChampionModal champion={selectedChampion} onClose={() => setIsMobileModalOpen(false)} onDelete={handleDeleteChampion} onOpenBackstory={() => setBackstoryTarget(selectedChampion)} />
             )}
         </div>
     );

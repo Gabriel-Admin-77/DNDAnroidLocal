@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Sword, Map, Settings } from 'lucide-react';
+import { Sword, Map as MapIcon, Settings, BarChart3, Skull, BookOpen, ShoppingBag, Compass } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
           An endless journey awaits. Forge your destiny, choose your champion, and let the omniscient algorithmic Dungeon Master weave your epic tale.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-3xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
           <Link href="/champions" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
             <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
               <Sword className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
@@ -26,7 +26,7 @@ export default function Home() {
 
           <Link href="/adventures" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
             <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
-              <Map className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <MapIcon className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
               <h2 className="text-2xl font-serif text-stone-200">Adventures</h2>
               <p className="text-stone-400 text-sm">Pick a campaign module, ranging from beginner quests to legendary mythos.</p>
             </div>
@@ -37,6 +37,46 @@ export default function Home() {
               <Settings className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
               <h2 className="text-2xl font-serif text-stone-200">Dashboard</h2>
               <p className="text-stone-400 text-sm">Jump straight back into your active tabletop campaign.</p>
+            </div>
+          </Link>
+
+          <Link href="/stats" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
+            <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
+              <BarChart3 className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <h2 className="text-2xl font-serif text-stone-200">Player Stats</h2>
+              <p className="text-stone-400 text-sm">View your lifetime statistics, achievements, and records.</p>
+            </div>
+          </Link>
+
+          <Link href="/bestiary" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
+            <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
+              <Skull className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <h2 className="text-2xl font-serif text-stone-200">Bestiary</h2>
+              <p className="text-stone-400 text-sm">Explore discovered monsters, tactical stats, and creature lore.</p>
+            </div>
+          </Link>
+
+          <Link href="/journal" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
+            <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
+              <BookOpen className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <h2 className="text-2xl font-serif text-stone-200">Journal</h2>
+              <p className="text-stone-400 text-sm">Review archived campaign recaps and heroic sagas.</p>
+            </div>
+          </Link>
+
+          <Link href="/shop" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
+            <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
+              <ShoppingBag className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <h2 className="text-2xl font-serif text-stone-200">Merchant Shop</h2>
+              <p className="text-stone-400 text-sm">Purchase weapons, armor, potions, and scrolls before setting forth.</p>
+            </div>
+          </Link>
+
+          <Link href="/map" className="group p-1 rounded-xl bg-gradient-to-r from-stone-800 to-stone-900 border border-stone-800 hover:border-gold-500/50 transition-all duration-300">
+            <div className="bg-stone-950/80 p-6 rounded-lg h-full flex flex-col items-center text-center justify-center gap-4 transition-colors group-hover:bg-stone-900/50">
+              <Compass className="w-12 h-12 text-crimson-600 group-hover:text-gold-400 transition-colors" />
+              <h2 className="text-2xl font-serif text-stone-200">World Map</h2>
+              <p className="text-stone-400 text-sm">Explore interactive realm map nodes and connected locations.</p>
             </div>
           </Link>
         </div>

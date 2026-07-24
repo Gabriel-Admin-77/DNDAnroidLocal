@@ -26,6 +26,20 @@ export interface AchievementContext {
     maxLevelReached: number;
     adventuresCompleted: string[];
     npcsMet: number;
+    // --- Phase 1.1 additions ---
+    nat20Count: number;
+    nat1Count: number;
+    totalDamageTaken: number;
+    totalItemsCrafted: number;
+    totalGoldEarned: number;
+    inventorySize: number;
+    consecutiveSuccesses: number;
+    currentHp: number;
+    currentMaxHp: number;
+    timeOfDay: string;
+    abilitiesUsed: string[];
+    totalDiceRolls: number;
+    deathCount: number;
 }
 
 const ACHIEVEMENTS_KEY_PREFIX = 'dnd_app_achievements_';
@@ -70,6 +84,7 @@ export function unlockAchievement(characterId: string, achievementId: string): b
 }
 
 export const ACHIEVEMENTS: Achievement[] = [
+    // === Original achievements ===
     {
         id: 'first-steps',
         title: 'First Steps',
@@ -135,7 +150,92 @@ export const ACHIEVEMENTS: Achievement[] = [
         description: 'Play 3 different character classes.',
         icon: '🎭',
         check: (ctx) => new Set(ctx.classesPlayed).size >= 3
-    }
+    },
+    // === Phase 1.1 — New achievements ===
+    {
+        id: 'natural-twenty',
+        title: 'Natural Twenty!',
+        description: 'Roll a natural 20 on a dice check.',
+        icon: '🎯',
+        check: (ctx) => ctx.nat20Count >= 1
+    },
+    {
+        id: 'critical-fail',
+        title: 'Fumble!',
+        description: 'Roll a natural 1 on a dice check. Oops.',
+        icon: '💥',
+        check: (ctx) => ctx.nat1Count >= 1
+    },
+    {
+        id: 'deaths-door',
+        title: "Death's Door",
+        description: 'Survive a scene with 1 HP remaining.',
+        icon: '💀',
+        check: (ctx) => ctx.currentHp === 1 && ctx.currentMaxHp > 1
+    },
+    {
+        id: 'hoarder',
+        title: 'Hoarder',
+        description: 'Have 20 or more items in your inventory.',
+        icon: '🧳',
+        check: (ctx) => ctx.inventorySize >= 20
+    },
+    {
+        id: 'iron-wall',
+        title: 'Iron Wall',
+        description: 'Take 50+ total damage in one campaign and survive.',
+        icon: '🛡️',
+        check: (ctx) => ctx.totalDamageTaken >= 50
+    },
+    {
+        id: 'combo-master',
+        title: 'Combo Master',
+        description: 'Make 3 consecutive successful dice checks.',
+        icon: '🗡️',
+        check: (ctx) => ctx.consecutiveSuccesses >= 3
+    },
+    {
+        id: 'night-owl',
+        title: 'Night Owl',
+        description: 'Play a scene during Night time.',
+        icon: '🌙',
+        check: (ctx) => ctx.timeOfDay.toLowerCase().includes('night')
+    },
+    {
+        id: 'alchemist',
+        title: 'Alchemist',
+        description: 'Craft 5 items total.',
+        icon: '🧪',
+        check: (ctx) => ctx.totalItemsCrafted >= 5
+    },
+    {
+        id: 'wealthy',
+        title: 'Wealthy',
+        description: 'Accumulate 1,000+ gold across your career.',
+        icon: '💰',
+        check: (ctx) => ctx.totalGoldEarned >= 1000
+    },
+    {
+        id: 'dice-addict',
+        title: 'Dice Addict',
+        description: 'Roll dice 50 times total.',
+        icon: '🎲',
+        check: (ctx) => ctx.totalDiceRolls >= 50
+    },
+    {
+        id: 'five-victories',
+        title: 'Legendary Champion',
+        description: 'Win five adventures.',
+        icon: '🔱',
+        check: (ctx) => ctx.victories >= 5
+    },
+    {
+        id: 'phoenix',
+        title: 'Phoenix',
+        description: 'Die and come back — complete an adventure after dying at least once.',
+        icon: '🔥',
+        check: (ctx) => ctx.deathCount >= 1 && ctx.victories >= 1
+    },
 ];
 
 /** Check all achievements for a character and unlock any new ones. Returns IDs that were newly unlocked. */

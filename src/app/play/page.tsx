@@ -6,7 +6,7 @@ import {
     Sun, CloudRain, MapPin, User, Shield,
     Backpack, ScrollText, Dice5, History, Loader2,
     Coins, Hammer, ShoppingCart, Menu, X, Sparkles, ListTodo,
-    Save, FolderOpen, Trophy
+    Save, FolderOpen, Trophy, Users
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { getChampionImage, calculateAC } from '@/lib/utils';
@@ -18,6 +18,8 @@ import { getAmbientEngine, moodForLocation } from '@/lib/ambient-bgm';
 import { createSave, CampaignSave } from '@/lib/saves';
 import { checkAchievements, getAchievementById } from '@/lib/achievements';
 import { listNpcs } from '@/lib/npc-memory';
+import { bumpStat, maxStat, addToArrayStat } from '@/lib/stats';
+import { saveJournalRecord } from '@/lib/journal';
 import DiceRollOverlay from './DiceRollOverlay';
 import StoryEngine from './StoryEngine';
 import QuestEditorModal from './QuestEditorModal';
@@ -25,6 +27,11 @@ import ApiKeySettingsModal from './ApiKeySettingsModal';
 import EndingOverlay from './EndingOverlay';
 import SaveLoadModal from './SaveLoadModal';
 import AchievementsModal from './AchievementsModal';
+import SkillTreeModal from './SkillTreeModal';
+import PartyLobbyModal from './PartyLobbyModal';
+import { StatusEffect, PRESET_EFFECTS, tickStatusEffects, calculateTotalModifier } from '@/lib/status-effects';
+import { Companion, RECRUITABLE_COMPANIONS } from '@/lib/companions';
+import { rollRandomEncounter, RandomEncounter } from '@/lib/encounters';
 
 
 
@@ -662,6 +669,38 @@ function PlayDashboardContent() {
     const [spellSlots, setSpellSlots] = useState(2);
     const [classCharges, setClassCharges] = useState(1);
 
+    // --- Phase 3 state additions ---
+    const [statusEffects, setStatusEffects] = useState<StatusEffect[]>([PRESET_EFFECTS.blessed as StatusEffect]);
+    const [activeCompanion, setActiveCompanion] = useState<Companion | null>(RECRUITABLE_COMPANIONS[0]);
+    const [isSkillTreeOpen, setIsSkillTreeOpen] = useState(false);
+    const [isPartyLobbyOpen, setIsPartyLobbyOpen] = useState(false);
+
+    // --- Achievement tracking counters (persisted in localStorage per campaign) ---
+    const achieveStoreKey = campaignId ? `dnd_app_achieve_ctx_${campaignId}` : null;
+    const loadAchieveCounters = useCallback(() => {
+        if (!achieveStoreKey) return { nat20: 0, nat1: 0, damageTaken: 0, itemsCrafted: 0, goldEarned: 0, consecutiveSuccesses: 0, diceRolls: 0, deathCount: 0 };
+        try {
+            const raw = localStorage.getItem(achieveStoreKey);
+            return raw ? JSON.parse(raw) : { nat20: 0, nat1: 0, damageTaken: 0, itemsCrafted: 0, goldEarned: 0, consecutiveSuccesses: 0, diceRolls: 0, deathCount: 0 };
+        } catch { return { nat20: 0, nat1: 0, damageTaken: 0, itemsCrafted: 0, goldEarned: 0, consecutiveSuccesses: 0, diceRolls: 0, deathCount: 0 }; }
+    }, [achieveStoreKey]);
+    const saveAchieveCounters = useCallback((counters: Record<string, number>) => {
+        if (!achieveStoreKey) return;
+        try { localStorage.setItem(achieveStoreKey, JSON.stringify(counters)); } catch { /* ignore */ }
+    }, [achieveStoreKey]);
+    const bumpAchieveCounter = useCallback((field: string, delta = 1) => {
+        const c = loadAchieveCounters();
+        c[field] = (c[field] || 0) + delta;
+        saveAchieveCounters(c);
+        return c;
+    }, [loadAchieveCounters, saveAchieveCounters]);
+    const setAchieveCounter = useCallback((field: string, value: number) => {
+        const c = loadAchieveCounters();
+        c[field] = value;
+        saveAchieveCounters(c);
+        return c;
+    }, [loadAchieveCounters, saveAchieveCounters]);
+
     const togglePanel = (panel: string) => {
         setActivePanel(prev => prev === panel ? null : panel);
     };
@@ -689,6 +728,7 @@ function PlayDashboardContent() {
     const checkAndUnlockAchievements = useCallback(() => {
         if (!char) return;
         const npcsMet = campaignId ? listNpcs(campaignId).length : 0;
+        const counters = loadAchieveCounters();
         const ctx = {
             level: char.level || 1,
             xp: char.xp || 0,
@@ -697,7 +737,21 @@ function PlayDashboardContent() {
             classesPlayed: [char.class || ''],
             maxLevelReached: char.level || 1,
             adventuresCompleted: [],
-            npcsMet
+            npcsMet,
+            // Phase 1.1 expanded context
+            nat20Count: counters.nat20 || 0,
+            nat1Count: counters.nat1 || 0,
+            totalDamageTaken: counters.damageTaken || 0,
+            totalItemsCrafted: counters.itemsCrafted || 0,
+            totalGoldEarned: counters.goldEarned || 0,
+            inventorySize: inventory.reduce((sum, i) => sum + (i.quantity || 1), 0),
+            consecutiveSuccesses: counters.consecutiveSuccesses || 0,
+            currentHp: char.hp_current || 0,
+            currentMaxHp: char.hp_max || 1,
+            timeOfDay: env?.time || 'Dawn',
+            abilitiesUsed: [],
+            totalDiceRolls: counters.diceRolls || 0,
+            deathCount: counters.deathCount || 0,
         };
         const newlyUnlocked = checkAchievements(char.id, ctx);
         for (const id of newlyUnlocked) {
@@ -706,11 +760,29 @@ function PlayDashboardContent() {
                 showToast(`🏆 Achievement Unlocked: ${a.title}`, 'xp-gain');
             }
         }
-    }, [char, campaignId, showToast]);
+    }, [char, campaignId, showToast, loadAchieveCounters, inventory, env?.time]);
 
     const handleDiceRoll = useCallback((roll: number, dc: number, reason: string, success: boolean) => {
-        setDiceRoll({ roll, modifier: 0, total: roll, dc, reason, visible: true });
-    }, []);
+        const effectMod = calculateTotalModifier(statusEffects);
+        const finalRoll = roll + effectMod;
+        setDiceRoll({ roll: finalRoll, modifier: effectMod, total: finalRoll, dc, reason, visible: true });
+        // Tick down status effect durations
+        setStatusEffects(prev => tickStatusEffects(prev));
+        // Track dice stats for achievements
+        bumpAchieveCounter('diceRolls');
+        if (roll === 20) bumpAchieveCounter('nat20');
+        if (roll === 1) bumpAchieveCounter('nat1');
+        if (success) {
+            bumpAchieveCounter('consecutiveSuccesses');
+        } else {
+            setAchieveCounter('consecutiveSuccesses', 0);
+        }
+        // Global player stats
+        bumpStat('totalDiceRolls');
+        if (roll === 20) bumpStat('nat20s');
+        if (roll === 1) bumpStat('nat1s');
+        checkAndUnlockAchievements();
+    }, [bumpAchieveCounter, setAchieveCounter, checkAndUnlockAchievements]);
 
     const handleEnvUpdate = useCallback(async (newEnv: Environment) => {
         setEnv(newEnv);
@@ -731,9 +803,13 @@ function PlayDashboardContent() {
             
             if (effects.hp > 0) {
                 showToast(`Healed +${effects.hp} HP`, 'hp-gain');
+                bumpStat('totalHealing', effects.hp);
             } else {
                 showToast(`Took ${Math.abs(effects.hp)} Damage`, 'hp-loss');
+                bumpAchieveCounter('damageTaken', Math.abs(effects.hp));
+                bumpStat('totalDamageTaken', Math.abs(effects.hp));
             }
+            checkAndUnlockAchievements();
         }
         if (effects.gold) {
             const goldItem = inventory.find(i => i.item_name === 'Gold Pieces');
@@ -745,8 +821,11 @@ function PlayDashboardContent() {
                 
                 if (effects.gold > 0) {
                     showToast(`Gained +${effects.gold} Gold Pieces`, 'gold-gain');
+                    bumpAchieveCounter('goldEarned', effects.gold);
+                    bumpStat('totalGoldEarned', effects.gold);
                 } else {
                     showToast(`Lost ${Math.abs(effects.gold)} Gold Pieces`, 'gold-loss');
+                    bumpStat('totalGoldSpent', Math.abs(effects.gold));
                 }
             }
         }
@@ -791,7 +870,7 @@ function PlayDashboardContent() {
                 showToast(`Lost Item: ${itemName}`, 'item-loss');
             }
         }
-    }, [char, inventory, campaignId, supabase, showToast]);
+    }, [char, inventory, campaignId, supabase, showToast, bumpAchieveCounter, checkAndUnlockAchievements]);
 
     const handleUseAbility = async (ability: ClassAbility) => {
         if (!char) return;
@@ -929,7 +1008,41 @@ function PlayDashboardContent() {
 
     const handleEnding = useCallback(async (type: 'victory' | 'defeat' | 'neutral') => {
         setAdventureEnded(type);
+
+        // Record entry in journal
+        if (char && env) {
+            const npcs = campaignId ? listNpcs(campaignId).map(n => n.name) : [];
+            const summaryText = journalLog.length > 0
+                ? journalLog.slice(-3).map(l => l.text).join('\n\n')
+                : `The campaign "${env.location}" came to an end. ${char.name} faced the trial and reached its conclusion.`;
+            saveJournalRecord({
+                id: 'j_' + Date.now(),
+                adventureTitle: env.location || 'Unknown Adventure',
+                characterName: char.name,
+                characterClass: char.class || 'Hero',
+                outcome: type === 'victory' ? 'victory' : 'defeat',
+                date: new Date().toISOString(),
+                turnsTaken: env.turn || 1,
+                summary: summaryText,
+                keyNpcsMet: npcs,
+                xpEarned: type === 'victory' ? 250 : 50
+            });
+        }
+
+        if (type === 'defeat') {
+            bumpAchieveCounter('deathCount');
+            bumpStat('totalDeaths');
+            bumpStat('campaignsFailed');
+        }
         if (type === 'victory' && char) {
+            bumpStat('totalVictories');
+            bumpStat('campaignsCompleted');
+            if (env?.location) {
+                addToArrayStat('adventuresCompleted', env.location);
+            }
+            if (char.class) {
+                addToArrayStat('classesPlayed', char.class);
+            }
             const currentAdventureDef = ADVENTURE_DEFINITIONS.find(a => a.title === env?.location);
             const difficulty = currentAdventureDef?.difficulty || 'Beginner';
             const xpReward = difficulty === 'Beginner' ? 100 : difficulty === 'Intermediate' ? 250 : 500;
@@ -1285,6 +1398,10 @@ function PlayDashboardContent() {
             }]).select();
             if (!error && data && data[0]) setInventory(prev => [...prev, data[0] as InventoryItem]);
         }
+        // Track crafting for achievements
+        bumpAchieveCounter('itemsCrafted');
+        bumpStat('totalItemsCrafted');
+        checkAndUnlockAchievements();
     };
 
     useEffect(() => {
@@ -1386,6 +1503,7 @@ function PlayDashboardContent() {
                     <button title="Inventory" onClick={() => togglePanel('inventory')} className={`p-3 rounded-lg transition-all ${activePanel === 'inventory' ? 'text-gold-400 bg-stone-800' : 'text-stone-500 hover:text-stone-300 hover:bg-stone-800/50'}`}><Backpack className="w-6 h-6" /></button>
                 </div>
                 <div className="mt-auto flex flex-col gap-4">
+                    <button title="Multiplayer Party" onClick={() => setIsPartyLobbyOpen(true)} className="p-3 text-stone-500 hover:text-gold-300 hover:bg-stone-800/50 rounded-lg transition-all"><Users className="w-6 h-6" /></button>
                     <button title="Save Game" onClick={() => setSaveLoadMode('save')} className="p-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/50 rounded-lg transition-all"><Save className="w-6 h-6" /></button>
                     <button title="Load Game" onClick={() => setSaveLoadMode('load')} className="p-3 text-stone-500 hover:text-stone-300 hover:bg-stone-800/50 rounded-lg transition-all"><FolderOpen className="w-6 h-6" /></button>
                     <button title="Achievements" onClick={() => setIsAchievementsOpen(true)} className="p-3 text-stone-500 hover:text-gold-300 hover:bg-stone-800/50 rounded-lg transition-all"><Trophy className="w-6 h-6" /></button>
@@ -1497,11 +1615,29 @@ function PlayDashboardContent() {
                 onLoad={handleLoad}
             />
 
-            <AchievementsModal
-                isOpen={isAchievementsOpen}
-                onClose={() => setIsAchievementsOpen(false)}
-                characterId={char.id}
-            />
+            {isAchievementsOpen && (
+                <AchievementsModal
+                    isOpen={isAchievementsOpen}
+                    onClose={() => setIsAchievementsOpen(false)}
+                    characterId={char?.id || ''}
+                />
+            )}
+
+            {isSkillTreeOpen && char && (
+                <SkillTreeModal
+                    isOpen={isSkillTreeOpen}
+                    onClose={() => setIsSkillTreeOpen(false)}
+                    characterClass={char.class || 'Fighter'}
+                    level={char.level || 1}
+                />
+            )}
+
+            {isPartyLobbyOpen && (
+                <PartyLobbyModal
+                    isOpen={isPartyLobbyOpen}
+                    onClose={() => setIsPartyLobbyOpen(false)}
+                />
+            )}
 
 
 

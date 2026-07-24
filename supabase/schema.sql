@@ -177,7 +177,12 @@ BEGIN
         (NEW.id, 'Iron Ore', 'Raw iron ore chunk', 'material', 4, 3),
         (NEW.id, 'Leather Strips', 'Tanned leather strips', 'material', 3, 2),
         (NEW.id, 'Wood', 'Dry firewood pieces', 'material', 3, 1),
-        (NEW.id, 'Cloth', 'A strip of cloth', 'material', 2, 1);
+        (NEW.id, 'Cloth', 'A strip of cloth', 'material', 2, 1),
+        -- Phase 1.2: new rare crafting materials
+        (NEW.id, 'Moonstone', 'A pale, glowing gemstone', 'material', 1, 10),
+        (NEW.id, 'Gem Dust', 'Finely ground gemstone powder', 'material', 1, 8),
+        (NEW.id, 'Oil Flask', 'A flask of flammable oil', 'material', 1, 5),
+        (NEW.id, 'Crystal Shard', 'A shard of arcane crystal', 'material', 1, 12);
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
