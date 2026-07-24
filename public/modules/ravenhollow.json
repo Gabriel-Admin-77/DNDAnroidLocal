@@ -1,0 +1,543 @@
+{
+    "title": "Blood Moon Over Ravenhollow",
+    "scenes": {
+        "start": {
+            "text": "Ravenhollow is a village gripped by terror. For three nights, a monstrous wolf-like creature has stalked the streets under the blood-red moon, killing livestock and mauling anyone caught outside. Two villagers are dead.\n\nSheriff Marlowe meets you at the gate. 'We think it's a werewolf. The attacks started when outsiders arrived — a traveling theater troupe. They're camped at the old barn. Could be one of them... or it could be one of us.'\n\nTonight is the final night of the blood moon. If the werewolf isn't stopped, the curse could spread.",
+            "choices": [
+                {
+                    "text": "Interview the theater troupe at the barn",
+                    "next": "troupe"
+                },
+                {
+                    "text": "Examine the attack sites for clues",
+                    "next": "attack_sites"
+                },
+                {
+                    "text": "Visit the local herbalist about werewolf remedies",
+                    "next": "herbalist"
+                },
+                {
+                    "text": "Set a trap at the last attack site before nightfall",
+                    "next": "set_trap"
+                }
+            ]
+        },
+        "troupe": {
+            "text": "The Silvermask Players — five actors — rehearse in the barn. Their leader, a charismatic half-elf named Lysander, welcomes you. 'Terrible business. We're artists, not monsters.'\n\nYou notice their strongman, Viktor, has fresh scratches on his arms. The actress Sera seems nervous. And Pip, the young juggler, won't meet your eyes.",
+            "choices": [
+                {
+                    "text": "Question Viktor about his scratches",
+                    "next": "viktor"
+                },
+                {
+                    "text": "Talk to nervous Sera privately",
+                    "next": "sera"
+                },
+                {
+                    "text": "Watch Pip's behavior more carefully",
+                    "next": "pip_watch",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 13,
+                        "successScene": "pip_clue",
+                        "failScene": "pip_nothing"
+                    }
+                },
+                {
+                    "text": "Leave and examine attack sites instead",
+                    "next": "attack_sites"
+                }
+            ]
+        },
+        "viktor": {
+            "text": "Viktor, a hulking man, shows his scratches. 'From moving set pieces. Heavy wood, rough edges.' His explanation seems genuine. But you notice he has no silver jewelry — unusual for a performer.",
+            "choices": [
+                {
+                    "text": "Ask about the lack of silver",
+                    "next": "silver_clue"
+                },
+                {
+                    "text": "Talk to Sera instead",
+                    "next": "sera"
+                },
+                {
+                    "text": "Go examine the attack sites",
+                    "next": "attack_sites"
+                }
+            ]
+        },
+        "silver_clue": {
+            "text": "Viktor shrugs. 'I'm allergic to silver. Gives me a terrible rash.' Allergic to silver — a werewolf trait? Or a genuine allergy? You can't tell yet.",
+            "choices": [
+                {
+                    "text": "Investigate more — talk to Sera",
+                    "next": "sera"
+                },
+                {
+                    "text": "Search the attack sites for more evidence",
+                    "next": "attack_sites"
+                },
+                {
+                    "text": "Ask the herbalist about silver allergies",
+                    "next": "herbalist"
+                }
+            ]
+        },
+        "sera": {
+            "text": "Sera pulls you aside. 'I didn't want to say this in front of everyone, but... Pip has been sleepwalking. I've found his bedroll empty two of the three attack nights. He says he doesn't remember anything.'\n\nShe hesitates. 'But Pip's just a kid. Fifteen years old. Could a child really be...?'",
+            "choices": [
+                {
+                    "text": "Confront Pip directly",
+                    "next": "pip_confronted"
+                },
+                {
+                    "text": "Check the attack sites for small footprints",
+                    "next": "attack_sites"
+                },
+                {
+                    "text": "Visit the herbalist for wolfsbane to test suspects",
+                    "next": "herbalist"
+                }
+            ]
+        },
+        "pip_watch": {
+            "text": "You study Pip...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pip_clue"
+                }
+            ]
+        },
+        "pip_clue": {
+            "text": "Pip fidgets constantly, scratching at his wrist. When his sleeve rides up, you glimpse a bite scar — crescent-shaped, partially healed. A werewolf bite mark.\n\nHe catches you looking and yanks his sleeve down, eyes wide with fear.",
+            "choices": [
+                {
+                    "text": "Talk to Pip gently about the bite",
+                    "next": "pip_confronted"
+                },
+                {
+                    "text": "Get silver from the herbalist to test him",
+                    "next": "herbalist"
+                }
+            ]
+        },
+        "pip_nothing": {
+            "text": "Pip seems like an ordinary nervous teenager. Nothing stands out immediately.",
+            "choices": [
+                {
+                    "text": "Interview the others",
+                    "next": "sera"
+                },
+                {
+                    "text": "Check the attack sites",
+                    "next": "attack_sites"
+                }
+            ]
+        },
+        "attack_sites": {
+            "text": "The attack sites tell a story: the first attack was near the barn (where the troupe camps). The second was at a farm on the village edge. Claw marks, wolf prints, and tufts of dark fur everywhere. But the prints are smaller than expected — a young, lean werewolf. Not a full-grown adult.",
+            "choices": [
+                {
+                    "text": "The small prints point to Pip — confront him",
+                    "next": "pip_confronted"
+                },
+                {
+                    "text": "Follow the tracks to see where the wolf goes after attacks",
+                    "next": "track_wolf",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 14,
+                        "successScene": "tracks_barn",
+                        "failScene": "tracks_lost"
+                    }
+                },
+                {
+                    "text": "Visit the herbalist with this evidence",
+                    "next": "herbalist"
+                }
+            ]
+        },
+        "track_wolf": {
+            "text": "You follow the tracks...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "tracks_barn"
+                }
+            ]
+        },
+        "tracks_barn": {
+            "text": "The tracks lead from the attack sites back to the barn — specifically, to a small hatch in the floor. Pip's hiding spot. The evidence is clear.",
+            "choices": [
+                {
+                    "text": "Confront Pip with the evidence",
+                    "next": "pip_confronted"
+                }
+            ]
+        },
+        "tracks_lost": {
+            "text": "The tracks fade on rocky ground. But they were heading toward the barn.",
+            "choices": [
+                {
+                    "text": "Return to the barn and investigate",
+                    "next": "pip_confronted"
+                },
+                {
+                    "text": "Prepare for tonight's hunt",
+                    "next": "night_prep"
+                }
+            ]
+        },
+        "herbalist": {
+            "text": "Old Greta the herbalist knows her lore. 'Werewolf curse? Terrible thing. For someone recently bitten — within a month — there's a cure. Wolfsbane, moonflower petals, and the blood of the wolf that bit them, brewed under the blood moon.'\n\nShe gives you a sprig of wolfsbane. 'Touch this to the werewolf's skin and it'll react — burning like acid. That'll confirm your suspect.'",
+            "choices": [
+                {
+                    "text": "Test the troupe members with wolfsbane",
+                    "next": "wolfsbane_test"
+                },
+                {
+                    "text": "Prepare the cure ingredients for tonight",
+                    "next": "night_prep"
+                }
+            ]
+        },
+        "wolfsbane_test": {
+            "text": "You return to the barn and casually brush the wolfsbane against each performer's hand. Viktor — nothing. Sera — nothing. Lysander — nothing.\n\nWhen you touch Pip, he yelps and jerks away. A red welt rises on his skin, smoking slightly. His eyes fill with tears.\n\n'I'm sorry,' he whispers. 'I didn't mean to hurt anyone. I can't control it.'",
+            "choices": [
+                {
+                    "text": "Tell Pip you're going to help him — find a cure",
+                    "next": "pip_cure_path"
+                },
+                {
+                    "text": "Restrain Pip before nightfall for everyone's safety",
+                    "next": "restrain_pip"
+                }
+            ]
+        },
+        "pip_confronted": {
+            "text": "Pip breaks down crying. 'A month ago, in the Darkwood — a wolf attacked me. I thought it was just a normal wolf. Then the blood moon came and I... I woke up covered in blood. I don't remember what I do at night, but I know — I KNOW — it's me.'\n\nLysander steps forward protectively. 'He's just a boy. There must be a cure.'",
+            "choices": [
+                {
+                    "text": "There might be a cure — visit the herbalist",
+                    "next": "pip_cure_path"
+                },
+                {
+                    "text": "We need to restrain him before nightfall",
+                    "next": "restrain_pip"
+                },
+                {
+                    "text": "We need to hunt the wolf that bit him",
+                    "next": "hunt_alpha"
+                }
+            ]
+        },
+        "pip_cure_path": {
+            "text": "Greta's cure requires three things: wolfsbane (you have it), moonflower petals from the Darkwood (dangerous at night), and the blood of the alpha wolf that bit Pip.\n\n'The alpha will be drawn here by the blood moon,' Greta says. 'If you can wound it and collect its blood, I can brew the cure. But the moon rises in two hours.'",
+            "choices": [
+                {
+                    "text": "Restrain Pip and hunt the alpha wolf tonight",
+                    "next": "night_hunt"
+                },
+                {
+                    "text": "Gather moonflowers from the Darkwood first",
+                    "next": "darkwood"
+                },
+                {
+                    "text": "Set a trap for the alpha at the village edge",
+                    "next": "set_trap"
+                }
+            ]
+        },
+        "restrain_pip": {
+            "text": "You chain Pip in the barn's cellar with silver-lined manacles borrowed from the Sheriff. 'I'll hold,' Pip says bravely, though he's trembling.\n\nBut the curse is strong. When the blood moon rises, you hear Pip transforming below — howling, thrashing. The chains strain. And from outside the village, an answering howl — the alpha wolf.",
+            "choices": [
+                {
+                    "text": "Guard Pip and wait for the alpha to come",
+                    "next": "alpha_comes"
+                },
+                {
+                    "text": "Hunt the alpha in the village outskirts",
+                    "next": "night_hunt"
+                }
+            ]
+        },
+        "set_trap": {
+            "text": "Using livestock bait and silver caltrops from the herbalist, you set a trap near the last attack site. As the blood moon rises, you hide and wait.\n\nFirst, you hear distant howling — Pip transforming somewhere. Then, from the forest edge, a massive black wolf emerges. The alpha. It's the size of a horse, with intelligent, malevolent eyes.",
+            "choices": [
+                {
+                    "text": "Spring the trap!",
+                    "next": "trap_alpha",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "alpha_trapped",
+                        "failScene": "alpha_free"
+                    }
+                },
+                {
+                    "text": "Attack with a silver weapon!",
+                    "next": "alpha_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "alpha_beaten",
+                        "failScene": "alpha_wounded_you"
+                    }
+                }
+            ]
+        },
+        "night_prep": {
+            "text": "You prepare for the night: silver caltrops, wolfsbane pouches, and a borrowed silver-tipped spear. When the blood moon rises, the hunt begins.\n\nTwo howls pierce the night — one from the village (Pip) and one from the forest (the alpha).",
+            "choices": [
+                {
+                    "text": "Hunt the alpha in the forest",
+                    "next": "night_hunt"
+                },
+                {
+                    "text": "Protect the village from both wolves",
+                    "next": "alpha_comes"
+                }
+            ]
+        },
+        "darkwood": {
+            "text": "The Darkwood is treacherous at night. Moonflowers glow silver-blue near a stream. You gather the petals — but a growl freezes you. The alpha wolf watches from the shadows, its eyes glowing crimson.",
+            "choices": [
+                {
+                    "text": "Stand your ground and fight!",
+                    "next": "alpha_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "alpha_beaten",
+                        "failScene": "alpha_wounded_you"
+                    }
+                },
+                {
+                    "text": "Use wolfsbane to drive it back",
+                    "next": "wolfsbane_defense"
+                }
+            ]
+        },
+        "night_hunt": {
+            "text": "You track the alpha through moonlit fields. Its prints are enormous. You find it drinking from a stream, its black fur silver-tipped in the moonlight.\n\nIt senses you and turns, lips peeling back over jagged fangs.",
+            "choices": [
+                {
+                    "text": "Attack with silver!",
+                    "next": "alpha_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "alpha_beaten",
+                        "failScene": "alpha_wounded_you"
+                    }
+                },
+                {
+                    "text": "Throw wolfsbane at its face to stun it",
+                    "next": "wolfsbane_defense"
+                }
+            ]
+        },
+        "alpha_comes": {
+            "text": "The alpha wolf crashes through the village fence, drawn by Pip's howls. It's enormous and radiates dark power. The blood moon pulses above.\n\nShield or be shredded.",
+            "choices": [
+                {
+                    "text": "Engage the alpha in combat!",
+                    "next": "alpha_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "alpha_beaten",
+                        "failScene": "alpha_wounded_you"
+                    }
+                }
+            ]
+        },
+        "trap_alpha": {
+            "text": "You trigger the trap...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "alpha_trapped"
+                }
+            ]
+        },
+        "alpha_trapped": {
+            "text": "The silver caltrops bite into the alpha's paws! It howls in agony and stumbles. You rush in with a silver blade and wound it deeply. Dark blood flows — you collect it in a vial.\n\nThe alpha, weakened, transforms back into a human — a scarred woodsman, cursed long ago.",
+            "effects": {
+                "gold": 100
+            },
+            "choices": [
+                {
+                    "text": "Take the blood to Greta to brew the cure",
+                    "next": "cure"
+                }
+            ]
+        },
+        "alpha_free": {
+            "text": "The alpha dodges the trap and lunges at you! Its claws rake your shoulder.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Fight it with everything you have!",
+                    "next": "alpha_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "alpha_beaten",
+                        "failScene": "alpha_hard_win"
+                    }
+                }
+            ]
+        },
+        "alpha_fight": {
+            "text": "You face the alpha wolf...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "alpha_beaten"
+                }
+            ]
+        },
+        "wolfsbane_defense": {
+            "text": "The wolfsbane hits the alpha full in the face! It screams — a horribly human sound — and staggers. Smoke rises from where the herb touches its skin. While it's stunned, you strike.\n\nThe alpha collapses. You collect its blood.",
+            "effects": {
+                "gold": 100
+            },
+            "choices": [
+                {
+                    "text": "Bring the blood to Greta for the cure",
+                    "next": "cure"
+                }
+            ]
+        },
+        "alpha_beaten": {
+            "text": "Your silver weapon bites deep. The alpha howls and collapses. As the beast lies dying, it shifts back to human form — a scarred woodsman. 'Free...' he gasps. 'Finally free.'\n\nYou collect his blood in a vial. The key ingredient for Pip's cure.",
+            "effects": {
+                "gold": 100
+            },
+            "choices": [
+                {
+                    "text": "Rush the blood to Greta",
+                    "next": "cure"
+                }
+            ]
+        },
+        "alpha_wounded_you": {
+            "text": "The alpha savages you before you land the killing blow. Its claws burn with curse-fire. But you drive your silver blade home, and the beast falls.\n\nBleeding, you collect its blood.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Get to Greta — Pip needs this blood",
+                    "next": "cure"
+                }
+            ]
+        },
+        "alpha_hard_win": {
+            "text": "A brutal, grinding fight — but the silver finally does its work. The alpha falls.",
+            "effects": {
+                "hp": -8,
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Collect the blood for the cure",
+                    "next": "cure"
+                }
+            ]
+        },
+        "hunt_alpha": {
+            "text": "You decide the key is the alpha wolf. Without its blood, there's no cure for Pip.",
+            "choices": [
+                {
+                    "text": "Wait for nightfall and hunt it",
+                    "next": "night_hunt"
+                },
+                {
+                    "text": "Set a trap first",
+                    "next": "set_trap"
+                }
+            ]
+        },
+        "cure": {
+            "text": "Greta works feverishly, brewing the cure under the blood moon's final hours: wolfsbane, moonflower petals, and alpha's blood, simmered in a silver cauldron.\n\nYou carry the steaming potion to the barn cellar where Pip — now fully transformed into a snarling young werewolf — strains against his chains.",
+            "choices": [
+                {
+                    "text": "Force the potion into the werewolf's mouth",
+                    "next": "cure_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "cure_success",
+                        "failScene": "cure_struggle"
+                    }
+                },
+                {
+                    "text": "Try to reach Pip's humanity first",
+                    "next": "cure_talk",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 15,
+                        "successScene": "cure_success",
+                        "failScene": "cure_struggle"
+                    }
+                }
+            ]
+        },
+        "cure_fight": {
+            "text": "You approach the snarling wolf...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "cure_success"
+                }
+            ]
+        },
+        "cure_talk": {
+            "text": "You speak to the wolf within...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "cure_success"
+                }
+            ]
+        },
+        "cure_success": {
+            "text": "The potion touches Pip's tongue and golden light erupts from within him. The wolf form contorts, shrinks, and melts away. Pip collapses — human, sweating, shaking — but CURED.\n\n'It's gone,' he whispers, touching his face. 'The hunger... it's gone.' He bursts into tears of relief.",
+            "effects": {
+                "gold": 150
+            },
+            "choices": [
+                {
+                    "text": "Comfort the boy — it's over",
+                    "next": "victory"
+                }
+            ]
+        },
+        "cure_struggle": {
+            "text": "The werewolf bites your arm before you force the potion down its throat. Pain sears through you — but the cure works. Pip transforms back, sobbing.\n\nGreta checks your wound. 'The bite's clean — you got the potion to him in time. No curse for you.'",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Relief washes over you",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "Dawn breaks over Ravenhollow. The blood moon fades. Pip sleeps peacefully — no curse, no wolf, just a boy.\n\nSheriff Marlowe shakes your hand. 'You saved that kid's life. And this village. The people of Ravenhollow won't forget.'\n\nLysander embraces you. 'Pip is family. You've given him back to us.' The Silvermask Players perform a special show in your honor — \"The Wolfsbane Hero.\"\n\nAs you leave Ravenhollow, Pip runs up and presses something into your hand: a small silver charm. 'So you'll always be protected,' he says with a shy smile.\n\nThe blood moon is gone. The curse is broken. And a young juggler gets to grow up human.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 250
+            },
+            "choices": []
+        }
+    }
+}

@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-serif: var(--font-cinzel), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Fantasy Color Palette */
+  --color-parchment-100: #fdf6e3;
+  --color-parchment-200: #f0e6d2;
+  --color-parchment-300: #e3d5ba;
+
+  --color-crimson-600: #991b1b;
+  --color-crimson-700: #7f1d1d;
+  --color-crimson-800: #651515;
+
+  --color-gold-400: #fbbf24;
+  --color-gold-500: #f59e0b;
+  --color-gold-600: #d97706;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* Custom scrollbar for immersive feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #1c1917; /* stone-900 */
+}
+::-webkit-scrollbar-thumb {
+  background: #44403c; /* stone-700 */
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #57534e; /* stone-600 */
+}

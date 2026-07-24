@@ -1,0 +1,550 @@
+{
+    "title": "The Sunken Temple of Thalassia",
+    "scenes": {
+        "start": {
+            "text": "The coastal village of Port Sapphire buzzes with rumor: a massive earthquake has shifted the seabed, revealing the entrance to the legendary Sunken Temple of Thalassia — an ancient civilization's greatest temple, lost beneath the waves for millennia.\n\nScholar Mirelle has hired you to explore the temple and recover the Heart of Thalassia — a gemstone of immense power. She warns: 'The temple was sealed for a reason. The Thalassians worshipped a sea god... and some say their guardian still patrols those halls.'",
+            "choices": [
+                {
+                    "text": "Dive into the temple entrance at low tide",
+                    "next": "entrance"
+                },
+                {
+                    "text": "Ask Mirelle about the guardian she mentioned",
+                    "next": "guardian_lore"
+                },
+                {
+                    "text": "Visit the docks to hire a boat for deep access",
+                    "next": "boat_hire"
+                },
+                {
+                    "text": "Search the shore for other entrances exposed by the earthquake",
+                    "next": "shore_search",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 13,
+                        "successScene": "shore_found",
+                        "failScene": "shore_nothing"
+                    }
+                }
+            ]
+        },
+        "guardian_lore": {
+            "text": "Mirelle reads from an ancient text: 'The Leviathan Guardian — a construct of coral and enchanted bronze — was built to protect the Heart. It responds to the temple's wards. But there are control altars throughout the temple. If you can deactivate three of them, the Guardian should power down.'",
+            "choices": [
+                {
+                    "text": "Dive in and look for control altars",
+                    "next": "entrance"
+                },
+                {
+                    "text": "Hire a boat for better access",
+                    "next": "boat_hire"
+                }
+            ]
+        },
+        "boat_hire": {
+            "text": "Captain Vex, a weathered sailor, agrees to take you out. 'I know these waters. There's a deeper entrance on the temple's east side — less rubble, more direct to the inner chambers.' She gives you a waterproof lantern and a breathing talisman that creates air bubbles.",
+            "choices": [
+                {
+                    "text": "Take the deep entrance",
+                    "next": "deep_entrance"
+                },
+                {
+                    "text": "Use the shallow entrance instead",
+                    "next": "entrance"
+                }
+            ]
+        },
+        "shore_search": {
+            "text": "You walk the exposed shore...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "shore_found"
+                }
+            ]
+        },
+        "shore_found": {
+            "text": "Behind a collapsed cliff face, you find a secondary entrance — a ceremonial gate with Thalassian inscriptions. This leads to the upper temple galleries, bypassing the flooded lower halls.",
+            "choices": [
+                {
+                    "text": "Enter through the ceremonial gate",
+                    "next": "gallery"
+                },
+                {
+                    "text": "Use the main entrance instead",
+                    "next": "entrance"
+                }
+            ]
+        },
+        "shore_nothing": {
+            "text": "The shoreline is treacherous — sharp rocks and strong currents. You find nothing useful.",
+            "choices": [
+                {
+                    "text": "Use the main entrance",
+                    "next": "entrance"
+                }
+            ]
+        },
+        "entrance": {
+            "text": "You wade into the temple entrance. The water is knee-deep, flowing over beautifully tiled floors depicting sea creatures. Bioluminescent algae provides an eerie blue-green light.\n\nThe entrance hall branches into three corridors: left (decorated with warriors), center (decorated with priests), and right (decorated with craftsmen).",
+            "choices": [
+                {
+                    "text": "Take the warrior corridor (left)",
+                    "next": "warrior_hall"
+                },
+                {
+                    "text": "Take the priest corridor (center)",
+                    "next": "priest_hall"
+                },
+                {
+                    "text": "Take the craftsman corridor (right)",
+                    "next": "craft_hall"
+                }
+            ]
+        },
+        "deep_entrance": {
+            "text": "The deep entrance leads directly into a grand chamber — the temple's main hall. Enormous coral pillars rise from the water, and ancient mosaics cover the walls. A control altar glows faintly at the far end.",
+            "choices": [
+                {
+                    "text": "Approach the control altar",
+                    "next": "altar1"
+                },
+                {
+                    "text": "Explore the side passages first",
+                    "next": "priest_hall"
+                }
+            ]
+        },
+        "gallery": {
+            "text": "The upper gallery overlooks the temple's main hall from above. You can see the layout: three control altars (in the warrior hall, priest quarters, and craftsman workshop), all connected to a central sanctum where the Heart of Thalassia rests on a pedestal.\n\nA massive shape moves in the flooded lower level — the Leviathan Guardian, slowly patrolling.",
+            "choices": [
+                {
+                    "text": "Descend to the warrior hall to find the first altar",
+                    "next": "warrior_hall"
+                },
+                {
+                    "text": "Drop down to the priest quarters",
+                    "next": "priest_hall"
+                },
+                {
+                    "text": "Try to reach the sanctum directly from above",
+                    "next": "sanctum_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "sanctum_early",
+                        "failScene": "guardian_alert"
+                    }
+                }
+            ]
+        },
+        "warrior_hall": {
+            "text": "The warrior hall is a training ground. Ancient weapon racks line the walls — most corroded, but you spot a bronze trident that still gleams. In the center, the first control altar glows blue.\n\nTwo animated coral statues guard it, their empty eyes tracking your movement.",
+            "choices": [
+                {
+                    "text": "Fight the coral guardians!",
+                    "next": "coral_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "coral_win",
+                        "failScene": "coral_hurt"
+                    }
+                },
+                {
+                    "text": "Try to sneak past them to the altar",
+                    "next": "altar_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "altar1",
+                        "failScene": "coral_hurt"
+                    }
+                },
+                {
+                    "text": "Grab the bronze trident first",
+                    "next": "trident"
+                }
+            ]
+        },
+        "trident": {
+            "text": "You grab the trident — it hums with ancient enchantment! With this weapon, the coral guardians should be easier to handle.",
+            "choices": [
+                {
+                    "text": "Attack the guardians with the trident!",
+                    "next": "coral_win"
+                }
+            ]
+        },
+        "coral_fight": {
+            "text": "You engage the coral statues...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "coral_win"
+                }
+            ]
+        },
+        "altar_sneak": {
+            "text": "You try to slip past...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "altar1"
+                }
+            ]
+        },
+        "coral_win": {
+            "text": "The coral guardians shatter! The altar is yours.",
+            "choices": [
+                {
+                    "text": "Deactivate the first altar",
+                    "next": "altar1"
+                }
+            ]
+        },
+        "coral_hurt": {
+            "text": "A coral fist catches you hard. You smash the guard apart but feel the bruise forming.",
+            "effects": {
+                "hp": -7
+            },
+            "choices": [
+                {
+                    "text": "Reach the altar",
+                    "next": "altar1"
+                }
+            ]
+        },
+        "altar1": {
+            "text": "You place your hand on the control altar. Ancient Thalassian text glows: 'First ward — deactivated.' The altar goes dark. One of three.\n\nSomewhere in the temple, you hear a deep mechanical groan — the Leviathan Guardian has slowed, weakened.",
+            "choices": [
+                {
+                    "text": "Head to the priest quarters for the second altar",
+                    "next": "priest_hall"
+                },
+                {
+                    "text": "Go to the craftsman workshop for the second altar",
+                    "next": "craft_hall"
+                }
+            ]
+        },
+        "priest_hall": {
+            "text": "The priest quarters are serene — meditation pools, prayer alcoves, and shelves of waterlogged scrolls. The second altar sits in a chapel, protected by a magical ward — a shimmering barrier of water.\n\nNearby, a puzzle mechanism on the wall shows tidal symbols.",
+            "choices": [
+                {
+                    "text": "Solve the tidal puzzle to lower the barrier",
+                    "next": "puzzle",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 14,
+                        "successScene": "puzzle_solved",
+                        "failScene": "puzzle_fail"
+                    }
+                },
+                {
+                    "text": "Force through the water barrier",
+                    "next": "barrier_force",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "barrier_broken",
+                        "failScene": "barrier_shock"
+                    }
+                }
+            ]
+        },
+        "puzzle": {
+            "text": "You examine the puzzle...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "puzzle_solved"
+                }
+            ]
+        },
+        "puzzle_solved": {
+            "text": "You rotate the tidal symbols to match the phases of the moon. The water barrier collapses silently. The second altar awaits.",
+            "choices": [
+                {
+                    "text": "Deactivate the second altar",
+                    "next": "altar2"
+                }
+            ]
+        },
+        "puzzle_fail": {
+            "text": "Wrong sequence — the mechanism zaps you with a jolt of arcane energy! You try again with shaking hands and get it right.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Deactivate the altar",
+                    "next": "altar2"
+                }
+            ]
+        },
+        "barrier_force": {
+            "text": "You push through...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "barrier_broken"
+                }
+            ]
+        },
+        "barrier_broken": {
+            "text": "With brute force, you shatter the water barrier. It explodes in a spray of enchanted mist.",
+            "choices": [
+                {
+                    "text": "Reach the second altar",
+                    "next": "altar2"
+                }
+            ]
+        },
+        "barrier_shock": {
+            "text": "The barrier electrifies you as you force through! Painful but effective — you're on the other side.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Deactivate the altar",
+                    "next": "altar2"
+                }
+            ]
+        },
+        "altar2": {
+            "text": "'Second ward — deactivated.' Another groan echoes through the temple. The Guardian is significantly weakened. One more altar to go.\n\nThe water level in the temple has risen slightly — the earthquake's effects are ongoing. You need to hurry.",
+            "choices": [
+                {
+                    "text": "Rush to the craftsman workshop — last altar",
+                    "next": "craft_hall"
+                },
+                {
+                    "text": "Go directly to the sanctum and face the weakened Guardian",
+                    "next": "sanctum_fight"
+                }
+            ]
+        },
+        "craft_hall": {
+            "text": "The craftsman workshop contains ancient forges and workbenches. The third altar stands in the center — unguarded, but the floor around it is a trap: pressure plates connected to bronze harpoon launchers in the walls.",
+            "choices": [
+                {
+                    "text": "Navigate the pressure plates carefully",
+                    "next": "plates_nav",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "altar3",
+                        "failScene": "plates_hit"
+                    }
+                },
+                {
+                    "text": "Trigger the traps from a distance and wait them out",
+                    "next": "altar3"
+                }
+            ]
+        },
+        "plates_nav": {
+            "text": "You step carefully...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "altar3"
+                }
+            ]
+        },
+        "plates_hit": {
+            "text": "A harpoon grazes your leg as you misstep! You reach the altar but you're bleeding.",
+            "effects": {
+                "hp": -6
+            },
+            "choices": [
+                {
+                    "text": "Deactivate the final altar",
+                    "next": "altar3"
+                }
+            ]
+        },
+        "altar3": {
+            "text": "'Third ward — deactivated. All wards offline.' A massive crash echoes through the temple — the Leviathan Guardian has collapsed, powered down. The path to the sanctum is clear!\n\nBut the water is rising faster now. You have minutes.",
+            "choices": [
+                {
+                    "text": "Rush to the sanctum for the Heart of Thalassia!",
+                    "next": "sanctum_clear"
+                }
+            ]
+        },
+        "sanctum_sneak": {
+            "text": "You try to drop down to the sanctum...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "sanctum_early"
+                }
+            ]
+        },
+        "sanctum_early": {
+            "text": "You drop into the sanctum — but the Guardian senses you! With all three wards active, it's at full power.",
+            "choices": [
+                {
+                    "text": "Fight the Guardian at full strength!",
+                    "next": "sanctum_fight"
+                }
+            ]
+        },
+        "guardian_alert": {
+            "text": "You fall from above and the crash alerts the Leviathan Guardian. It surges toward you!",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Run to deactivate the altars first!",
+                    "next": "warrior_hall"
+                }
+            ]
+        },
+        "sanctum_fight": {
+            "text": "The Leviathan Guardian rises before you — fifteen feet of coral, bronze, and ancient magic. Even weakened, it's formidable.",
+            "choices": [
+                {
+                    "text": "Fight it head-on!",
+                    "next": "guardian_battle",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "guardian_down",
+                        "failScene": "guardian_hard"
+                    }
+                },
+                {
+                    "text": "Look for a weakness in its construction",
+                    "next": "guardian_weak",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 14,
+                        "successScene": "guardian_down",
+                        "failScene": "guardian_hard"
+                    }
+                }
+            ]
+        },
+        "guardian_battle": {
+            "text": "You charge!",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "guardian_down"
+                }
+            ]
+        },
+        "guardian_weak": {
+            "text": "You study the construct...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "guardian_down"
+                }
+            ]
+        },
+        "guardian_down": {
+            "text": "With a final, shattering blow, the Leviathan Guardian collapses into a pile of coral and bronze. The sanctum falls silent.",
+            "effects": {
+                "gold": 200
+            },
+            "choices": [
+                {
+                    "text": "Take the Heart of Thalassia",
+                    "next": "heart_taken"
+                }
+            ]
+        },
+        "guardian_hard": {
+            "text": "The Guardian hammers you with a coral fist. Pain explodes through your body. But you find its weak point — a glowing core in its chest — and strike it. The construct topples.",
+            "effects": {
+                "hp": -12,
+                "gold": 200
+            },
+            "choices": [
+                {
+                    "text": "Grab the Heart and escape the rising water!",
+                    "next": "heart_taken"
+                }
+            ]
+        },
+        "sanctum_clear": {
+            "text": "The sanctum is a magnificent domed chamber. At its center, on a coral pedestal, rests the Heart of Thalassia — a sapphire the size of your fist, pulsing with oceanic power.\n\nThe water is at your waist and rising. No time for reverence.",
+            "choices": [
+                {
+                    "text": "Take the Heart and escape!",
+                    "next": "heart_taken"
+                }
+            ]
+        },
+        "heart_taken": {
+            "text": "As you lift the Heart, the temple shudders. Ancient mechanisms groan. The water surges. The earthquake-damaged structure is collapsing!\n\nYou sprint through rising water, the Heart clutched to your chest. The way you came is flooding fast.",
+            "choices": [
+                {
+                    "text": "Swim for the main entrance!",
+                    "next": "swim_escape",
+                    "diceCheck": {
+                        "stat": "constitution",
+                        "dc": 13,
+                        "successScene": "victory",
+                        "failScene": "close_escape"
+                    }
+                },
+                {
+                    "text": "Look for an emergency exit — ancient temples always have one",
+                    "next": "emergency_exit",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 12,
+                        "successScene": "victory",
+                        "failScene": "close_escape"
+                    }
+                }
+            ]
+        },
+        "swim_escape": {
+            "text": "You swim through the flooding halls...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "victory"
+                }
+            ]
+        },
+        "emergency_exit": {
+            "text": "You search for another way out...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "victory"
+                }
+            ]
+        },
+        "close_escape": {
+            "text": "The current slams you against a wall. You barely hold onto the Heart. With lungs burning, you find the exit and burst into sunlight.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Gasp for air on the surface",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "You break the surface, gasping, the Heart of Thalassia glowing brilliantly in your hand. Behind you, the temple entrance collapses in a cascade of bubbles, sealed once more beneath the waves.\n\nCaptain Vex hauls you aboard her boat. 'Stars above — you actually got it!'\n\nBack in Port Sapphire, Scholar Mirelle holds the Heart with trembling hands. 'This changes everything. The knowledge of Thalassia... the power of the ancient seas... we'll study it for generations.'\n\nShe pays your fee — and then some. 'You've just made archaeological history, my friend.'\n\nAs you watch the sunset over the harbor, the sapphire glints one last time. Somewhere deep below, the temple rests in its watery grave, its secret finally shared with the world above.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 400
+            },
+            "choices": []
+        }
+    }
+}

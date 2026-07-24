@@ -1,0 +1,540 @@
+{
+    "title": "Shadows in the Deep Roads",
+    "scenes": {
+        "start": {
+            "text": "The Ironforge Mining Company's Deep Roads — ancient dwarven tunnels expanded over centuries — have been sealed. Foreman Thrain stands at the barricade, his face grim.\n\n'Three days ago, miners broke through into a sealed crypt. Ancient. Pre-Ironforge. Since then — shadows moving in the tunnels, miners disappearing, unholy screaming from below. We sealed the breach, but something got out.'\n\nHe hands you a battered lantern. 'The main shaft goes down three levels. The breach is on Level 3. Whatever's down there... end it.'",
+            "choices": [
+                {
+                    "text": "Descend through the main shaft to Level 1",
+                    "next": "level1_main"
+                },
+                {
+                    "text": "Ask Thrain about the miners who disappeared",
+                    "next": "missing_miners"
+                },
+                {
+                    "text": "Check the mining records for information about what's sealed below",
+                    "next": "records"
+                },
+                {
+                    "text": "Scout a ventilation shaft as an alternate route",
+                    "next": "vent_shaft",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "vent_success",
+                        "failScene": "vent_fail"
+                    }
+                }
+            ]
+        },
+        "missing_miners": {
+            "text": "Thrain counts on his fingers. 'Five total. Two vanished the first night. Three more went looking for them and only one came back — Gretta. She's in the infirmary. Hasn't spoken since, just draws the same symbol over and over.' He shows you a scrap of paper: a spiral of interlocking runes.\n\n'Whatever she saw down there broke something in her mind.'",
+            "choices": [
+                {
+                    "text": "Visit Gretta in the infirmary",
+                    "next": "gretta"
+                },
+                {
+                    "text": "Descend to Level 1 immediately",
+                    "next": "level1_main"
+                },
+                {
+                    "text": "Study the rune symbol",
+                    "next": "rune_study",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 14,
+                        "successScene": "rune_success",
+                        "failScene": "rune_fail"
+                    }
+                }
+            ]
+        },
+        "gretta": {
+            "text": "Gretta sits in a corner, rocking. Her eyes are vacant. She doesn't respond to your words, but when you show her the rune drawing, she grabs your wrist with shocking strength.\n\n'Don't... look at... the eye,' she whispers. 'It sees you. It sees EVERYTHING.' Then she slumps back into silence, drawing the spiral again.\n\nWhatever lurks below has a paralyzing gaze. You'll need to be careful.",
+            "choices": [
+                {
+                    "text": "Prepare yourself and descend to Level 1",
+                    "next": "level1_main"
+                },
+                {
+                    "text": "Check the records for more about this 'eye'",
+                    "next": "records"
+                }
+            ]
+        },
+        "records": {
+            "text": "Old dwarven records mention the sealed crypt: 'Tomb of the Void Watcher — sealed by order of King Thordak III, Year 847. NEVER OPEN. The entity within feeds on sight. Approach only in total darkness or with mirrors.'",
+            "choices": [
+                {
+                    "text": "Grab a mirror from the supply room and descend",
+                    "next": "level1_main"
+                },
+                {
+                    "text": "Descend immediately — no time to prepare",
+                    "next": "level1_main"
+                }
+            ]
+        },
+        "rune_study": {
+            "text": "You study the runes...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "rune_success"
+                }
+            ]
+        },
+        "rune_success": {
+            "text": "The runes are ancient dwarven warding symbols — a containment circle! Whatever was sealed in the crypt was imprisoned using these runes. The miners broke the seal. To re-seal it, you'd need to repair the rune circle at the breach point.",
+            "choices": [
+                {
+                    "text": "Descend with a plan to repair the wards",
+                    "next": "level1_main"
+                }
+            ]
+        },
+        "rune_fail": {
+            "text": "The runes are too ancient for you to decipher. You'll have to figure things out as you go.",
+            "choices": [
+                {
+                    "text": "Descend to Level 1",
+                    "next": "level1_main"
+                }
+            ]
+        },
+        "vent_shaft": {
+            "text": "You look for alternate routes...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "vent_success"
+                }
+            ]
+        },
+        "vent_success": {
+            "text": "The ventilation shaft is narrow but passable. It drops directly to Level 2, bypassing the first level entirely. You squeeze through and emerge in a mining chamber.",
+            "choices": [
+                {
+                    "text": "Explore Level 2",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "vent_fail": {
+            "text": "The ventilation shaft is too narrow. You get stuck halfway and have to wriggle back out, scraping your arms.",
+            "effects": {
+                "hp": -3
+            },
+            "choices": [
+                {
+                    "text": "Take the main shaft down to Level 1",
+                    "next": "level1_main"
+                }
+            ]
+        },
+        "level1_main": {
+            "text": "Level 1 is the active mining area — or was. Abandoned tools litter the floor. Cart tracks lead deeper. Your lantern casts dancing shadows on rough-hewn walls.\n\nAhead, the tunnel branches: the main cart track continues straight, and a narrow passage leads left into older workings.",
+            "choices": [
+                {
+                    "text": "Follow the main cart track",
+                    "next": "cart_track"
+                },
+                {
+                    "text": "Take the narrow passage",
+                    "next": "narrow_passage"
+                },
+                {
+                    "text": "Search for signs of the missing miners",
+                    "next": "miner_signs",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 12,
+                        "successScene": "signs_found",
+                        "failScene": "signs_nothing"
+                    }
+                }
+            ]
+        },
+        "cart_track": {
+            "text": "You follow the cart track. Suddenly, your lantern flickers and a cold draft hits you. A shadow detaches from the wall — not a natural shadow. It has form, substance, and malice.\n\nA Shadow creature lunges!",
+            "choices": [
+                {
+                    "text": "Fight the shadow!",
+                    "next": "shadow_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 13,
+                        "successScene": "shadow_beaten",
+                        "failScene": "shadow_hit"
+                    }
+                },
+                {
+                    "text": "Raise the lantern to drive it back with light",
+                    "next": "shadow_beaten"
+                }
+            ]
+        },
+        "narrow_passage": {
+            "text": "The narrow passage opens into a small chamber with a collapsed wall. Behind it — a hidden alcove containing ancient dwarven supplies: healing potions and a rune-etched hammer.",
+            "effects": {
+                "hp": 5
+            },
+            "choices": [
+                {
+                    "text": "Take the hammer and continue deeper",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "miner_signs": {
+            "text": "You search for signs...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "signs_found"
+                }
+            ]
+        },
+        "signs_found": {
+            "text": "You find a miner's helmet near the wall, and scratch marks — someone dragged deeper. The marks lead to the Level 2 stairway. One of the miners carved a hasty message: 'EYES CLOSED. ONLY WAY.'",
+            "choices": [
+                {
+                    "text": "Descend to Level 2",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "signs_nothing": {
+            "text": "The area seems abandoned. You press on toward Level 2.",
+            "choices": [
+                {
+                    "text": "Continue to Level 2",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "shadow_fight": {
+            "text": "You strike at the shadow...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "shadow_beaten"
+                }
+            ]
+        },
+        "shadow_beaten": {
+            "text": "The shadow recoils from light and your attack disperses it. It dissolves with a shriek. But where there's one shadow, there are more.\n\nThe stairway to Level 2 is just ahead.",
+            "choices": [
+                {
+                    "text": "Descend to Level 2",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "shadow_hit": {
+            "text": "The shadow's touch is freezing — it drains your life force before you drive it off with your lantern.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Press on to Level 2",
+                    "next": "level2_junction"
+                }
+            ]
+        },
+        "level2_junction": {
+            "text": "Level 2 is older. The stonework changes from rough mining to carved dwarven architecture. You're near the boundary of the sealed crypt.\n\nA wide chamber holds a collapsed barricade. Beyond it, shadows writhe unnaturally. You can feel the Void Watcher's presence — a cold, malevolent intelligence probing toward you.\n\nTwo paths lead to Level 3: the main stairway (exposed but direct) and a side passage through old living quarters (longer but more cover).",
+            "choices": [
+                {
+                    "text": "Take the main stairway — quick and direct",
+                    "next": "main_stairs"
+                },
+                {
+                    "text": "Go through the living quarters for cover",
+                    "next": "quarters"
+                },
+                {
+                    "text": "Set traps at the barricade to slow pursuing shadows",
+                    "next": "set_barricade",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "barricade_set",
+                        "failScene": "quarters"
+                    }
+                }
+            ]
+        },
+        "main_stairs": {
+            "text": "You rush down the main stairs. Shadows cluster here — three of them block the passage. The Void Watcher knows you're coming.",
+            "choices": [
+                {
+                    "text": "Fight through the shadows!",
+                    "next": "multi_shadow",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "shadows_cleared",
+                        "failScene": "shadows_damage"
+                    }
+                },
+                {
+                    "text": "Close your eyes and push through blindly",
+                    "next": "blind_push",
+                    "diceCheck": {
+                        "stat": "constitution",
+                        "dc": 13,
+                        "successScene": "shadows_cleared",
+                        "failScene": "shadows_damage"
+                    }
+                }
+            ]
+        },
+        "quarters": {
+            "text": "The old living quarters are eerie — beds still made, plates on tables, as if the ancient dwarves simply vanished. You find one of the missing miners: dead, frozen in terror, eyes wide open.\n\nA journal nearby reads: 'Day 2. We found it. A great eye in the dark. Jorn looked at it directly and... I can't describe what happened to him. We need to get out.'",
+            "choices": [
+                {
+                    "text": "Press on to Level 3",
+                    "next": "level3_breach"
+                }
+            ]
+        },
+        "set_barricade": {
+            "text": "You reinforce the barricade...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "barricade_set"
+                }
+            ]
+        },
+        "barricade_set": {
+            "text": "You reinforce the barricade with mining timbers and set torch traps. If shadows pursue, this will slow them down and buy you escape time. You proceed to Level 3.",
+            "choices": [
+                {
+                    "text": "Descend to Level 3",
+                    "next": "level3_breach"
+                }
+            ]
+        },
+        "multi_shadow": {
+            "text": "You fight the shadows...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "shadows_cleared"
+                }
+            ]
+        },
+        "blind_push": {
+            "text": "You close your eyes and push forward...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "shadows_cleared"
+                }
+            ]
+        },
+        "shadows_cleared": {
+            "text": "You break through the shadow barrier. Their cold touch stings but you emerge on Level 3.",
+            "choices": [
+                {
+                    "text": "Continue to the breach",
+                    "next": "level3_breach"
+                }
+            ]
+        },
+        "shadows_damage": {
+            "text": "The shadows overwhelm you briefly. Their life-draining touch is agonizing. You stagger through to Level 3, wounded but alive.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Press on to the breach",
+                    "next": "level3_breach"
+                }
+            ]
+        },
+        "level3_breach": {
+            "text": "Level 3. The breach. A massive hole in the wall reveals the ancient crypt beyond — a vaulted chamber of black stone. In its center floats a single, enormous eye wreathed in shadow: the Void Watcher.\n\nThe broken rune circle on the floor still glows faintly. Below the eye, the remaining missing miners stand motionless, their eyes open but blank — enthralled.\n\nThe Eye turns toward you. You feel its gaze like a physical weight.",
+            "choices": [
+                {
+                    "text": "Avert your eyes and repair the rune circle!",
+                    "next": "repair_runes",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 15,
+                        "successScene": "runes_repaired",
+                        "failScene": "runes_struggle"
+                    }
+                },
+                {
+                    "text": "Use a mirror to reflect its gaze back!",
+                    "next": "mirror_attack",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "mirror_success",
+                        "failScene": "mirror_fail"
+                    }
+                },
+                {
+                    "text": "Close your eyes and attack it directly!",
+                    "next": "blind_attack",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "blind_hit",
+                        "failScene": "blind_miss"
+                    }
+                },
+                {
+                    "text": "Try to free the enthralled miners to weaken its power",
+                    "next": "free_miners",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 14,
+                        "successScene": "miners_freed",
+                        "failScene": "runes_struggle"
+                    }
+                }
+            ]
+        },
+        "repair_runes": {
+            "text": "You work on the runes...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "runes_repaired"
+                }
+            ]
+        },
+        "mirror_attack": {
+            "text": "You raise the mirror...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "mirror_success"
+                }
+            ]
+        },
+        "blind_attack": {
+            "text": "You close your eyes and charge...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "blind_hit"
+                }
+            ]
+        },
+        "free_miners": {
+            "text": "You call out to the miners...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "miners_freed"
+                }
+            ]
+        },
+        "runes_repaired": {
+            "text": "Working with averted eyes, you trace the broken rune patterns, reconnecting the containment circle. The runes flare to life — golden light pushes back the shadows.\n\nThe Void Watcher SCREAMS in otherworldly fury as the ward pulls it back into the crypt. The miners collapse, freed from its control. The great eye is forced behind the sealed wall as the runes complete.",
+            "effects": {
+                "gold": 300
+            },
+            "choices": [
+                {
+                    "text": "Seal the breach and rescue the survivors",
+                    "next": "victory"
+                }
+            ]
+        },
+        "runes_struggle": {
+            "text": "The Void Watcher's psychic pressure is overwhelming. You struggle to concentrate, shadows clawing at your mind. But desperation fuels you — you complete the runes with shaking hands. The ward activates!",
+            "effects": {
+                "hp": -10,
+                "gold": 300
+            },
+            "choices": [
+                {
+                    "text": "Help the freed miners out",
+                    "next": "victory"
+                }
+            ]
+        },
+        "mirror_success": {
+            "text": "You angle the mirror toward the Void Watcher. Its own gaze reflects back — and the entity recoils in shock and pain! The psychic backlash disrupts its hold on the miners and weakens its presence.\n\nWhile it writhes, you rush to the rune circle and complete the repairs. The ward seals the entity away forever.",
+            "effects": {
+                "gold": 350
+            },
+            "choices": [
+                {
+                    "text": "Rescue the freed miners",
+                    "next": "victory"
+                }
+            ]
+        },
+        "mirror_fail": {
+            "text": "You raise the mirror but the Void Watcher's gaze shatters it! Glass fragments cut your hand. But the brief reflection staggered it — you use the moment to repair the runes.",
+            "effects": {
+                "hp": -6,
+                "gold": 300
+            },
+            "choices": [
+                {
+                    "text": "Complete the seal",
+                    "next": "victory"
+                }
+            ]
+        },
+        "blind_hit": {
+            "text": "Fighting blind, you strike the Void Watcher with the rune-etched hammer! The ancient dwarven weapon blazes with golden light on contact. The entity shrieks and contracts.\n\nThe impact weakens it enough for the damaged ward runes to reactivate on their own, sealing the creature back in its prison.",
+            "effects": {
+                "gold": 400
+            },
+            "choices": [
+                {
+                    "text": "Help the miners and leave this cursed place",
+                    "next": "victory"
+                }
+            ]
+        },
+        "blind_miss": {
+            "text": "You swing blind and miss. The Void Watcher's psychic lash hits you like a hammer. Stars explode behind your eyelids. But rage keeps you standing — you swing again and connect, driving the entity back.",
+            "effects": {
+                "hp": -12,
+                "gold": 300
+            },
+            "choices": [
+                {
+                    "text": "Seal the breach and escape",
+                    "next": "victory"
+                }
+            ]
+        },
+        "miners_freed": {
+            "text": "Your voice cuts through the Void Watcher's control. 'WAKE UP! Fight it!' The miners blink, confusion replacing emptiness. As they break free, the entity's power weakens dramatically. Without their life force to feed on, its eye dims.\n\nYou rush the rune circle and repair it. The weakened entity cannot resist.",
+            "effects": {
+                "gold": 350
+            },
+            "choices": [
+                {
+                    "text": "Lead everyone to safety",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "You emerge from the Deep Roads into blinding sunlight. Foreman Thrain rushes forward as the freed miners stumble out behind you — alive, shaken, but free.\n\n'You did it! You actually sealed that thing back up!' He clasps your shoulders. 'The Ironforge Mining Company owes you everything. These tunnels are our livelihood.'\n\nThe rune ward holds firm below. The Void Watcher is sealed once more, this time with reinforced protections.\n\nThrain presents you with a masterwork weapon forged in Ironforge's finest smithy, along with a substantial reward. Your name is carved into the Hall of Deep Road Heroes — a legend among the miners.\n\nThe shadows are gone. The Deep Roads are safe.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 500
+            },
+            "choices": []
+        }
+    }
+}

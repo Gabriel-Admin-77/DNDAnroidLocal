@@ -1,0 +1,589 @@
+{
+    "title": "The Missing Heir of Oakhaven",
+    "scenes": {
+        "start": {
+            "text": "You arrive at Oakhaven as dawn breaks over the thatched rooftops. The village square is quiet — too quiet for a market day. A weathered notice board near the well bears a freshly pinned parchment: 'MISSING — Young Lord Aldric Ashford. Last seen three nights past. Reward: 150 Gold Pieces.'\n\nThe Mayor's estate looms on the hill, its windows dark. A plume of smoke rises from the tavern chimney, and muddy tracks lead toward the eastern forest.",
+            "choices": [
+                {
+                    "text": "Head to the Rusty Flagon tavern to gather rumors",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Go directly to the Mayor's estate to investigate",
+                    "next": "estate"
+                },
+                {
+                    "text": "Follow the muddy tracks into the forest",
+                    "next": "forest_trail",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 12,
+                        "successScene": "forest_success",
+                        "failScene": "forest_fail"
+                    }
+                },
+                {
+                    "text": "Examine the notice board for more clues",
+                    "next": "notice_board"
+                }
+            ]
+        },
+        "tavern": {
+            "text": "The Rusty Flagon smells of woodsmoke and stale ale. A few haggard villagers nurse their drinks. The barkeep, a stout woman named Marta, eyes you suspiciously.\n\n'Another adventurer sniffing around for the reward, eh? I'll tell you what I told the last one — young Aldric was seen arguing with a hooded stranger the night he vanished. They were near the old mill.'\n\nA drunk farmer in the corner mumbles something about 'lights in the forest' before passing out.",
+            "choices": [
+                {
+                    "text": "Ask Marta about the hooded stranger",
+                    "next": "hooded_stranger"
+                },
+                {
+                    "text": "Try to wake the drunk farmer for more details",
+                    "next": "drunk_farmer",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 10,
+                        "successScene": "farmer_success",
+                        "failScene": "farmer_fail"
+                    }
+                },
+                {
+                    "text": "Head to the old mill Marta mentioned",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Leave and investigate the Mayor's estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "estate": {
+            "text": "The Ashford estate is imposing but neglected. Ivy crawls up crumbling stone walls. A servant answers the door — pale, nervous.\n\n'The Mayor is... indisposed. He hasn't slept since Lord Aldric disappeared.' She glances over her shoulder. 'But I found something in Aldric's room. A torn letter. I didn't show the guard — they don't care about us smallfolk.'\n\nShe presses a scrap of parchment into your hand. It reads: '...meet me at moonrise. The ritual requires willing blood. Tell no one, or your father pays the price.'",
+            "choices": [
+                {
+                    "text": "Search Aldric's room for more evidence",
+                    "next": "aldric_room",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 11,
+                        "successScene": "room_success",
+                        "failScene": "room_fail"
+                    }
+                },
+                {
+                    "text": "Demand to see the Mayor immediately",
+                    "next": "meet_mayor"
+                },
+                {
+                    "text": "Take the letter to the tavern to ask about rituals",
+                    "next": "ritual_info"
+                },
+                {
+                    "text": "Head to the old mill — the ritual site",
+                    "next": "old_mill"
+                }
+            ]
+        },
+        "notice_board": {
+            "text": "You study the notice board carefully. Behind the missing poster, you find an older notice partially hidden: 'HERBALIST WANTED — Strange blight affecting crops near the Old Mill. Good pay.'\n\nScratched into the wood of the board itself, barely visible, are arcane symbols. Someone has been marking this village.",
+            "choices": [
+                {
+                    "text": "Try to identify the arcane symbols",
+                    "next": "symbols",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "symbols_success",
+                        "failScene": "symbols_fail"
+                    }
+                },
+                {
+                    "text": "Head to the tavern for information",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Investigate the old mill mentioned in the notice",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Visit the Mayor's estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "forest_trail": {
+            "text": "You follow the muddy tracks...",
+            "choices": [
+                {
+                    "text": "Continue deeper",
+                    "next": "forest_success"
+                }
+            ]
+        },
+        "forest_success": {
+            "text": "Your keen eyes pick out tracks in the mud — two sets. One stumbling, dragged. The other confident, deliberate. They lead to a clearing where a stone circle stands, ancient and moss-covered.\n\nIn the center, you find a torn piece of fine cloth — Aldric's sigil embroidered in silver thread. Dark stains that might be blood mark the altar stone. The tracks continue north toward the old mill.",
+            "choices": [
+                {
+                    "text": "Follow the tracks to the old mill",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Examine the stone circle more closely",
+                    "next": "symbols_success"
+                },
+                {
+                    "text": "Return to the village with this evidence",
+                    "next": "ritual_info"
+                }
+            ]
+        },
+        "forest_fail": {
+            "text": "The forest is dense and the tracks are confusing. You wander for an hour before the trail goes cold at a stream crossing. You find nothing of use and return to the village, having wasted precious time.\n\nAs you emerge from the treeline, you notice smoke rising from the direction of the old mill.",
+            "choices": [
+                {
+                    "text": "Rush to the old mill",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Go to the tavern first for information",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Visit the Mayor's estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "hooded_stranger": {
+            "text": "Marta leans in close. 'The stranger... I've seen their type before. Cult folk. They wear those hooded robes and speak in whispers. This one had a ring — silver serpent eating its own tail. Symbol of the Ouroboros Circle.'\n\nShe shudders. 'They practice dark magic. Blood rituals. If they have young Aldric...' She trails off. 'The old mill. That's where they gather when the moon is right. And tonight...' She glances at the darkening sky. 'Tonight is a full moon.'",
+            "choices": [
+                {
+                    "text": "Rush to the old mill immediately — no time to waste!",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Prepare first — ask if she has any supplies",
+                    "next": "tavern_supplies"
+                },
+                {
+                    "text": "Head to the estate to warn the Mayor",
+                    "next": "meet_mayor"
+                }
+            ]
+        },
+        "drunk_farmer": {
+            "text": "You approach the farmer...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "farmer_success"
+                }
+            ]
+        },
+        "farmer_success": {
+            "text": "You shake the farmer awake and buy him an ale. His eyes focus slightly. 'The lights... green lights, floating near the old mill every full moon. I saw 'em last month. And singing — dark chanting. My sheep won't go near that place anymore.'\n\nHe grabs your arm. 'Don't go there alone, adventurer. Three men went to investigate last season. Only one came back, and he doesn't speak anymore.'",
+            "choices": [
+                {
+                    "text": "Head to the old mill despite the warning",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Ask Marta about the hooded stranger",
+                    "next": "hooded_stranger"
+                },
+                {
+                    "text": "Prepare supplies before heading out",
+                    "next": "tavern_supplies"
+                }
+            ]
+        },
+        "farmer_fail": {
+            "text": "The farmer swats your hand away and mutters incoherently before slumping back to sleep. His last coherent word is '...mill...' before he starts snoring loudly.",
+            "choices": [
+                {
+                    "text": "Ask Marta about the hooded stranger instead",
+                    "next": "hooded_stranger"
+                },
+                {
+                    "text": "Leave and investigate the old mill",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Head to the Mayor's estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "old_mill": {
+            "text": "The old mill stands at the edge of town, its waterwheel long broken. The building leans at an unsettling angle and the air around it feels... wrong. Heavy. Like before a storm.\n\nAs you approach, you smell incense and something metallic — blood. Light flickers through gaps in the boarded windows.",
+            "choices": [
+                {
+                    "text": "Burst through the front door",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Sneak around back and look for another way in",
+                    "next": "mill_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "mill_sneak_success",
+                        "failScene": "mill_sneak_fail"
+                    }
+                },
+                {
+                    "text": "Peer through the gaps in the boards first",
+                    "next": "mill_peek"
+                }
+            ]
+        },
+        "mill_peek": {
+            "text": "Through the gaps you see a horrifying scene: a ritual circle drawn in blood on the floor. Three hooded figures chant around an altar where a young man — Aldric — lies bound but alive. A dark crystal pulses with green light above him.\n\nOne figure raises a curved dagger. You have seconds to act.",
+            "choices": [
+                {
+                    "text": "Smash through the window to stop them!",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Try to sneak in from behind",
+                    "next": "mill_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "mill_sneak_success",
+                        "failScene": "mill_sneak_fail"
+                    }
+                }
+            ]
+        },
+        "tavern_supplies": {
+            "text": "Marta rummages behind the counter and produces a small vial. 'Holy water — kept it since the last priest passed through. Take it. If those cultists are channeling dark magic, this might disrupt their ritual.'\n\nShe also hands you a sturdy iron poker from the fireplace. 'Better than nothing.'",
+            "effects": {
+                "gold": -5
+            },
+            "choices": [
+                {
+                    "text": "Thank her and head to the old mill",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Ask for directions to the mill's back entrance",
+                    "next": "mill_sneak_success"
+                }
+            ]
+        },
+        "meet_mayor": {
+            "text": "The Mayor is a broken man — gaunt, unshaven, pacing his study. 'My boy... my only son. The guard captain says he probably ran away, but I know better. Aldric wouldn't leave willingly.'\n\nHe shows you a note he received: 'Your bloodline carries the old power. The boy will serve a greater purpose. Do not interfere.'\n\n'Please,' he begs. 'Save my son. I'll give you everything I have.'",
+            "choices": [
+                {
+                    "text": "Show him the torn letter from Aldric's room",
+                    "next": "ritual_info"
+                },
+                {
+                    "text": "Promise to save Aldric and head to the old mill",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Ask about the 'old power' in his bloodline",
+                    "next": "ritual_info"
+                }
+            ]
+        },
+        "ritual_info": {
+            "text": "Piecing together the evidence, you realize: the Ouroboros Circle is attempting a blood ritual using Aldric's noble bloodline to summon something from beyond. The ritual must be completed during the full moon — which is tonight!\n\nThe old mill is their gathering place. You must stop them before midnight.",
+            "choices": [
+                {
+                    "text": "Race to the old mill immediately!",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Get holy water from the tavern first",
+                    "next": "tavern_supplies"
+                }
+            ]
+        },
+        "symbols_success": {
+            "text": "You recognize the symbols — they're warding glyphs used by the Ouroboros Circle, a banned cult that practices blood magic. These marks are territorial. They've claimed this village as their domain.\n\nThe symbols point toward the old mill as a convergence point.",
+            "choices": [
+                {
+                    "text": "Head to the old mill at once",
+                    "next": "old_mill"
+                },
+                {
+                    "text": "Gather more intel at the tavern",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Warn the Mayor at his estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "symbols_fail": {
+            "text": "The symbols are unfamiliar to you — some kind of arcane marking, but you can't determine their meaning. Perhaps someone in town would know more.",
+            "choices": [
+                {
+                    "text": "Ask at the tavern",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Visit the Mayor's estate",
+                    "next": "estate"
+                }
+            ]
+        },
+        "aldric_room": {
+            "text": "You search Aldric's room...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "room_success"
+                }
+            ]
+        },
+        "room_success": {
+            "text": "In Aldric's room, you find a hidden journal beneath a loose floorboard. The last entries are disturbing: 'The stranger says my blood can change everything. That I have power I never knew about. He says the ritual is painless. I want to believe him, but something feels wrong...'\n\nThe final entry: 'Meeting tonight at the old mill. If I don't come back, forgive me, Father.'",
+            "choices": [
+                {
+                    "text": "Rush to the old mill",
+                    "next": "mill_entrance"
+                },
+                {
+                    "text": "Show this to the Mayor",
+                    "next": "meet_mayor"
+                },
+                {
+                    "text": "Ask the tavern keeper about the ritual",
+                    "next": "ritual_info"
+                }
+            ]
+        },
+        "room_fail": {
+            "text": "You search the room but find little of note — some personal effects, books on heraldry, nothing obviously connected to the disappearance. The servant watches nervously from the doorway.",
+            "choices": [
+                {
+                    "text": "Ask to see the Mayor",
+                    "next": "meet_mayor"
+                },
+                {
+                    "text": "Head to the tavern for clues",
+                    "next": "tavern"
+                },
+                {
+                    "text": "Investigate the old mill",
+                    "next": "old_mill"
+                }
+            ]
+        },
+        "mill_entrance": {
+            "text": "You burst into the mill! Three cultists in dark robes spin to face you, their chanting interrupted. The leader — tall, with a silver serpent ring — holds a curved dagger above Aldric, who is bound to the blood-soaked altar.\n\nThe dark crystal above pulses violently with green energy. The air crackles.\n\n'You're too late, fool!' the leader snarls. 'The ritual is nearly complete!'",
+            "choices": [
+                {
+                    "text": "Attack the cult leader directly!",
+                    "next": "fight_leader",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "fight_win",
+                        "failScene": "fight_struggle"
+                    }
+                },
+                {
+                    "text": "Destroy the dark crystal to break the ritual",
+                    "next": "crystal",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 12,
+                        "successScene": "crystal_success",
+                        "failScene": "crystal_fail"
+                    }
+                },
+                {
+                    "text": "Try to free Aldric from the altar",
+                    "next": "free_aldric",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "free_success",
+                        "failScene": "free_fail"
+                    }
+                },
+                {
+                    "text": "Use words to stall and intimidate the cultists",
+                    "next": "intimidate",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 15,
+                        "successScene": "intimidate_success",
+                        "failScene": "intimidate_fail"
+                    }
+                }
+            ]
+        },
+        "mill_sneak": {
+            "text": "You attempt to sneak around back...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "mill_sneak_success"
+                }
+            ]
+        },
+        "mill_sneak_success": {
+            "text": "You find a cellar entrance hidden behind rotting crates. It leads into the basement beneath the ritual chamber. Through the floorboards above, you can see the scene — three cultists, Aldric on the altar, a pulsing dark crystal.\n\nYou can strike from below, targeting either the crystal's support beam or the cult leader's position.",
+            "choices": [
+                {
+                    "text": "Smash the support beam to collapse the crystal",
+                    "next": "crystal_success"
+                },
+                {
+                    "text": "Burst up through the floor behind the leader",
+                    "next": "fight_win"
+                },
+                {
+                    "text": "Free Aldric through the floor gap",
+                    "next": "free_success"
+                }
+            ]
+        },
+        "mill_sneak_fail": {
+            "text": "You step on a brittle plank that snaps with a loud crack. One of the cultists spots you.\n\n'Intruder!' he screams. They've been alerted, and you've lost the element of surprise.",
+            "choices": [
+                {
+                    "text": "Fight your way in!",
+                    "next": "mill_entrance"
+                }
+            ]
+        },
+        "fight_leader": {
+            "text": "You charge the cult leader...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "fight_win"
+                }
+            ]
+        },
+        "fight_win": {
+            "text": "Your strike lands true! The cult leader staggers back, the dagger clattering from his hand. The other cultists falter as their leader falls.\n\nThe dark crystal's light flickers and dies without the ritual chanting. Aldric gasps on the altar as the dark energy releases him.\n\nThe remaining cultists flee into the night. You've won.",
+            "effects": {
+                "gold": 150
+            },
+            "choices": [
+                {
+                    "text": "Free Aldric and return him to his father",
+                    "next": "victory"
+                }
+            ]
+        },
+        "fight_struggle": {
+            "text": "The cult leader is more skilled than you expected. He deflects your blow and counter-attacks, his dagger slicing your arm. Pain flares through you.\n\nBut the interruption is enough — Aldric thrashes on the altar and kicks the crystal, which shatters on the stone floor! The ritual energy explodes outward, knocking everyone down.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Get up and subdue the stunned cultists",
+                    "next": "victory"
+                }
+            ]
+        },
+        "crystal_success": {
+            "text": "Your attack shatters the dark crystal into a thousand pieces! A shockwave of green energy blasts outward, knocking the cultists off their feet. The ritual symbols on the floor crack and fade.\n\nThe cult leader screams in rage. 'No! Months of preparation — ruined!' He and his followers flee into the darkness, their power broken.",
+            "effects": {
+                "gold": 150
+            },
+            "choices": [
+                {
+                    "text": "Free Aldric and bring him home",
+                    "next": "victory"
+                }
+            ]
+        },
+        "crystal_fail": {
+            "text": "Your strike misses the crystal and hits the stone altar instead, sending sparks flying. A cultist tackles you from behind.\n\nYou struggle on the ground, but Aldric — seeing his chance — kicks the crystal with his bound legs. It cracks and the ritual energy collapses! The cultists flee in panic.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Free Aldric from his bindings",
+                    "next": "victory"
+                }
+            ]
+        },
+        "free_aldric": {
+            "text": "You dash for the altar...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "free_success"
+                }
+            ]
+        },
+        "free_success": {
+            "text": "You cut Aldric's bindings with a swift stroke. He scrambles off the altar, disrupting the ritual circle. The dark crystal loses its anchor and cracks down the middle, its energy dissipating.\n\n'Behind you!' Aldric shouts. You spin to face the cult leader, but without the ritual's power, his dagger has no dark enchantment. He's just a man — and he knows it. The cultists scatter.",
+            "effects": {
+                "gold": 150
+            },
+            "choices": [
+                {
+                    "text": "Escort Aldric home to his father",
+                    "next": "victory"
+                }
+            ]
+        },
+        "free_fail": {
+            "text": "A cultist intercepts you before you reach the altar, slamming into you. You hit the ground hard. The cult leader raises the dagger...\n\nBut Aldric isn't helpless. With a surge of desperate strength, he breaks one hand free and grabs the cult leader's wrist. The dagger falls. You seize the moment.",
+            "effects": {
+                "hp": -6
+            },
+            "choices": [
+                {
+                    "text": "Grab the falling dagger and end this",
+                    "next": "victory"
+                }
+            ]
+        },
+        "intimidate": {
+            "text": "You try to intimidate the cultists...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "intimidate_success"
+                }
+            ]
+        },
+        "intimidate_success": {
+            "text": "'The Oakhaven Guard is on their way!' you thunder, your voice echoing in the mill. 'Drop the dagger or face the king's justice — and the hangman's rope!'\n\nThe two lesser cultists exchange panicked glances and bolt for the exits. The leader, now alone, seethes with impotent rage. He hurls the dagger at you, but it goes wide, shattering the dark crystal instead. How ironic.\n\n'This isn't over,' he hisses, and vanishes through a hidden trapdoor.",
+            "effects": {
+                "gold": 150
+            },
+            "choices": [
+                {
+                    "text": "Free Aldric and return to the village",
+                    "next": "victory"
+                }
+            ]
+        },
+        "intimidate_fail": {
+            "text": "The cult leader laughs. 'The guard? Those fools couldn't find a goblin in a privy. You're alone, and you're too late.'\n\nHe brings the dagger down — but Aldric rolls at the last second. The blade strikes the altar stone, shattering the inscribed ritual circle. The dark crystal cracks. The magical backlash throws the leader against the wall.",
+            "effects": {
+                "hp": -4
+            },
+            "choices": [
+                {
+                    "text": "Seize the moment — subdue the stunned cultists",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "Dawn breaks over Oakhaven as you lead young Aldric through the village gates. The Mayor rushes from his estate — still in his nightclothes — and embraces his son with tears streaming down his face.\n\n'You've saved my boy. You've saved my family.' He presses a heavy purse of gold into your hands. 'You are a hero of Oakhaven. This village will never forget what you've done.'\n\nAldric turns to you. 'Thank you. I was a fool to trust that stranger. But I learned something...' He holds up his palm, where a faint golden light briefly flickers. 'The old power in my blood — it's real. But next time, I'll use it for good.'\n\nThe villagers cheer as the sun rises. Your first adventure is complete.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 150
+            },
+            "choices": []
+        }
+    }
+}

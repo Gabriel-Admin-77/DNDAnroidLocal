@@ -1,0 +1,360 @@
+{
+    "title": "The Abyssal Breach",
+    "scenes": {
+        "start": {
+            "text": "The sky above the city of Luminara has cracked. A swirling vortex of crimson energy tears open above the Grand Cathedral — an Abyssal Breach, a portal to the demon realms. Already, lesser demons pour through: imps, quasits, and dretch soldiers spreading chaos in the streets.\n\nHigh Priestess Seraphina grabs your arm outside the barricade. 'The Breach is anchored by three Infernal Pylons inside the cathedral! Destroy them and the portal collapses. But the Demon Lord Malachar is coming through — we have maybe an hour before he arrives in full power!'\n\nFires rage. Citizens scream. The cathedral's stained glass windows glow an unholy red.",
+            "choices": [
+                {
+                    "text": "Charge into the cathedral through the main doors!",
+                    "next": "cathedral_main"
+                },
+                {
+                    "text": "Enter through the catacombs underneath",
+                    "next": "catacombs"
+                },
+                {
+                    "text": "Rally the city guard for a coordinated assault",
+                    "next": "rally_guard"
+                },
+                {
+                    "text": "Scale the cathedral walls to enter from the roof",
+                    "next": "roof_entry",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 15,
+                        "successScene": "roof_success",
+                        "failScene": "roof_fall"
+                    }
+                }
+            ]
+        },
+        "rally_guard": {
+            "text": "You find Captain Briggs commanding a ragged line of guards. 'We're barely holding! Demons hit us from three directions.' You convince her to consolidate forces for a push.\n\nTwenty guards rally behind you, armed with blessed weapons from the armory. 'Lead the way,' Briggs says.",
+            "choices": [
+                {
+                    "text": "Lead the assault on the cathedral!",
+                    "next": "cathedral_main"
+                },
+                {
+                    "text": "Split up — guards take the front, you take the catacombs",
+                    "next": "catacombs"
+                }
+            ]
+        },
+        "roof_entry": {
+            "text": "You scale the walls...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "roof_success"
+                }
+            ]
+        },
+        "roof_success": {
+            "text": "You reach the cathedral roof. The Breach swirls above — a tornado of red energy. From here you can see all three pylons below, spaced around the nave. And at the altar, a massive figure is materializing: Malachar, halfway through.\n\nYou smash through a skylight and drop into the upper gallery.",
+            "choices": [
+                {
+                    "text": "Drop to the first pylon from above!",
+                    "next": "pylon1"
+                },
+                {
+                    "text": "Survey the battlefield and plan your approach",
+                    "next": "survey"
+                }
+            ]
+        },
+        "roof_fall": {
+            "text": "Demon fire scorches the wall and you fall! You crash through an awning and land hard in the side chapel.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Get up and find the first pylon",
+                    "next": "pylon1"
+                }
+            ]
+        },
+        "cathedral_main": {
+            "text": "You burst through the cathedral doors. The nave has been transformed into a hellscape — pews burning, the floor cracked with glowing infernal runes, and demons swarming everywhere.\n\nThree iron pylons pulse with red energy, anchoring the Breach above. The first is just ahead, guarded by a hulking demon brute.",
+            "choices": [
+                {
+                    "text": "Fight the demon and destroy the first pylon!",
+                    "next": "pylon1_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "pylon1_destroyed",
+                        "failScene": "pylon1_hard"
+                    }
+                },
+                {
+                    "text": "Use holy water to weaken the demons first",
+                    "next": "pylon1_destroyed"
+                }
+            ]
+        },
+        "catacombs": {
+            "text": "The catacombs beneath the cathedral are haunted — the Breach's energy has reanimated the dead. Skeletal monks shuffle through dusty corridors.\n\nBut the passage is clear. You emerge behind the altar, near the second pylon.",
+            "choices": [
+                {
+                    "text": "Destroy the second pylon first!",
+                    "next": "pylon2"
+                },
+                {
+                    "text": "Attack the first pylon from behind",
+                    "next": "pylon1"
+                }
+            ]
+        },
+        "survey": {
+            "text": "From the gallery, you see the layout: Pylon 1 is by the entrance (guarded by a brute demon), Pylon 2 is in the transept (guarded by a shadow fiend), and Pylon 3 is behind the altar (closest to the Breach and most heavily guarded).\n\nMalachar is 60% materialized. His clawed hand reaches through the portal, grasping at reality.",
+            "choices": [
+                {
+                    "text": "Start with the closest pylon — #1!",
+                    "next": "pylon1"
+                },
+                {
+                    "text": "Go for #3 first — it's the strongest anchor",
+                    "next": "pylon3"
+                }
+            ]
+        },
+        "pylon1": {
+            "text": "The first pylon crackles with infernal energy. A massive horned demon guards it, wielding a flaming whip.",
+            "choices": [
+                {
+                    "text": "Fight the demon guardian!",
+                    "next": "pylon1_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "pylon1_destroyed",
+                        "failScene": "pylon1_hard"
+                    }
+                },
+                {
+                    "text": "Dodge past it and strike the pylon directly!",
+                    "next": "pylon1_direct",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "pylon1_destroyed",
+                        "failScene": "pylon1_hard"
+                    }
+                }
+            ]
+        },
+        "pylon1_fight": {
+            "text": "You engage the demon...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon1_destroyed"
+                }
+            ]
+        },
+        "pylon1_direct": {
+            "text": "You dash past the demon...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon1_destroyed"
+                }
+            ]
+        },
+        "pylon1_destroyed": {
+            "text": "The first pylon shatters! Red energy explodes outward, and the Breach visibly weakens — Malachar's form flickers. 'NO!' his voice booms from the portal. 'Destroy my anchors and I'll tear your world apart with my bare hands!'\n\nTwo pylons remain. The demons in the cathedral shriek in rage.",
+            "choices": [
+                {
+                    "text": "Rush to the second pylon!",
+                    "next": "pylon2"
+                }
+            ]
+        },
+        "pylon1_hard": {
+            "text": "The demon's whip catches your arm! Infernal fire burns through your armor. You fight through the pain and smash the pylon.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Press on to pylon two!",
+                    "next": "pylon2"
+                }
+            ]
+        },
+        "pylon2": {
+            "text": "The second pylon stands in the transept, surrounded by a circle of chanting lesser demons performing a strengthening ritual. A shadow fiend oversees them — a creature of living darkness.\n\nThe chanting is making the pylon stronger. You need to act fast.",
+            "choices": [
+                {
+                    "text": "Disrupt the ritual by attacking the chanters!",
+                    "next": "ritual_disrupt",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "pylon2_destroyed",
+                        "failScene": "pylon2_hard"
+                    }
+                },
+                {
+                    "text": "Target the shadow fiend directly!",
+                    "next": "shadow_fiend",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 15,
+                        "successScene": "pylon2_destroyed",
+                        "failScene": "pylon2_hard"
+                    }
+                },
+                {
+                    "text": "Use holy energy to blast the entire circle!",
+                    "next": "pylon2_destroyed"
+                }
+            ]
+        },
+        "ritual_disrupt": {
+            "text": "You attack the chanters...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon2_destroyed"
+                }
+            ]
+        },
+        "shadow_fiend": {
+            "text": "You face the shadow fiend...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon2_destroyed"
+                }
+            ]
+        },
+        "pylon2_destroyed": {
+            "text": "The second pylon explodes! The Breach contracts violently. Malachar's half-formed body is being pulled back. 'ONE MORE and I'll be TRAPPED!' he rages.\n\nThe final pylon is at the altar — directly below the Breach, where the energy is strongest and Malachar's reach is closest.",
+            "choices": [
+                {
+                    "text": "Sprint to the final pylon! End this!",
+                    "next": "pylon3"
+                }
+            ]
+        },
+        "pylon2_hard": {
+            "text": "The shadow fiend's claws rake through you — a chill worse than death. But rage empowers you. You smash through and destroy the pylon.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "The last pylon — go!",
+                    "next": "pylon3"
+                }
+            ]
+        },
+        "pylon3": {
+            "text": "The final pylon blazes with concentrated infernal power. Malachar's arm reaches through the Breach, enormous and clawed, trying to physically hold the portal open. His hand moves toward you — each finger bigger than your body.\n\nDemonic generals form a last defensive line: three elite fiends, wreathed in hellfire.\n\n'You will NOT close my portal!' Malachar's voice shakes the foundations.",
+            "choices": [
+                {
+                    "text": "Charge through the fiends to reach the pylon!",
+                    "next": "final_charge",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "pylon3_reached",
+                        "failScene": "fiend_gauntlet"
+                    }
+                },
+                {
+                    "text": "Dodge Malachar's hand and strike the pylon!",
+                    "next": "dodge_hand",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 17,
+                        "successScene": "pylon3_reached",
+                        "failScene": "hand_grab"
+                    }
+                },
+                {
+                    "text": "Channel all your willpower into a holy strike!",
+                    "next": "holy_strike",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 16,
+                        "successScene": "pylon3_reached",
+                        "failScene": "fiend_gauntlet"
+                    }
+                }
+            ]
+        },
+        "final_charge": {
+            "text": "You charge!",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon3_reached"
+                }
+            ]
+        },
+        "dodge_hand": {
+            "text": "You dodge the massive hand...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon3_reached"
+                }
+            ]
+        },
+        "holy_strike": {
+            "text": "You channel divine energy...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "pylon3_reached"
+                }
+            ]
+        },
+        "fiend_gauntlet": {
+            "text": "The fiends hammer you with infernal magic. Your body screams, but you push through. Nothing can stop you now.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Reach the pylon — SMASH IT!",
+                    "next": "pylon3_reached"
+                }
+            ]
+        },
+        "hand_grab": {
+            "text": "Malachar's massive hand closes around you! The grip is crushing, his claws puncturing your armor. But you're close to the pylon — you stretch, strain...",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Break free and strike the pylon!",
+                    "next": "pylon3_reached"
+                }
+            ]
+        },
+        "pylon3_reached": {
+            "text": "You reach the final pylon! Malachar's claw swipes at you. The heat is unbearable. The Breach swirls directly above, a hurricane of hellfire.\n\nWith every ounce of strength, you raise your weapon high...\n\nAnd bring it down.\n\nThe pylon DETONATES. A shockwave of holy energy erupts through the cathedral, vaporizing every demon it touches. The Breach IMPLODES — Malachar's scream echoes across dimensions as he's torn backward into the Abyss.\n\nThe portal snaps shut with a thunderclap that shatters every window in Luminara.",
+            "choices": [
+                {
+                    "text": "Collapse among the ruins... victorious",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "Silence. For the first time in hours, silence.\n\nYou lie in the ruined cathedral, staring up through the shattered roof at a clear, star-filled sky. The Breach is gone. The demons are gone. Malachar is sealed back in his abyssal prison.\n\nHigh Priestess Seraphina finds you among the rubble. Tears stream down her face. 'You did it. You closed the Breach. Luminara — the WORLD — is saved.'\n\nIn the days that follow, the city rebuilds. The cathedral is consecrated anew, stronger than before. A statue of you is erected at its entrance, weapon raised against the sky.\n\nThe Abyssal Breach becomes legend — and so do you. The one who stood between the world and damnation, and refused to yield.\n\nThe demons will remember your name. And they will fear it.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 1500
+            },
+            "choices": []
+        }
+    }
+}

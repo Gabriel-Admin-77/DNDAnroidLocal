@@ -1,0 +1,468 @@
+{
+    "title": "Crown of the Forgotten King",
+    "scenes": {
+        "start": {
+            "text": "The Forgotten King — a ruler so powerful that the gods themselves erased his name from history — left behind a single artifact: the Crown of Dominion. Whoever wears it gains absolute power over the mortal realm.\n\nNow, three factions race to find it: the Holy Order (to destroy it), the Shadow Covenant (to use it), and the Dragon Cult (to resurrect the Forgotten King himself).\n\nYou've been hired by the Holy Order. Scholar Brother Aldrin presents his research: 'The Crown is hidden in the Forgotten King's tomb, deep in the Blighted Lands. The entrance is sealed by three trials: Trial of Wisdom, Trial of Courage, and Trial of Sacrifice.'\n\nThe Blighted Lands stretch before you — twisted trees, poisoned ground, a sky that's perpetually twilight.",
+            "choices": [
+                {
+                    "text": "Enter the Blighted Lands and seek the tomb entrance",
+                    "next": "blighted_path"
+                },
+                {
+                    "text": "Scout for Shadow Covenant or Dragon Cult activity first",
+                    "next": "scout_factions"
+                },
+                {
+                    "text": "Ask Brother Aldrin about the three trials",
+                    "next": "trial_info"
+                },
+                {
+                    "text": "Search for local guides who know the Blighted Lands",
+                    "next": "find_guide"
+                }
+            ]
+        },
+        "trial_info": {
+            "text": "Brother Aldrin reads from ancient texts: 'The Trial of Wisdom requires answering the Sphinx's riddle at the tomb gate. The Trial of Courage requires crossing the Bridge of Souls over the Void. The Trial of Sacrifice requires... giving up something precious. The texts are unclear.'\n\nHe frowns. 'Whatever 'sacrifice' means, be prepared to lose something you value.'",
+            "choices": [
+                {
+                    "text": "Enter the Blighted Lands",
+                    "next": "blighted_path"
+                },
+                {
+                    "text": "Scout for enemy factions",
+                    "next": "scout_factions"
+                }
+            ]
+        },
+        "find_guide": {
+            "text": "At the Blighted Lands' edge, you find Nyx — a pale tiefling ranger who survived years in the Blight. 'I know the safe paths. And the unsafe ones.' She agrees to guide you for a share of the glory.\n\n'Fair warning: the Shadow Covenant is already inside. I saw their tracks yesterday.'",
+            "choices": [
+                {
+                    "text": "Hurry to the tomb with Nyx's guidance!",
+                    "next": "tomb_entrance"
+                },
+                {
+                    "text": "Track the Shadow Covenant first",
+                    "next": "shadow_encounter"
+                }
+            ]
+        },
+        "scout_factions": {
+            "text": "You circle the perimeter and discover disturbing signs: Shadow Covenant assassins have established a forward camp to the east, and Dragon Cult fanatics are performing rituals to the west. Both are headed for the tomb.\n\nYou need to move fast.",
+            "choices": [
+                {
+                    "text": "Race to the tomb before them!",
+                    "next": "blighted_path"
+                },
+                {
+                    "text": "Sabotage one faction's camp first",
+                    "next": "sabotage",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "sabotage_success",
+                        "failScene": "sabotage_caught"
+                    }
+                }
+            ]
+        },
+        "sabotage": {
+            "text": "You approach the enemy camp...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "sabotage_success"
+                }
+            ]
+        },
+        "sabotage_success": {
+            "text": "You poison the Shadow Covenant's water supply and scatter their maps. They'll be delayed by hours — maybe a full day. One less faction to worry about inside.",
+            "choices": [
+                {
+                    "text": "Head to the tomb",
+                    "next": "blighted_path"
+                }
+            ]
+        },
+        "sabotage_caught": {
+            "text": "An assassin ambushes you! You fight him off but take damage before escaping.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Run for the tomb",
+                    "next": "blighted_path"
+                }
+            ]
+        },
+        "blighted_path": {
+            "text": "The Blighted Lands are nightmarish — trees bleed sap, the ground squishes with corruption, and distant shapes move in the perpetual twilight. After hours of travel, you reach the tomb entrance: a massive stone doorway carved with the trials' symbols.\n\nA stone Sphinx sits before the entrance, its eyes glowing.",
+            "choices": [
+                {
+                    "text": "Approach the Sphinx for the Trial of Wisdom",
+                    "next": "sphinx"
+                }
+            ]
+        },
+        "shadow_encounter": {
+            "text": "You track the Shadow Covenant and find three assassins at the tomb entrance, arguing about the Sphinx's riddle. They haven't solved it.\n\nOne spots you. 'Kill the intruder!' they hiss.",
+            "choices": [
+                {
+                    "text": "Fight the assassins!",
+                    "next": "assassin_fight",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 15,
+                        "successScene": "assassins_beaten",
+                        "failScene": "assassins_hurt"
+                    }
+                },
+                {
+                    "text": "Propose an alliance — solve the riddle together",
+                    "next": "shadow_alliance"
+                }
+            ]
+        },
+        "assassin_fight": {
+            "text": "You engage the assassins...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "assassins_beaten"
+                }
+            ]
+        },
+        "assassins_beaten": {
+            "text": "Three assassins fall. The Shadow Covenant won't reach the Crown today.",
+            "effects": {
+                "gold": 100
+            },
+            "choices": [
+                {
+                    "text": "Face the Sphinx",
+                    "next": "sphinx"
+                }
+            ]
+        },
+        "assassins_hurt": {
+            "text": "The assassins are skilled — poisoned blades nick you before you defeat them. The poison burns.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Face the Sphinx while you still can",
+                    "next": "sphinx"
+                }
+            ]
+        },
+        "shadow_alliance": {
+            "text": "The assassin leader considers. 'Fine. We solve the trials together. Crown goes to whoever claims it first.' An uneasy alliance. They'll betray you — but not yet.",
+            "choices": [
+                {
+                    "text": "Face the Sphinx together",
+                    "next": "sphinx"
+                }
+            ]
+        },
+        "tomb_entrance": {
+            "text": "Nyx guides you efficiently to the tomb entrance. The Sphinx awaits.",
+            "choices": [
+                {
+                    "text": "Face the Sphinx",
+                    "next": "sphinx"
+                }
+            ]
+        },
+        "sphinx": {
+            "text": "The Sphinx speaks in a voice like grinding stone: 'I am the Guardian of the First Trial. Answer my riddle or be turned to stone.'\n\nIts eyes glow brighter: 'I am not alive, yet I grow. I have no lungs, yet I need air. I have no mouth, yet water kills me. What am I?'",
+            "choices": [
+                {
+                    "text": "Answer: FIRE",
+                    "next": "sphinx_correct"
+                },
+                {
+                    "text": "Answer: A SHADOW",
+                    "next": "sphinx_wrong"
+                },
+                {
+                    "text": "Answer: PRIDE",
+                    "next": "sphinx_wrong"
+                },
+                {
+                    "text": "Think harder...",
+                    "next": "sphinx_think",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "sphinx_correct",
+                        "failScene": "sphinx_wrong"
+                    }
+                }
+            ]
+        },
+        "sphinx_think": {
+            "text": "You think carefully...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "sphinx_correct"
+                }
+            ]
+        },
+        "sphinx_correct": {
+            "text": "'CORRECT,' the Sphinx rumbles. The stone doors grind open, revealing a torch-lit passage descending into the earth. 'The Trial of Wisdom is passed. Courage and Sacrifice await below.'\n\nThe passage leads deep underground to a vast cavern.",
+            "choices": [
+                {
+                    "text": "Descend into the tomb",
+                    "next": "bridge_approach"
+                }
+            ]
+        },
+        "sphinx_wrong": {
+            "text": "The Sphinx's eyes flare. You feel your legs stiffening — petrification beginning! You shout 'FIRE! The answer is FIRE!'\n\nThe Sphinx pauses. 'CORRECT... eventually.' The petrification reverses. The doors open. That was too close.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Enter the tomb quickly",
+                    "next": "bridge_approach"
+                }
+            ]
+        },
+        "bridge_approach": {
+            "text": "The Trial of Courage: a narrow stone bridge — barely two feet wide — spans an infinite void. No walls, no railings. Below is absolute nothingness. Above, the same.\n\nThe bridge stretches for what seems like miles. And it's not stable — sections shimmer and vanish, reappearing elsewhere.\n\nSpectral warriors patrol the bridge, challenging anyone who shows fear.",
+            "choices": [
+                {
+                    "text": "Walk the bridge with confidence — show no fear!",
+                    "next": "bridge_walk",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 15,
+                        "successScene": "bridge_crossed",
+                        "failScene": "bridge_terror"
+                    }
+                },
+                {
+                    "text": "Sprint across before the sections vanish!",
+                    "next": "bridge_sprint",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "bridge_crossed",
+                        "failScene": "bridge_fall"
+                    }
+                },
+                {
+                    "text": "Close your eyes and walk by feel — the void can't scare what it can't see",
+                    "next": "bridge_blind",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 14,
+                        "successScene": "bridge_crossed",
+                        "failScene": "bridge_terror"
+                    }
+                }
+            ]
+        },
+        "bridge_walk": {
+            "text": "You step onto the bridge...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "bridge_crossed"
+                }
+            ]
+        },
+        "bridge_sprint": {
+            "text": "You run!",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "bridge_crossed"
+                }
+            ]
+        },
+        "bridge_blind": {
+            "text": "You close your eyes...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "bridge_crossed"
+                }
+            ]
+        },
+        "bridge_crossed": {
+            "text": "You reach the other side! The spectral warriors nod in respect and fade away. 'Courage proven,' a voice echoes.\n\nThe final trial awaits: the Trial of Sacrifice. A chamber of white marble, pristine and peaceful. At its center, the Crown of Dominion sits on a pedestal.",
+            "choices": [
+                {
+                    "text": "Approach the Crown",
+                    "next": "sacrifice_trial"
+                }
+            ]
+        },
+        "bridge_terror": {
+            "text": "Fear grips you. The void seems to reach up, pulling at your feet. A spectral warrior materializes — 'Show courage or be consumed!'\n\nYou grit your teeth, force yourself forward, and push through the terror. Every step is agony.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Stagger to the other side",
+                    "next": "bridge_crossed"
+                }
+            ]
+        },
+        "bridge_fall": {
+            "text": "A section vanishes under your feet! You fall — but catch the edge. Clinging by your fingertips over infinity, you haul yourself back up.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Complete the crossing",
+                    "next": "bridge_crossed"
+                }
+            ]
+        },
+        "sacrifice_trial": {
+            "text": "As you reach for the Crown, a voice fills the chamber — the Forgotten King himself, echoing across time:\n\n'The Trial of Sacrifice. To claim the Crown, you must give up that which defines you. Your greatest strength.' A list appears in glowing text:\n\n• Sacrifice your STRENGTH — you will be weakened forever\n• Sacrifice your MEMORIES — you will forget who you are\n• Sacrifice the CROWN ITSELF — destroy it, and the trial ends\n\nThe Crown gleams seductively. Such power...",
+            "choices": [
+                {
+                    "text": "Sacrifice your strength to claim the Crown",
+                    "next": "claim_crown"
+                },
+                {
+                    "text": "Sacrifice your memories to claim the Crown",
+                    "next": "claim_crown_memories"
+                },
+                {
+                    "text": "Destroy the Crown — that's the true sacrifice",
+                    "next": "destroy_crown"
+                },
+                {
+                    "text": "Refuse all options — take the Crown by force!",
+                    "next": "force_crown",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 18,
+                        "successScene": "claim_crown",
+                        "failScene": "king_awakens"
+                    }
+                }
+            ]
+        },
+        "claim_crown": {
+            "text": "You sacrifice your strength and claim the Crown. It settles on your head, and POWER floods through you — the power to command armies, to bend reality, to rule absolutely.\n\nBut you remember your mission. The Holy Order sent you to destroy it.\n\n'Use me,' the Crown whispers. 'You could save the world — by RULING it.'",
+            "choices": [
+                {
+                    "text": "Destroy the Crown as promised",
+                    "next": "destroy_crown"
+                },
+                {
+                    "text": "Keep the Crown — you'll use it wisely",
+                    "next": "keep_crown"
+                }
+            ]
+        },
+        "claim_crown_memories": {
+            "text": "Your memories fade like morning mist. You don't know who you are, where you're from, or why you're here. But you hold a Crown of unimaginable power.\n\nA distant voice in your mind: 'Destroy it...' But why? It feels so natural on your head...",
+            "choices": [
+                {
+                    "text": "Something tells you to destroy it — obey that instinct",
+                    "next": "destroy_crown"
+                },
+                {
+                    "text": "Keep the Crown — it's yours now",
+                    "next": "keep_crown"
+                }
+            ]
+        },
+        "force_crown": {
+            "text": "You grab the Crown...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "claim_crown"
+                }
+            ]
+        },
+        "king_awakens": {
+            "text": "The Forgotten King's spirit erupts from the pedestal! A towering specter of ancient malice. 'FOOL! You dare take my crown by force?!'\n\nHe attacks with power that makes the Arch-Lich Vorn look like a candle. You're thrown against the wall.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Fight the Forgotten King's spirit!",
+                    "next": "king_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "king_banished",
+                        "failScene": "king_overwhelming"
+                    }
+                },
+                {
+                    "text": "Grab the Crown and smash it while he's manifested!",
+                    "next": "destroy_crown"
+                }
+            ]
+        },
+        "king_fight": {
+            "text": "You battle the spirit...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "king_banished"
+                }
+            ]
+        },
+        "king_banished": {
+            "text": "The spirit shatters! His roar echoes: 'You cannot destroy what I built! My Crown is ETERNAL!'\n\nBut the Crown sits unprotected on the pedestal.",
+            "choices": [
+                {
+                    "text": "Destroy the Crown while you can",
+                    "next": "destroy_crown"
+                },
+                {
+                    "text": "Claim the Crown now that the King is banished",
+                    "next": "keep_crown"
+                }
+            ]
+        },
+        "king_overwhelming": {
+            "text": "The King's power is too great to fight directly. But in his rage, he's left the Crown unguarded.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Grab and destroy the Crown!",
+                    "next": "destroy_crown"
+                }
+            ]
+        },
+        "keep_crown": {
+            "text": "You keep the Crown of Dominion. Its power is... intoxicating. You can feel every mind in the realm — and you could control them all.\n\nYou emerge from the tomb a changed person. The Holy Order is horrified, but they can't stop you. Nobody can.\n\nYou use the Crown to establish peace — but at what cost? Freedom? Free will? You rule absolutely, and the world bends to your command.\n\nAs years pass, you begin to hear the Forgotten King's whisper: 'You are becoming me. And soon... there will be no difference.'\n\nYou won. But did you?",
+            "isEnding": true,
+            "endingType": "neutral",
+            "effects": {
+                "gold": 5000
+            },
+            "choices": []
+        },
+        "destroy_crown": {
+            "text": "You raise the Crown of Dominion above your head. For one moment, you feel its full power — the ability to reshape the world. To end war. To cure disease. To rule as a god.\n\nAnd then you bring it down against the marble pedestal.\n\nThe Crown SHATTERS.\n\nA shockwave of golden light erupts outward — the Forgotten King's power, released from its prison, dispersing harmlessly into the cosmos. His scream fades to nothing. His name, his power, his legacy — all truly forgotten.\n\nThe tomb begins to collapse. You run for the exit as centuries of enchantment unravel. The Blighted Lands themselves begin to heal — corrupted trees straightening, dead earth greening, the twilight sky clearing to blue.\n\nBrother Aldrin meets you at the surface, weeping with joy. 'You destroyed it. You actually destroyed it. The temptation... the power... and you chose to let it go.'\n\nThe Holy Order honors you with their highest distinction. But more than any medal, you carry the knowledge that when ultimate power was offered, you chose something better: freedom for all.\n\nThe Forgotten King is forgotten. And that is as it should be.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 2000
+            },
+            "choices": []
+        }
+    }
+}

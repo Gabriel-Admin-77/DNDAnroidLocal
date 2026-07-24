@@ -1,0 +1,444 @@
+{
+    "title": "Merchant's Lost Caravan",
+    "scenes": {
+        "start": {
+            "text": "The Goldleaf Trading Company's caravan went missing three days ago on the King's Road between Ashford and Thornwall. Twenty wagons, fifty souls, and a fortune in silks and spices — vanished.\n\nGuildmaster Helena has hired you to find them. She spreads a map on the table. 'They should have arrived two days ago. The road passes through Whetstone Pass — bandit country — and the Elderwood Forest.'\n\nShe offers you a horse and provisions. Where do you start?",
+            "choices": [
+                {
+                    "text": "Ride to Whetstone Pass — most likely ambush site",
+                    "next": "whetstone_pass"
+                },
+                {
+                    "text": "Follow the King's Road from the start, tracking their route",
+                    "next": "kings_road"
+                },
+                {
+                    "text": "Head into Elderwood Forest to search from above the ridge",
+                    "next": "elderwood_ridge"
+                },
+                {
+                    "text": "Ask Helena for more details about the caravan's cargo",
+                    "next": "cargo_info"
+                }
+            ]
+        },
+        "cargo_info": {
+            "text": "Helena hesitates. 'The silks and spices are valuable, yes. But there's something else. We were transporting a sealed chest for the Arcane Academy — contents unknown. They paid triple the usual rate and insisted on armed escort.'\n\nShe lowers her voice. 'Whatever's in that chest... someone may have wanted it badly enough to take the entire caravan.'",
+            "choices": [
+                {
+                    "text": "Head to Whetstone Pass to investigate",
+                    "next": "whetstone_pass"
+                },
+                {
+                    "text": "Visit the Arcane Academy first to learn about the chest",
+                    "next": "academy"
+                },
+                {
+                    "text": "Follow the road and search for tracks",
+                    "next": "kings_road"
+                }
+            ]
+        },
+        "academy": {
+            "text": "The Academy wizard, a nervous elf named Elaris, refuses to discuss the chest's contents. But when you mention the caravan is missing, he pales.\n\n'If that chest falls into the wrong hands... it contains a Binding Stone. It can trap or release extraplanar creatures. A cult called the Iron Fang has been seeking it.'\n\nHe gives you a detection amulet. 'This will glow when near the Stone. Please — recover it before the cult uses it.'",
+            "choices": [
+                {
+                    "text": "Ride immediately to the King's Road",
+                    "next": "kings_road"
+                },
+                {
+                    "text": "Head to Whetstone Pass — the cult likely ambushed them there",
+                    "next": "whetstone_pass"
+                }
+            ]
+        },
+        "kings_road": {
+            "text": "You ride along the King's Road, examining the ground. After an hour, you find the caravan's tracks — deep wagon ruts heading north. Then, suddenly, they veer off the road into the trees.",
+            "choices": [
+                {
+                    "text": "Follow the tracks off-road",
+                    "next": "off_road_tracks",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 11,
+                        "successScene": "tracks_clear",
+                        "failScene": "tracks_confused"
+                    }
+                },
+                {
+                    "text": "Continue on the road to Whetstone Pass",
+                    "next": "whetstone_pass"
+                }
+            ]
+        },
+        "off_road_tracks": {
+            "text": "You follow the tracks...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "tracks_clear"
+                }
+            ]
+        },
+        "tracks_clear": {
+            "text": "The tracks reveal the truth: the caravan didn't deviate willingly. You find broken arrows, scorched earth from fire arrows, and drag marks. The caravan was ambushed here and forced off the road.\n\nThe tracks lead deeper into Elderwood, toward an abandoned quarry shown on Helena's map.",
+            "choices": [
+                {
+                    "text": "Follow the tracks to the quarry",
+                    "next": "quarry_approach"
+                },
+                {
+                    "text": "Circle around to approach the quarry from above",
+                    "next": "quarry_above"
+                }
+            ]
+        },
+        "tracks_confused": {
+            "text": "The trail is muddled — too many tracks overlapping. But you notice smoke rising from the direction of an old quarry marked on your map.",
+            "choices": [
+                {
+                    "text": "Head toward the smoke",
+                    "next": "quarry_approach"
+                },
+                {
+                    "text": "Return to the road and try Whetstone Pass",
+                    "next": "whetstone_pass"
+                }
+            ]
+        },
+        "whetstone_pass": {
+            "text": "Whetstone Pass is a narrow ravine with high walls — perfect for an ambush. You find fresh evidence: scorched wagontracks, broken crates, and a dead horse half-hidden in brush.\n\nScratched into a rock wall: the Iron Fang symbol — a snarling wolf's head made of sharp iron lines.",
+            "choices": [
+                {
+                    "text": "Follow the trail deeper into the pass",
+                    "next": "pass_deeper"
+                },
+                {
+                    "text": "Climb the ridge to scout from above",
+                    "next": "quarry_above",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 12,
+                        "successScene": "ridge_success",
+                        "failScene": "ridge_fall"
+                    }
+                },
+                {
+                    "text": "Search the dead horse and crates for clues",
+                    "next": "pass_clues"
+                }
+            ]
+        },
+        "pass_clues": {
+            "text": "Among the wreckage you find a torn map — it shows a path from the pass to an abandoned quarry. Someone has circled it in red ink and written 'STAGING AREA' in rough script.\n\nYou also find a survivor's bloodied scarf tied to a branch — a signal. They're alive, or were recently.",
+            "choices": [
+                {
+                    "text": "Rush to the quarry to rescue the prisoners",
+                    "next": "quarry_approach"
+                },
+                {
+                    "text": "Scout the quarry from above first",
+                    "next": "quarry_above"
+                }
+            ]
+        },
+        "elderwood_ridge": {
+            "text": "From the Elderwood ridge, you survey the landscape. Through the trees, you spot wagon covers clustered in a depression — the abandoned quarry! Figures move around them — armed bandits with Iron Fang markings.\n\nYou count roughly fifteen bandits. The caravan survivors appear to be corralled in a pit at the quarry's center.",
+            "choices": [
+                {
+                    "text": "Sneak down for a closer look",
+                    "next": "quarry_above"
+                },
+                {
+                    "text": "Attack from the high ground",
+                    "next": "quarry_assault"
+                }
+            ]
+        },
+        "pass_deeper": {
+            "text": "The trail through the pass leads directly to the quarry. You arrive at its edge — a massive open pit with wagon remnants, campfires, and the Iron Fang cult members loading goods onto their own carts.\n\nThe caravan survivors — merchants, drivers, guards — are tied up in the quarry pit.",
+            "choices": [
+                {
+                    "text": "Plan a stealthy rescue",
+                    "next": "stealth_rescue"
+                },
+                {
+                    "text": "Charge in and attack!",
+                    "next": "quarry_assault"
+                }
+            ]
+        },
+        "quarry_above": {
+            "text": "From above, you get a clear view of the quarry...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ridge_success"
+                }
+            ]
+        },
+        "ridge_success": {
+            "text": "From the high ground you see everything: fifteen bandits, the prisoners in the pit, wagons being looted, and — in a guarded tent at the far end — a glowing chest. The Binding Stone.\n\nThe bandit leader, a scarred woman in spiked armor, barks orders near the tent. You also spot a weak point: the quarry's old crane mechanism. If released, the heavy stone block it holds could crush the tent — or create a massive distraction.",
+            "choices": [
+                {
+                    "text": "Use the crane as a distraction, then rescue prisoners",
+                    "next": "crane_distraction"
+                },
+                {
+                    "text": "Sneak down to free the prisoners first",
+                    "next": "stealth_rescue",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "stealth_success",
+                        "failScene": "stealth_caught"
+                    }
+                },
+                {
+                    "text": "Go directly for the Binding Stone chest",
+                    "next": "grab_stone",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 15,
+                        "successScene": "stone_grabbed",
+                        "failScene": "stone_caught"
+                    }
+                }
+            ]
+        },
+        "ridge_fall": {
+            "text": "Your foot slips on loose rock and you tumble partway down the ridge. You catch yourself, but the noise alerts a patrol.",
+            "effects": {
+                "hp": -4
+            },
+            "choices": [
+                {
+                    "text": "Hide and wait for the patrol to pass",
+                    "next": "stealth_rescue",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 12,
+                        "successScene": "stealth_success",
+                        "failScene": "stealth_caught"
+                    }
+                },
+                {
+                    "text": "Fight the patrol before they alert others",
+                    "next": "patrol_fight"
+                }
+            ]
+        },
+        "patrol_fight": {
+            "text": "Two bandits round the corner. You strike fast, taking them both down before they can shout. But more may come this way soon.",
+            "choices": [
+                {
+                    "text": "Move quickly to the prisoner pit",
+                    "next": "stealth_success"
+                },
+                {
+                    "text": "Go for the guarded tent and the chest",
+                    "next": "grab_stone"
+                }
+            ]
+        },
+        "crane_distraction": {
+            "text": "You release the crane's rusty brake. With a deafening crash, the massive stone block swings down and smashes into the loot wagons! Goods scatter everywhere. Bandits scream and scatter.\n\nIn the chaos, you have a clear path to either the prisoners or the chest.",
+            "choices": [
+                {
+                    "text": "Free the prisoners while bandits are distracted",
+                    "next": "free_prisoners"
+                },
+                {
+                    "text": "Grab the Binding Stone chest from the tent",
+                    "next": "stone_grabbed"
+                }
+            ]
+        },
+        "stealth_rescue": {
+            "text": "You sneak toward the prisoners...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "stealth_success"
+                }
+            ]
+        },
+        "stealth_success": {
+            "text": "You slip past the guards and reach the prisoner pit. The caravan master, a tough dwarf named Borik, recognizes rescue when he sees it.\n\n'Cut these ropes and give us weapons,' he whispers. 'My guards are fighters — we can turn this around.' There are ten able-bodied caravan guards among the prisoners.",
+            "choices": [
+                {
+                    "text": "Arm the guards and stage an uprising!",
+                    "next": "uprising"
+                },
+                {
+                    "text": "Free everyone quietly and escape into the forest",
+                    "next": "quiet_escape"
+                }
+            ]
+        },
+        "stealth_caught": {
+            "text": "A guard spots you and raises the alarm! 'Intruder!' Bandits rush toward you.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Fight your way to the prisoners",
+                    "next": "free_prisoners"
+                },
+                {
+                    "text": "Dash for the Binding Stone instead",
+                    "next": "stone_caught"
+                }
+            ]
+        },
+        "grab_stone": {
+            "text": "You run for the tent...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "stone_grabbed"
+                }
+            ]
+        },
+        "stone_grabbed": {
+            "text": "You tear open the tent flap and grab the glowing chest. The Binding Stone pulses warm in your hands. But the bandit leader blocks the exit.\n\n'That stone belongs to the Iron Fang now,' she snarls, drawing twin blades.",
+            "choices": [
+                {
+                    "text": "Fight the bandit leader!",
+                    "next": "leader_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "leader_beaten",
+                        "failScene": "leader_tough"
+                    }
+                },
+                {
+                    "text": "Use the Binding Stone's power against her",
+                    "next": "use_stone",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "stone_blast",
+                        "failScene": "leader_tough"
+                    }
+                }
+            ]
+        },
+        "stone_caught": {
+            "text": "Bandits cut you off before you reach the tent. A brutal fight ensues — you manage to grab the chest but take several hits.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Fight your way out with the stone",
+                    "next": "leader_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 13,
+                        "successScene": "leader_beaten",
+                        "failScene": "leader_tough"
+                    }
+                }
+            ]
+        },
+        "uprising": {
+            "text": "You cut the prisoners free and distribute captured weapons. Borik rallies his guards. 'FOR THE GOLDLEAF!' he roars, and ten armed guards pour out of the pit.\n\nThe bandits, caught off-guard, are overwhelmed. The bandit leader tries to flee with the chest, but Borik tackles her.",
+            "choices": [
+                {
+                    "text": "Secure the Binding Stone chest",
+                    "next": "victory_full"
+                }
+            ]
+        },
+        "quiet_escape": {
+            "text": "You lead the prisoners through the quarry's drainage tunnel into the forest. All fifty souls escape, including wounded guards and terrified merchants.\n\nBut the Binding Stone remains in bandit hands. Borik shakes his head. 'We'll need to send the army back for that.'",
+            "effects": {
+                "gold": 100
+            },
+            "isEnding": true,
+            "endingType": "neutral",
+            "choices": []
+        },
+        "free_prisoners": {
+            "text": "In the confusion, you cut the prisoners free. The caravan guards grab fallen bandit weapons and join the fight. Together, you push the bandits back.",
+            "choices": [
+                {
+                    "text": "Go after the bandit leader and the chest",
+                    "next": "leader_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 13,
+                        "successScene": "leader_beaten",
+                        "failScene": "leader_tough"
+                    }
+                }
+            ]
+        },
+        "leader_fight": {
+            "text": "You face the leader...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "leader_beaten"
+                }
+            ]
+        },
+        "leader_beaten": {
+            "text": "The bandit leader fights fiercely, but you're better. A well-placed strike disarms her, and she drops to her knees. 'The Iron Fang will not forget this,' she hisses. 'We have eyes everywhere.'\n\nThe remaining bandits flee into the forest. The caravan is saved.",
+            "effects": {
+                "gold": 75
+            },
+            "choices": [
+                {
+                    "text": "Secure the prisoners, the cargo, and the Stone",
+                    "next": "victory_full"
+                }
+            ]
+        },
+        "leader_tough": {
+            "text": "The leader is skilled — she lands a vicious slash before you overpower her. She drops her weapons and snarls, defeated.",
+            "effects": {
+                "hp": -7
+            },
+            "choices": [
+                {
+                    "text": "Tie her up and secure everything",
+                    "next": "victory_full"
+                }
+            ]
+        },
+        "use_stone": {
+            "text": "You grip the stone...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "stone_blast"
+                }
+            ]
+        },
+        "stone_blast": {
+            "text": "The Binding Stone responds to your will! A wave of force erupts from the chest, blasting the leader and nearby bandits off their feet. The stone's energy settles, leaving you unharmed.\n\nElaris will be fascinated to know a non-wizard could activate it.",
+            "effects": {
+                "gold": 100
+            },
+            "choices": [
+                {
+                    "text": "Free the prisoners and secure the camp",
+                    "next": "victory_full"
+                }
+            ]
+        },
+        "victory_full": {
+            "text": "The caravan is saved. All fifty souls accounted for, the stolen goods largely recovered, and the Binding Stone secured. You escort the battered but grateful caravan back toward Ashford.\n\nGuildmaster Helena greets you with tears of relief. 'Every life saved, every wagon recovered — you've earned every coin of this reward and more.'\n\nBorik the caravan master clasps your hand. 'If you ever need a friend on the road, the Goldleaf Trading Company is there.'\n\nElaris from the Academy arrives to secure the Binding Stone. 'You've prevented something terrible. The Iron Fang won't stop, but today — today you won.'\n\nYour reputation as a caravan savior spreads across the land.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 200
+            },
+            "choices": []
+        }
+    }
+}

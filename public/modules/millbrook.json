@@ -1,0 +1,589 @@
+{
+    "title": "Goblin Trouble at Millbrook",
+    "scenes": {
+        "start": {
+            "text": "The farming village of Millbrook has seen better days. Fences are smashed, crops trampled, and livestock stolen. The village elder, a weathered halfling named Bramble, greets you at the crossroads.\n\n'Every night they come — goblins from the cave in Blackthorn Hill. They take our food, our animals, even our tools. We can't survive another week of this.'\n\nHe points northwest, where dark hills rise against the sky. 'Their cave is up there. But be careful — there's more of them than there used to be.'",
+            "choices": [
+                {
+                    "text": "Head straight to Blackthorn Hill to confront the goblins",
+                    "next": "hill_approach"
+                },
+                {
+                    "text": "Ask the villagers about goblin activity patterns",
+                    "next": "village_intel"
+                },
+                {
+                    "text": "Scout the perimeter of the village for tracks",
+                    "next": "scout_tracks",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 11,
+                        "successScene": "tracks_success",
+                        "failScene": "tracks_fail"
+                    }
+                },
+                {
+                    "text": "Set a trap at the village edge for tonight's raid",
+                    "next": "set_trap"
+                }
+            ]
+        },
+        "village_intel": {
+            "text": "The villagers share what they know. A farmer named Gregor speaks up: 'They always come from the northeast trail, about two hours after sunset. Six or seven of them, led by a bigger one — a hobgoblin, I think.'\n\nA young girl tugs your sleeve. 'I saw something else. A big cage in their cave. With a person inside. I was picking berries near the hill and I peeked in.'",
+            "choices": [
+                {
+                    "text": "A prisoner? Rush to the cave to rescue them!",
+                    "next": "hill_approach"
+                },
+                {
+                    "text": "Ask the girl to describe what she saw in detail",
+                    "next": "girl_details"
+                },
+                {
+                    "text": "Set a trap using the info about their patrol route",
+                    "next": "ambush_plan"
+                },
+                {
+                    "text": "Scout the hill before attacking",
+                    "next": "hill_approach"
+                }
+            ]
+        },
+        "girl_details": {
+            "text": "The girl, Lily, describes the cave entrance: 'There's a big opening with bones outside. Two goblins always stand guard. Inside, it goes left and right. The cages are to the right. The left side had lots of goblins sleeping.'\n\nShe draws a rough map in the dirt. This is incredibly useful tactical information.",
+            "choices": [
+                {
+                    "text": "Use this info to plan a stealth rescue mission",
+                    "next": "cave_right"
+                },
+                {
+                    "text": "Plan a frontal assault on the cave",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Set an ambush on the trail instead",
+                    "next": "ambush_plan"
+                }
+            ]
+        },
+        "scout_tracks": {
+            "text": "You search for goblin tracks...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "tracks_success"
+                }
+            ]
+        },
+        "tracks_success": {
+            "text": "You find fresh goblin tracks — small, clawed prints in the mud. They converge from a single trail to the northeast, confirming the farmer's account. But you also notice something else: larger tracks mixed in. Not hobgoblin — these are wolf tracks.\n\nThe goblins have worg riders. That changes things.",
+            "choices": [
+                {
+                    "text": "Head to the cave despite the worg threat",
+                    "next": "hill_approach"
+                },
+                {
+                    "text": "Set traps along the trail to neutralize the worgs",
+                    "next": "ambush_plan"
+                },
+                {
+                    "text": "Report back to the elder about the worgs",
+                    "next": "worg_warning"
+                }
+            ]
+        },
+        "tracks_fail": {
+            "text": "The ground is trampled and muddy from recent rains. You can't make out clear tracks. You'll have to approach the goblin cave without scouting intelligence.",
+            "choices": [
+                {
+                    "text": "Head to Blackthorn Hill anyway",
+                    "next": "hill_approach"
+                },
+                {
+                    "text": "Ask the villagers for more information",
+                    "next": "village_intel"
+                }
+            ]
+        },
+        "worg_warning": {
+            "text": "Elder Bramble pales. 'Worg riders? No wonder they've been so bold. Our fences can't stop mounted goblins.'\n\nHe rummages in his cellar and produces three jars of strong-smelling paste. 'Wolfsbane extract. Rub it on the trail — worgs won't cross it. It'll limit them to approaching on foot.'",
+            "choices": [
+                {
+                    "text": "Apply the wolfsbane on the trail, then assault the cave",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Set a full ambush using wolfsbane and traps",
+                    "next": "ambush_plan"
+                }
+            ]
+        },
+        "set_trap": {
+            "text": "You spend the afternoon preparing. Using rope, lumber, and a borrowed fishing net, you rig a pit trap and a net snare on the northeast trail.\n\nAs night falls, you hide in the bushes and wait. Sure enough, the goblins come — five scrappy warriors and a hulking hobgoblin captain.\n\nThe first two goblins fall into the pit with a shriek!",
+            "choices": [
+                {
+                    "text": "Spring the net trap on the hobgoblin!",
+                    "next": "trap_hobgoblin",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 12,
+                        "successScene": "trap_success",
+                        "failScene": "trap_fail"
+                    }
+                },
+                {
+                    "text": "Attack the confused goblins while they're scattered",
+                    "next": "trap_fight"
+                }
+            ]
+        },
+        "ambush_plan": {
+            "text": "You set up a killing ground on the trail: pit traps, tripwires, and a net suspended from the trees. As twilight deepens, you wait.\n\nThe goblin raiding party arrives on schedule — but tonight there are eight, not six. And two ride mangy worgs.\n\nThe first worg hits a tripwire and goes sprawling. Chaos erupts!",
+            "choices": [
+                {
+                    "text": "Focus on the worg riders first!",
+                    "next": "ambush_worgs",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "ambush_win",
+                        "failScene": "ambush_partial"
+                    }
+                },
+                {
+                    "text": "Target the hobgoblin leader to break morale",
+                    "next": "trap_hobgoblin",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "trap_success",
+                        "failScene": "trap_fail"
+                    }
+                }
+            ]
+        },
+        "trap_hobgoblin": {
+            "text": "You spring the trap...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "trap_success"
+                }
+            ]
+        },
+        "trap_success": {
+            "text": "The net drops perfectly, entangling the hobgoblin captain! He roars and thrashes, but the heavy netting holds. Without their leader's orders, the remaining goblins panic and scatter into the night.\n\nThe hobgoblin snarls at you in broken Common: 'Bigger boss will come! Chief Skullcrusher won't forgive this!' Then he goes limp, unconscious from the struggle.",
+            "effects": {
+                "gold": 30
+            },
+            "choices": [
+                {
+                    "text": "Tie him up and head to the cave to finish the job",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Question him about the cave's defenses",
+                    "next": "interrogate"
+                }
+            ]
+        },
+        "trap_fail": {
+            "text": "The net snags on a branch and only catches the hobgoblin's arm! He rips free and charges at you with a rusty iron mace.",
+            "effects": {
+                "hp": -6
+            },
+            "choices": [
+                {
+                    "text": "Fight the hobgoblin head-on!",
+                    "next": "hobgoblin_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 13,
+                        "successScene": "hobgoblin_down",
+                        "failScene": "hobgoblin_retreat"
+                    }
+                }
+            ]
+        },
+        "trap_fight": {
+            "text": "You leap from the bushes with a battle cry! The goblins, already panicked by the pit trap, scatter in disarray. You cut down two before they can draw weapons. The remaining three flee shrieking.\n\nThe hobgoblin captain, however, stands firm. 'You fight like human rat,' he growls, hefting his iron mace.",
+            "choices": [
+                {
+                    "text": "Duel the hobgoblin captain",
+                    "next": "hobgoblin_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 13,
+                        "successScene": "hobgoblin_down",
+                        "failScene": "hobgoblin_retreat"
+                    }
+                }
+            ]
+        },
+        "ambush_worgs": {
+            "text": "You target the worg riders...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ambush_win"
+                }
+            ]
+        },
+        "ambush_win": {
+            "text": "Your arrow strikes the lead worg rider, knocking him from the saddle. The riderless worg yelps and bolts into the forest. The second worg hits the wolfsbane-treated ground and stops dead, whimpering and backing away.\n\nThe goblin foot soldiers scatter. The hobgoblin captain is left alone. He throws down his weapon. 'I yield, tall one!'",
+            "effects": {
+                "gold": 40
+            },
+            "choices": [
+                {
+                    "text": "Accept his surrender and interrogate him",
+                    "next": "interrogate"
+                },
+                {
+                    "text": "Tie him up and assault the cave",
+                    "next": "cave_entrance"
+                }
+            ]
+        },
+        "ambush_partial": {
+            "text": "Your attack goes wide, and both worgs charge through the ambush zone. One of them claws at you as it passes, tearing your sleeve and drawing blood.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Regroup and attack the remaining goblins",
+                    "next": "hobgoblin_down"
+                }
+            ]
+        },
+        "hobgoblin_fight": {
+            "text": "You face the hobgoblin...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "hobgoblin_down"
+                }
+            ]
+        },
+        "hobgoblin_down": {
+            "text": "After a fierce exchange, you land a decisive blow. The hobgoblin crumples. The remaining goblins, leaderless, melt into the darkness.\n\nMillbrook is safe for tonight. But the girl mentioned a prisoner in the cave...",
+            "effects": {
+                "gold": 25
+            },
+            "choices": [
+                {
+                    "text": "March on the cave to rescue the prisoner",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Rest and heal before approaching the cave",
+                    "next": "rest_then_cave"
+                }
+            ]
+        },
+        "hobgoblin_retreat": {
+            "text": "The hobgoblin lands a punishing blow that sends you reeling. But he sees his warriors fleeing and decides to cut his losses, sprinting toward the hills.\n\nYou're hurt but alive. And the cave still awaits.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Pursue him to the cave",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Rest before continuing",
+                    "next": "rest_then_cave"
+                }
+            ]
+        },
+        "interrogate": {
+            "text": "The hobgoblin, tied up, reveals: 'Chief Skullcrusher has thirty warriors inside. But most are sleeping. The prisoner is a merchant — we're holding him for ransom. Right tunnel leads to cages. Left tunnel to the sleeping quarters. Chief's room is in the back.'\n\nHe spits. 'You'll never beat the chief. He's got a magic staff. Stole it from a wizard.'",
+            "choices": [
+                {
+                    "text": "Sneak into the right tunnel to free the prisoner",
+                    "next": "cave_right"
+                },
+                {
+                    "text": "Assault through the main entrance",
+                    "next": "cave_entrance"
+                }
+            ]
+        },
+        "rest_then_cave": {
+            "text": "You rest at the edge of the village, bandaging wounds and eating a quick meal. By midnight, you feel ready. The cave awaits.",
+            "effects": {
+                "hp": 5
+            },
+            "choices": [
+                {
+                    "text": "Head to the cave entrance",
+                    "next": "cave_entrance"
+                }
+            ]
+        },
+        "hill_approach": {
+            "text": "Blackthorn Hill is a craggy limestone ridge. The cave entrance gapes like a dark maw, flanked by crude spear-racks and piles of gnawed bones. Two goblin sentries crouch by a sputtering campfire.",
+            "choices": [
+                {
+                    "text": "Sneak past the guards",
+                    "next": "cave_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 12,
+                        "successScene": "cave_right",
+                        "failScene": "cave_alert"
+                    }
+                },
+                {
+                    "text": "Attack the guards head-on",
+                    "next": "cave_entrance"
+                },
+                {
+                    "text": "Create a distraction to lure them away",
+                    "next": "distraction",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 11,
+                        "successScene": "cave_right",
+                        "failScene": "cave_alert"
+                    }
+                }
+            ]
+        },
+        "cave_sneak": {
+            "text": "You creep toward the cave...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "cave_right"
+                }
+            ]
+        },
+        "distraction": {
+            "text": "You try to create a distraction...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "cave_right"
+                }
+            ]
+        },
+        "cave_entrance": {
+            "text": "You charge the two sentries before they can raise the alarm. They fall quickly, but the commotion echoes into the cave.\n\nInside, the tunnel splits left and right. From the left, you hear snoring. From the right, the clinking of chains.",
+            "choices": [
+                {
+                    "text": "Go right — toward the prisoner",
+                    "next": "cave_right"
+                },
+                {
+                    "text": "Go left — eliminate the sleeping goblins first",
+                    "next": "cave_left"
+                }
+            ]
+        },
+        "cave_alert": {
+            "text": "The sentries spot you and screech an alarm! More goblins pour from the cave. You manage to fight your way inside, but you've taken a hit.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Push right toward the prisoner chains",
+                    "next": "cave_right"
+                },
+                {
+                    "text": "Fight through the left tunnel first",
+                    "next": "cave_left"
+                }
+            ]
+        },
+        "cave_left": {
+            "text": "The sleeping quarters hold a dozen goblins in hammocks and bedrolls. You manage to incapacitate several before the rest wake. A chaotic melee erupts in the cramped space.\n\nYou clear the room, but you hear shouting deeper in the cave — Chief Skullcrusher has been alerted.",
+            "effects": {
+                "hp": -4
+            },
+            "choices": [
+                {
+                    "text": "Confront Chief Skullcrusher",
+                    "next": "chief_fight"
+                },
+                {
+                    "text": "Free the prisoner first",
+                    "next": "rescue"
+                }
+            ]
+        },
+        "cave_right": {
+            "text": "The right tunnel leads to a crude prison — iron cages bolted to the cave wall. A human merchant in torn robes grips the bars.\n\n'Thank the gods! I'm Harlin, a traveling trader. These beasts captured me a week ago. They've been demanding ransom from my guild.'\n\nHe looks past you. 'Quick — the chief's chamber is through that passage. He has the key. But if you can break the lock...'",
+            "choices": [
+                {
+                    "text": "Try to break the lock",
+                    "next": "break_lock",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "rescue",
+                        "failScene": "lock_fail"
+                    }
+                },
+                {
+                    "text": "Go confront the chief and get the key",
+                    "next": "chief_fight"
+                }
+            ]
+        },
+        "break_lock": {
+            "text": "You strain against the lock...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "rescue"
+                }
+            ]
+        },
+        "lock_fail": {
+            "text": "The lock holds firm. Harlin winces. 'The chief has the key on his belt. You'll have to face him.' Sounds of approaching heavy footsteps echo from deeper in the cave.",
+            "choices": [
+                {
+                    "text": "Face the chief!",
+                    "next": "chief_fight"
+                }
+            ]
+        },
+        "rescue": {
+            "text": "The lock shatters and Harlin stumbles free. 'My eternal gratitude! My guild will reward you handsomely.' He pulls a hidden pouch from his boot. 'They didn't find this — 50 gold pieces. Take it.'\n\nA roar shakes the cave. Chief Skullcrusher knows you're here.",
+            "effects": {
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Face the chief to end the goblin threat for good",
+                    "next": "chief_fight"
+                },
+                {
+                    "text": "Escape with Harlin now while you can",
+                    "next": "escape_ending"
+                }
+            ]
+        },
+        "chief_fight": {
+            "text": "Chief Skullcrusher is a massive bugbear wielding a glowing staff crackling with stolen magic. He's flanked by two goblin bodyguards.\n\n'You dare enter MY cave?!' he bellows. 'I'll add your skull to my collection!'",
+            "choices": [
+                {
+                    "text": "Attack the chief directly!",
+                    "next": "chief_melee",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "chief_victory",
+                        "failScene": "chief_hard_win"
+                    }
+                },
+                {
+                    "text": "Try to disarm his magical staff first",
+                    "next": "chief_disarm",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "chief_victory",
+                        "failScene": "chief_hard_win"
+                    }
+                },
+                {
+                    "text": "Topple the cave supports to collapse his chamber",
+                    "next": "cave_collapse",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "collapse_win",
+                        "failScene": "chief_hard_win"
+                    }
+                }
+            ]
+        },
+        "chief_melee": {
+            "text": "You charge...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "chief_victory"
+                }
+            ]
+        },
+        "chief_disarm": {
+            "text": "You reach for the staff...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "chief_victory"
+                }
+            ]
+        },
+        "cave_collapse": {
+            "text": "You eye the supports...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "collapse_win"
+                }
+            ]
+        },
+        "chief_victory": {
+            "text": "Your attack lands true! The chief staggers and drops the magical staff. Without its power, he's strong but not unstoppable. A final blow brings him down.\n\nThe remaining goblins flee the cave, screaming. The threat to Millbrook is ended!",
+            "effects": {
+                "gold": 75
+            },
+            "choices": [
+                {
+                    "text": "Return to Millbrook as a hero",
+                    "next": "victory"
+                }
+            ]
+        },
+        "chief_hard_win": {
+            "text": "The chief lands a devastating blow with his magic staff, sending painful sparks through your body. You're hurt, but anger fuels you.\n\nWith a desperate lunge, you knock the staff from his hands. It shatters on the cave floor, the stolen magic dissipating. Now it's a fair fight — and the chief wasn't expecting that. You press your advantage and bring him down.",
+            "effects": {
+                "hp": -10,
+                "gold": 75
+            },
+            "choices": [
+                {
+                    "text": "Return to Millbrook victorious",
+                    "next": "victory"
+                }
+            ]
+        },
+        "collapse_win": {
+            "text": "You kick out the rotten wooden support beams. With a thunderous groan, the chief's chamber ceiling collapses! Dust and rock bury the bugbear and his bodyguards.\n\nYou dive back through the tunnel just in time. The surviving goblins flee the collapsing cave.",
+            "effects": {
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Return to Millbrook",
+                    "next": "victory"
+                }
+            ]
+        },
+        "escape_ending": {
+            "text": "You guide Harlin out of the cave and back to Millbrook. The merchant is safe, and the goblin raiding party has been crippled.\n\nElder Bramble is relieved but concerned. 'The chief is still alive up there. But you've weakened them enough that they may move on. We owe you a great debt.'\n\nHarlin promises to send reinforcements from his merchant guild. It's not a complete victory, but lives were saved.",
+            "isEnding": true,
+            "endingType": "neutral",
+            "effects": {
+                "gold": 80
+            },
+            "choices": []
+        },
+        "victory": {
+            "text": "Millbrook erupts in celebration as you return. Bramble leads the cheering. Crops will grow. Livestock will graze. The village is safe.\n\nHarlin the merchant sends word to his guild, and within days a reward caravan arrives: gold, supplies, and a finely crafted weapon as thanks.\n\n'You'll always have a home here,' Bramble says, pressing your hand. 'Hero of Millbrook.'\n\nYour legend grows.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 100
+            },
+            "choices": []
+        }
+    }
+}

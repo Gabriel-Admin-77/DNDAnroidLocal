@@ -1,0 +1,443 @@
+{
+    "title": "Dragon's Lair: Mount Ashenveil",
+    "scenes": {
+        "start": {
+            "text": "Mount Ashenveil — an active volcano at the edge of the Fireborn Range — is home to Inferaxis, an ancient red dragon who has terrorized the surrounding kingdoms for centuries. The Dragon Council (yes, even other dragons fear this one) has issued a bounty.\n\nYou stand at the volcano's base. Lava rivers glow orange through cracks in the black stone. The air shimmers with heat.\n\nThree paths lead upward: the Pilgrim's Trail (wide, exposed), the Lava Tubes (underground, dangerous), and the Dragon's Spine ridge (narrow, treacherous).",
+            "choices": [
+                {
+                    "text": "Take the Pilgrim's Trail — the known path",
+                    "next": "pilgrim_trail"
+                },
+                {
+                    "text": "Enter the Lava Tubes underground",
+                    "next": "lava_tubes"
+                },
+                {
+                    "text": "Scale the Dragon's Spine ridge",
+                    "next": "dragon_spine",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 15,
+                        "successScene": "spine_success",
+                        "failScene": "spine_slip"
+                    }
+                },
+                {
+                    "text": "Search for a guide who knows the mountain",
+                    "next": "find_guide"
+                }
+            ]
+        },
+        "find_guide": {
+            "text": "In a cave near the base, you find Kaela — a dragonborn exile who once served Inferaxis. 'I left when he demanded I sacrifice my own kin. I know every tunnel, every trap, every weakness.'\n\nShe agrees to guide you. 'His left eye is blind — old wound from a rival. Approach from his left and he can't see you.'",
+            "choices": [
+                {
+                    "text": "Take the Lava Tubes with Kaela's guidance",
+                    "next": "tubes_guided"
+                },
+                {
+                    "text": "Scale the ridge with her help",
+                    "next": "spine_success"
+                }
+            ]
+        },
+        "pilgrim_trail": {
+            "text": "The Pilgrim's Trail is wide but exposed. Halfway up, dragon fire scorches the path — Inferaxis patrols his domain from the air.\n\nA massive shadow passes overhead. You have seconds to react!",
+            "choices": [
+                {
+                    "text": "Dive behind a boulder for cover!",
+                    "next": "cover_check",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "cover_success",
+                        "failScene": "fire_hit"
+                    }
+                },
+                {
+                    "text": "Stand your ground and challenge the dragon!",
+                    "next": "early_challenge"
+                }
+            ]
+        },
+        "cover_check": {
+            "text": "You dive for cover...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "cover_success"
+                }
+            ]
+        },
+        "cover_success": {
+            "text": "Dragon fire blasts the trail where you stood, turning rock to slag. But you're safe behind the boulder. The dragon passes, circling higher.\n\nYou see the lair entrance — a massive cave mouth glowing with inner fire — at the summit.",
+            "choices": [
+                {
+                    "text": "Sprint to the lair entrance while he circles",
+                    "next": "lair_entrance"
+                },
+                {
+                    "text": "Wait for him to land, then follow",
+                    "next": "lair_entrance"
+                }
+            ]
+        },
+        "fire_hit": {
+            "text": "Dragon fire clips your side! The heat is unbearable — your armor glows. You pat out the flames and scramble to cover.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Press on to the lair",
+                    "next": "lair_entrance"
+                }
+            ]
+        },
+        "early_challenge": {
+            "text": "The dragon banks and hovers, amused. His voice booms: 'A tiny creature dares challenge ME on MY mountain? How delightful. I'll enjoy roasting you slowly.'\n\nHe lands on a ledge above you — enormous, scales like crimson armor, eyes burning with ancient malice.",
+            "choices": [
+                {
+                    "text": "Attack while he gloats!",
+                    "next": "dragon_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 18,
+                        "successScene": "dragon_wounded",
+                        "failScene": "dragon_retaliation"
+                    }
+                },
+                {
+                    "text": "Dive into a cave opening nearby!",
+                    "next": "lair_entrance"
+                }
+            ]
+        },
+        "lava_tubes": {
+            "text": "The lava tubes are sweltering. Ancient tunnels carved by flowing magma, some still active. You navigate by the faint glow of cooling rock.\n\nA fork: one tube leads upward with breathable air, the other glows ominously bright — active lava flow.",
+            "choices": [
+                {
+                    "text": "Take the safe upper tube",
+                    "next": "upper_tube"
+                },
+                {
+                    "text": "Risk the lava tube — it's more direct",
+                    "next": "lava_run",
+                    "diceCheck": {
+                        "stat": "constitution",
+                        "dc": 15,
+                        "successScene": "lava_survived",
+                        "failScene": "lava_burned"
+                    }
+                }
+            ]
+        },
+        "tubes_guided": {
+            "text": "Kaela leads you through the tubes expertly, avoiding dead ends and active lava flows. 'This way — there's a back entrance to the hoard chamber. Inferaxis never guards it because no one's ever come this way alive.'\n\nYou emerge in a small cavern overlooking the dragon's treasure hoard.",
+            "choices": [
+                {
+                    "text": "Sneak through the hoard to get close",
+                    "next": "hoard_sneak"
+                },
+                {
+                    "text": "Prepare an ambush from this vantage point",
+                    "next": "hoard_ambush"
+                }
+            ]
+        },
+        "upper_tube": {
+            "text": "The upper tube is safer but winding. You emerge through a vent into the dragon's lair — specifically, the outer ring of his hoard chamber.",
+            "choices": [
+                {
+                    "text": "Sneak through the treasure toward the dragon",
+                    "next": "hoard_sneak"
+                }
+            ]
+        },
+        "lava_run": {
+            "text": "You dash through...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "lava_survived"
+                }
+            ]
+        },
+        "lava_survived": {
+            "text": "You sprint through the lava tube, heat searing your lungs. A river of molten rock flows beside you, inches away. You reach the exit just as the tube narrows, emerging into cooler rock near the hoard.",
+            "choices": [
+                {
+                    "text": "Enter the hoard chamber",
+                    "next": "hoard_sneak"
+                }
+            ]
+        },
+        "lava_burned": {
+            "text": "Lava spray burns your arm! You rush through in agony but make it to the other side.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Stagger into the hoard chamber",
+                    "next": "hoard_sneak"
+                }
+            ]
+        },
+        "dragon_spine": {
+            "text": "You scale the ridge...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "spine_success"
+                }
+            ]
+        },
+        "spine_success": {
+            "text": "The Dragon's Spine is a razor-thin ridge of volcanic rock. One wrong step means a fall into lava below. You navigate it with sure feet and reach the summit directly above the lair entrance.\n\nFrom here, you can drop down onto the dragon's back — if he's inside.",
+            "choices": [
+                {
+                    "text": "Drop into the lair from above",
+                    "next": "lair_drop"
+                },
+                {
+                    "text": "Enter through the main cave mouth",
+                    "next": "lair_entrance"
+                }
+            ]
+        },
+        "spine_slip": {
+            "text": "You slip on loose volcanic rock! A desperate grab saves you from falling into the lava below, but you lose your pack.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Continue to the lair entrance on foot",
+                    "next": "lair_entrance"
+                }
+            ]
+        },
+        "lair_entrance": {
+            "text": "The lair entrance is a cathedral-sized cave. Heat radiates from within. Dragon claw-marks gouge the walls. The stench of sulfur is overwhelming.\n\nInside, the cave opens into the hoard chamber — mountains of gold, gems, and enchanted weapons. And there, coiled atop the largest pile, Inferaxis sleeps.\n\nHe's massive — sixty feet from snout to tail. His breathing sends waves of heat through the chamber.",
+            "choices": [
+                {
+                    "text": "Sneak through the hoard to find a weapon",
+                    "next": "hoard_sneak"
+                },
+                {
+                    "text": "Attack while he sleeps!",
+                    "next": "sleep_attack",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "dragon_wounded",
+                        "failScene": "dragon_wakes"
+                    }
+                }
+            ]
+        },
+        "lair_drop": {
+            "text": "You drop from above! Landing silently on a ledge overlooking the dragon's sleeping form. From here, you can see his blind left eye — milky white, the old wound Kaela mentioned.",
+            "choices": [
+                {
+                    "text": "Strike at his blind side!",
+                    "next": "dragon_wounded"
+                },
+                {
+                    "text": "Look for a legendary weapon in the hoard first",
+                    "next": "hoard_sneak"
+                }
+            ]
+        },
+        "hoard_sneak": {
+            "text": "You creep through mountains of treasure. Gold coins shift treacherously underfoot. Among the hoard, you spot something extraordinary: a dragonslayer lance, glowing with silver fire. A weapon forged specifically to kill dragons.\n\nInferaxis stirs in his sleep.",
+            "choices": [
+                {
+                    "text": "Grab the dragonslayer lance!",
+                    "next": "lance_grab",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "lance_obtained",
+                        "failScene": "dragon_wakes"
+                    }
+                },
+                {
+                    "text": "Leave the lance — use your own weapon and attack now",
+                    "next": "sleep_attack",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "dragon_wounded",
+                        "failScene": "dragon_wakes"
+                    }
+                }
+            ]
+        },
+        "hoard_ambush": {
+            "text": "You set up in the vantage point with throwing weapons and a plan. When Inferaxis shifts, exposing his underbelly, you strike!",
+            "choices": [
+                {
+                    "text": "Attack his exposed underbelly!",
+                    "next": "dragon_wounded"
+                }
+            ]
+        },
+        "lance_grab": {
+            "text": "You reach for the lance...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "lance_obtained"
+                }
+            ]
+        },
+        "lance_obtained": {
+            "text": "Your fingers close around the dragonslayer lance. It hums with power — warm but controlled. Silver runes flare along its shaft. With this weapon, you have a real chance.",
+            "choices": [
+                {
+                    "text": "Attack Inferaxis with the dragonslayer lance!",
+                    "next": "dragon_wounded"
+                }
+            ]
+        },
+        "sleep_attack": {
+            "text": "You strike at the sleeping dragon...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "dragon_wounded"
+                }
+            ]
+        },
+        "dragon_wakes": {
+            "text": "Inferaxis's eyes snap open! A wave of heat blasts outward. 'THIEF!' His voice shakes the mountain.\n\nHe rears up, filling the chamber, wings spreading wide. Fire builds in his throat.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Fight the dragon!",
+                    "next": "dragon_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "dragon_wounded",
+                        "failScene": "dragon_retaliation"
+                    }
+                }
+            ]
+        },
+        "dragon_fight": {
+            "text": "You face the dragon...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "dragon_wounded"
+                }
+            ]
+        },
+        "dragon_wounded": {
+            "text": "Your attack strikes true — finding a gap in the ancient scales near his blind eye. Inferaxis ROARS in pain and fury, thrashing. Blood — hot as magma — splatters the gold.\n\n'You DARE?!' The dragon's rage is terrifying. He unleashes a gout of fire that melts the gold around you.",
+            "choices": [
+                {
+                    "text": "Press the attack — go for the kill!",
+                    "next": "final_strike",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "dragon_slain",
+                        "failScene": "dragon_last_stand"
+                    }
+                },
+                {
+                    "text": "Dodge the fire and strike at his wounded side!",
+                    "next": "dodge_and_strike",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "dragon_slain",
+                        "failScene": "dragon_last_stand"
+                    }
+                },
+                {
+                    "text": "Use the terrain — topple the gold pile on him!",
+                    "next": "terrain_use",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 15,
+                        "successScene": "dragon_slain",
+                        "failScene": "dragon_last_stand"
+                    }
+                }
+            ]
+        },
+        "dragon_retaliation": {
+            "text": "Inferaxis swats you with his tail! You fly across the hoard, crashing into a pile of gems.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Get up and fight! This ends now!",
+                    "next": "final_strike",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "dragon_slain",
+                        "failScene": "dragon_last_stand"
+                    }
+                }
+            ]
+        },
+        "final_strike": {
+            "text": "You charge...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "dragon_slain"
+                }
+            ]
+        },
+        "dodge_and_strike": {
+            "text": "You dodge around him...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "dragon_slain"
+                }
+            ]
+        },
+        "terrain_use": {
+            "text": "You kick out the support...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "dragon_slain"
+                }
+            ]
+        },
+        "dragon_last_stand": {
+            "text": "Inferaxis fights with the fury of a dying god. His claws tear stone, his fire melts metal. But you won't stop. Neither can he — his wound is fatal, he just doesn't know it yet.\n\nWith a final, desperate lunge, you drive your weapon through the gap in his scales, into his heart.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Watch the ancient dragon fall",
+                    "next": "dragon_slain"
+                }
+            ]
+        },
+        "dragon_slain": {
+            "text": "Inferaxis sways. His burning eyes flicker. 'Impossible...' he whispers. 'I am... eternal...'\n\nThe great dragon crashes to the ground. Mount Ashenveil trembles. And then silence.\n\nInferaxis the Ancient is dead.\n\nYou stand in a mountain of treasure — gold, gems, enchanted artifacts — the accumulated wealth of a dragon who plundered kingdoms for a thousand years. You can only carry a fraction, but what a fraction it is.\n\nThe volcano rumbles. Without the dragon's magic stabilizing it, Mount Ashenveil will eventually erupt. Time to leave.\n\nYou descend the mountain as a legend. The Dragon Council acknowledges the bounty fulfilled. Kingdoms celebrate the end of terror. Bards compose epics. Children hear your name and dream of adventure.\n\nYou are the Dragonslayer. Forever.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 2000
+            },
+            "choices": []
+        }
+    }
+}

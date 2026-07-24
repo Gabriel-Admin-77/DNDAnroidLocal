@@ -1,0 +1,523 @@
+{
+    "title": "The Siege of Ironkeep",
+    "scenes": {
+        "start": {
+            "text": "Ironkeep — a frontier fortress on the border of the Savage Lands — is under siege. A warlord named Krag the Unbroken has united the orc tribes and marches on the keep with five hundred warriors.\n\nCommander Vale, the fortress's leader, meets you in the war room. 'We have two hundred defenders and three days of supplies. Reinforcements are seven days away. We need to hold — or find a way to break the siege.'\n\nShe spreads a map on the table. 'The enemy camps in the valley below. What's your recommendation?'",
+            "choices": [
+                {
+                    "text": "Fortify the walls and prepare for a direct defense",
+                    "next": "fortify"
+                },
+                {
+                    "text": "Lead a nighttime raid on the enemy camp",
+                    "next": "night_raid"
+                },
+                {
+                    "text": "Find the secret tunnel under the keep to flank them",
+                    "next": "tunnel"
+                },
+                {
+                    "text": "Attempt diplomacy — find out what Krag wants",
+                    "next": "diplomacy"
+                }
+            ]
+        },
+        "fortify": {
+            "text": "You spend the day reinforcing gates, positioning archers, and boiling oil for the battlements. Morale improves as soldiers see action being taken.\n\nAt dusk, the first assault comes — a wave of orc warriors charging the main gate with a battering ram.",
+            "choices": [
+                {
+                    "text": "Command the archers to focus fire on the ram!",
+                    "next": "ram_archers",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 12,
+                        "successScene": "ram_stopped",
+                        "failScene": "ram_through"
+                    }
+                },
+                {
+                    "text": "Pour boiling oil from the gatehouse!",
+                    "next": "ram_stopped"
+                },
+                {
+                    "text": "Lead a sortie to destroy the ram",
+                    "next": "sortie",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "sortie_success",
+                        "failScene": "sortie_retreat"
+                    }
+                }
+            ]
+        },
+        "ram_archers": {
+            "text": "You direct the archers...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ram_stopped"
+                }
+            ]
+        },
+        "ram_stopped": {
+            "text": "The battering ram is destroyed! Orc warriors scatter under a hail of arrows. The first assault is repelled, and a cheer goes up from the defenders.\n\nBut Krag is patient. He'll try again. During the night, scouts report the orcs building siege ladders.",
+            "choices": [
+                {
+                    "text": "Prepare for the ladder assault at dawn",
+                    "next": "ladder_assault"
+                },
+                {
+                    "text": "Launch a night raid to destroy the ladders",
+                    "next": "night_raid"
+                },
+                {
+                    "text": "Search for the keep's secret tunnel to strike behind enemy lines",
+                    "next": "tunnel"
+                }
+            ]
+        },
+        "ram_through": {
+            "text": "The battering ram hits the gate with tremendous force! The wood splinters but holds — barely. Defenders rush to reinforce it.\n\nYou drive the attackers back, but the gate is weakened.",
+            "effects": {
+                "hp": -5
+            },
+            "choices": [
+                {
+                    "text": "Barricade the gate and prepare for the ladder assault",
+                    "next": "ladder_assault"
+                },
+                {
+                    "text": "Raid the enemy camp to buy time",
+                    "next": "night_raid"
+                }
+            ]
+        },
+        "sortie": {
+            "text": "You lead soldiers out...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "sortie_success"
+                }
+            ]
+        },
+        "sortie_success": {
+            "text": "You lead twenty soldiers through a side gate. Catching the orcs off-guard, you smash their battering ram and set fire to their supply wagons before retreating behind the walls. A devastating blow!",
+            "effects": {
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Press the advantage — raid their camp tonight",
+                    "next": "night_raid"
+                },
+                {
+                    "text": "Shore up defenses for the inevitable retaliation",
+                    "next": "ladder_assault"
+                }
+            ]
+        },
+        "sortie_retreat": {
+            "text": "The sortie is met with fierce resistance. You destroy the ram but lose three soldiers in the retreat.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Focus on defense going forward",
+                    "next": "ladder_assault"
+                }
+            ]
+        },
+        "night_raid": {
+            "text": "Under cover of darkness, you lead a strike team of your best fighters into the orc camp. The enemy sentries are drowsy.",
+            "choices": [
+                {
+                    "text": "Target their weapon stores",
+                    "next": "weapon_stores",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "stores_burned",
+                        "failScene": "stores_fight"
+                    }
+                },
+                {
+                    "text": "Assassinate Krag in his command tent",
+                    "next": "krag_tent",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 16,
+                        "successScene": "krag_confronted",
+                        "failScene": "krag_alarm"
+                    }
+                },
+                {
+                    "text": "Free the prisoners the orcs have taken from nearby villages",
+                    "next": "free_prisoners"
+                }
+            ]
+        },
+        "weapon_stores": {
+            "text": "You creep toward the stores...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "stores_burned"
+                }
+            ]
+        },
+        "stores_burned": {
+            "text": "You torch the weapon stores! Flames leap high as orc armor, arrows, and siege materials go up in smoke. The camp erupts in chaos.\n\nYou escape in the confusion. Without siege equipment, Krag's options are limited.",
+            "effects": {
+                "gold": 75
+            },
+            "choices": [
+                {
+                    "text": "Press the advantage — the siege is weakened",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "stores_fight": {
+            "text": "A sentry spots you! A frantic fight breaks out near the supplies. You manage to set fire to half the stores before retreating.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Return to the keep and prepare for the response",
+                    "next": "ladder_assault"
+                }
+            ]
+        },
+        "krag_tent": {
+            "text": "You approach Krag's tent...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "krag_confronted"
+                }
+            ]
+        },
+        "krag_confronted": {
+            "text": "You slip into Krag's command tent. The massive orc warlord sits alone, studying maps by candlelight. He looks up.\n\n'Bold. Foolish, but bold.' He doesn't reach for a weapon. 'You've come to kill me? Or to talk?'",
+            "choices": [
+                {
+                    "text": "Attack — end this siege now!",
+                    "next": "krag_duel",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "krag_defeated",
+                        "failScene": "krag_survives"
+                    }
+                },
+                {
+                    "text": "Talk. What do you really want?",
+                    "next": "krag_talk"
+                }
+            ]
+        },
+        "krag_alarm": {
+            "text": "Guards spot you before you reach the tent! You fight your way out and back to the keep.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Prepare for the retaliation attack",
+                    "next": "ladder_assault"
+                }
+            ]
+        },
+        "krag_duel": {
+            "text": "You strike at Krag...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "krag_defeated"
+                }
+            ]
+        },
+        "krag_defeated": {
+            "text": "The duel is fierce but brief. Krag is powerful, but you're faster. Your blade finds its mark. The warlord falls.\n\nWithout their leader, the orc army dissolves into feuding factions by morning. The siege lifts.",
+            "effects": {
+                "gold": 200
+            },
+            "choices": [
+                {
+                    "text": "Return to Ironkeep victorious",
+                    "next": "victory"
+                }
+            ]
+        },
+        "krag_survives": {
+            "text": "Krag is terrifyingly strong. He throws you across the tent. Guards rush in. You barely escape.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Retreat to the keep",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "krag_talk": {
+            "text": "Krag's voice is weary. 'My people starve. The Savage Lands grow colder each winter. Ironkeep sits on fertile ground and your king refuses to negotiate. I siege because my people have no other choice.'\n\nHe fixes you with a piercing stare. 'If you could convince your Commander to share even a portion of the harvest... there need be no more bloodshed.'",
+            "choices": [
+                {
+                    "text": "Bring this proposal to Commander Vale",
+                    "next": "peace_terms"
+                },
+                {
+                    "text": "This is a trick — attack!",
+                    "next": "krag_duel",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "krag_defeated",
+                        "failScene": "krag_survives"
+                    }
+                }
+            ]
+        },
+        "diplomacy": {
+            "text": "You approach the orc lines under a white flag. Krag agrees to parley at a neutral site between the armies.\n\nThe warlord is articulate, surprising for one nicknamed 'the Unbroken.' He explains his people face famine, and Ironkeep's lands are their last hope.",
+            "choices": [
+                {
+                    "text": "Propose a trade agreement to Commander Vale",
+                    "next": "peace_terms"
+                },
+                {
+                    "text": "This is a ploy — return and prepare defenses",
+                    "next": "fortify"
+                }
+            ]
+        },
+        "peace_terms": {
+            "text": "Commander Vale listens, conflicted. 'Share our harvest with orcs? The Crown would call that treason.' She paces. 'But if we can end this without more death...'\n\nShe proposes terms: shared farming rights on neutral ground, in exchange for a non-aggression pact and orc warriors helping defend the border.",
+            "choices": [
+                {
+                    "text": "Present the terms to Krag",
+                    "next": "peace_victory"
+                },
+                {
+                    "text": "The military can't make treaties — defend the keep instead",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "tunnel": {
+            "text": "Old blueprints reveal a forgotten tunnel beneath the keep, emerging behind the orc camp. It's collapsed in places but passable with effort.",
+            "choices": [
+                {
+                    "text": "Lead a strike force through the tunnel",
+                    "next": "tunnel_exit",
+                    "diceCheck": {
+                        "stat": "constitution",
+                        "dc": 13,
+                        "successScene": "tunnel_success",
+                        "failScene": "tunnel_collapse"
+                    }
+                }
+            ]
+        },
+        "tunnel_exit": {
+            "text": "You crawl through the tunnel...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "tunnel_success"
+                }
+            ]
+        },
+        "tunnel_success": {
+            "text": "You emerge behind enemy lines! The orcs have no idea you're there. From this position, you can strike at their supply lines, their command tent, or signal the keep for a coordinated attack.",
+            "choices": [
+                {
+                    "text": "Attack Krag's command tent",
+                    "next": "krag_confronted"
+                },
+                {
+                    "text": "Burn their supplies and retreat",
+                    "next": "stores_burned"
+                },
+                {
+                    "text": "Signal the keep for a coordinated two-front attack",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "tunnel_collapse": {
+            "text": "Part of the tunnel collapses! You dig out, bruised, and emerge behind enemy lines covered in dust.",
+            "effects": {
+                "hp": -6
+            },
+            "choices": [
+                {
+                    "text": "Press on — strike at the command tent",
+                    "next": "krag_confronted"
+                },
+                {
+                    "text": "Burn what you can and retreat through the tunnel",
+                    "next": "stores_burned"
+                }
+            ]
+        },
+        "free_prisoners": {
+            "text": "You find a cage of captured villagers — farmers, their families. You cut them free. An old man grips your hand: 'Thank you. They were going to sell us.'\n\nThe rescued villagers join the defense, boosting morale significantly.",
+            "effects": {
+                "hp": 5,
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Return to the keep with the freed prisoners",
+                    "next": "ladder_assault"
+                }
+            ]
+        },
+        "ladder_assault": {
+            "text": "Dawn brings the main assault. Orcs surge toward the walls with crude ladders. Dozens of them scale simultaneously while archers provide covering fire.\n\nThe walls are under pressure. Commander Vale shouts: 'Hold the line!'",
+            "choices": [
+                {
+                    "text": "Fight at the wall — push the ladders off!",
+                    "next": "wall_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "wall_held",
+                        "failScene": "wall_breach"
+                    }
+                },
+                {
+                    "text": "Direct the defense from the tower — tactical command",
+                    "next": "command",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 13,
+                        "successScene": "wall_held",
+                        "failScene": "wall_breach"
+                    }
+                }
+            ]
+        },
+        "wall_fight": {
+            "text": "You rush to the wall...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "wall_held"
+                }
+            ]
+        },
+        "command": {
+            "text": "You take command...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "wall_held"
+                }
+            ]
+        },
+        "wall_held": {
+            "text": "The defenders hold! Ladders are thrown down, orcs repelled with arrows and steel. The assault breaks against Ironkeep's walls like waves against a cliff.\n\nKrag's forces pull back. But this isn't over — he's regrouping for a final push.",
+            "choices": [
+                {
+                    "text": "Prepare for the final battle",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "wall_breach": {
+            "text": "Orcs breach the eastern wall! A desperate melee erupts in the courtyard. You fight hand-to-hand for every foot of ground. Eventually the breach is sealed, but at cost.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Rally for the final stand",
+                    "next": "final_stand"
+                }
+            ]
+        },
+        "final_stand": {
+            "text": "Day three. The final assault. Krag commits everything — every warrior, every siege machine. The sky darkens with arrows. War drums pound.\n\nBut from the east, a horn sounds — reinforcements! They've arrived early! A column of cavalry charges the orc flank.\n\nKrag's army is caught between the keep and the cavalry. It's now or never.",
+            "choices": [
+                {
+                    "text": "Lead a charge out of the gates!",
+                    "next": "charge",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "charge_victory",
+                        "failScene": "charge_hard"
+                    }
+                },
+                {
+                    "text": "Rain fire from the walls as the cavalry hit them!",
+                    "next": "charge_victory"
+                }
+            ]
+        },
+        "charge": {
+            "text": "You throw open the gates...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "charge_victory"
+                }
+            ]
+        },
+        "charge_victory": {
+            "text": "The gates thunder open and Ironkeep's defenders pour out! Caught between two forces, the orc army shatters. Warriors throw down weapons and flee.\n\nKrag stands alone on the battlefield, surrounded. He drives his sword into the ground. 'I yield.'",
+            "effects": {
+                "gold": 200
+            },
+            "choices": [
+                {
+                    "text": "Accept his surrender — the siege is over",
+                    "next": "victory"
+                },
+                {
+                    "text": "Offer him the peace terms — end this for good",
+                    "next": "peace_victory"
+                }
+            ]
+        },
+        "charge_hard": {
+            "text": "The charge is brutal — orcs don't flee easily. You take heavy hits but the cavalry breaks their will. Krag surrenders.",
+            "effects": {
+                "hp": -10,
+                "gold": 200
+            },
+            "choices": [
+                {
+                    "text": "Accept the surrender",
+                    "next": "victory"
+                }
+            ]
+        },
+        "peace_victory": {
+            "text": "Krag accepts the terms — shared farmland, mutual defense, no more raiding. It's unprecedented: humans and orcs, working together on the frontier.\n\nCommander Vale signs the accord. 'This is either the bravest or stupidest thing I've ever done. Let's hope it's the former.'\n\nKrag clasps your arm in the orc way. 'You fight with honor, and you think with wisdom. My people will remember this.'\n\nIronkeep stands. The siege ends not with massacre, but with understanding. Your name is carved into the fortress walls as both hero and peacemaker — a rare combination.\n\nSometimes, the greatest victory is the battle you don't have to fight.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 500
+            },
+            "choices": []
+        },
+        "victory": {
+            "text": "The siege of Ironkeep is broken! The orc army scatters. Krag is imprisoned in the fortress dungeons, and the border is secure.\n\nCommander Vale, bloodied but standing, addresses her troops: 'Today you fought for every stone of this fortress. Today you proved that Ironkeep is unbreakable.'\n\nShe turns to you. 'And you — hero of Ironkeep — without your courage, we'd have fallen on day one.'\n\nKing's messengers arrive with commendations: a title, a reward, and the eternal gratitude of the realm. Your name joins the legends carved into Ironkeep's walls, alongside warriors who have defended this fortress for centuries.\n\nIronkeep stands. As it always has. As it always will.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 400
+            },
+            "choices": []
+        }
+    }
+}

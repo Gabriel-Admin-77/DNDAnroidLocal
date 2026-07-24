@@ -1,0 +1,415 @@
+{
+    "title": "The Haunted Chapel",
+    "scenes": {
+        "start": {
+            "text": "The abandoned Chapel of Saint Alma sits at the crossroads outside the village of Thornfield. For decades it stood empty. Now, pale green lights flicker in its windows at night, and villagers report ghostly wailing.\n\nFather Dominic, the village priest, meets you at the chapel gates. His hands tremble. 'Something woke up in the crypt below. The dead do not rest. Three people who entered have not returned.'\n\nThe chapel's front doors hang ajar, revealing a dark nave lit by sputtering candles that no one placed.",
+            "choices": [
+                {
+                    "text": "Enter through the front doors",
+                    "next": "nave"
+                },
+                {
+                    "text": "Search for a back entrance through the graveyard",
+                    "next": "graveyard"
+                },
+                {
+                    "text": "Ask Father Dominic what he knows about the chapel's history",
+                    "next": "history"
+                },
+                {
+                    "text": "Examine the ghostly lights from outside first",
+                    "next": "examine_lights",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 12,
+                        "successScene": "lights_success",
+                        "failScene": "lights_fail"
+                    }
+                }
+            ]
+        },
+        "history": {
+            "text": "Father Dominic explains: 'Saint Alma was a healer who gave her life fighting a plague two centuries ago. She was buried in the crypt with her holy relics. But recently, grave robbers broke into the crypt. I think they disturbed something — took one of her relics.'\n\nHe hands you a vial of holy water. 'This may help against the undead. And if you find her Silver Chalice, return it to the altar. That may put the spirits to rest.'",
+            "choices": [
+                {
+                    "text": "Enter the chapel through the front",
+                    "next": "nave"
+                },
+                {
+                    "text": "Go through the graveyard to the crypt entrance",
+                    "next": "graveyard"
+                }
+            ]
+        },
+        "examine_lights": {
+            "text": "You study the flickering lights...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "lights_success"
+                }
+            ]
+        },
+        "lights_success": {
+            "text": "The green lights aren't random — they pulse in a pattern, moving from the nave to the crypt stairway. It's a ghostly procession, repeating the same path. The spirits are trapped in a loop, drawn to something in the crypt.\n\nThis suggests a cursed object is acting as an anchor. Remove or consecrate it, and the haunting should end.",
+            "choices": [
+                {
+                    "text": "Head straight to the crypt through the graveyard",
+                    "next": "graveyard"
+                },
+                {
+                    "text": "Enter the nave and follow the ghostly path",
+                    "next": "nave"
+                }
+            ]
+        },
+        "lights_fail": {
+            "text": "The lights seem random and erratic. You can't discern a pattern. A cold wind blows from the chapel, carrying a faint moan.",
+            "choices": [
+                {
+                    "text": "Enter through the front doors",
+                    "next": "nave"
+                },
+                {
+                    "text": "Go around to the graveyard",
+                    "next": "graveyard"
+                }
+            ]
+        },
+        "graveyard": {
+            "text": "The graveyard behind the chapel is overgrown. Headstones lean at odd angles. Near the back wall, you see a crypt entrance — its iron gate wrenched open. Fresh scratches mark the stone.\n\nAs you approach, a skeletal hand bursts from a grave!",
+            "choices": [
+                {
+                    "text": "Fight the skeleton!",
+                    "next": "skeleton_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 10,
+                        "successScene": "skeleton_win",
+                        "failScene": "skeleton_hit"
+                    }
+                },
+                {
+                    "text": "Dodge past and rush into the crypt",
+                    "next": "crypt_entrance"
+                },
+                {
+                    "text": "Use holy water on the grave",
+                    "next": "skeleton_win"
+                }
+            ]
+        },
+        "skeleton_fight": {
+            "text": "You face the skeleton...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "skeleton_win"
+                }
+            ]
+        },
+        "skeleton_win": {
+            "text": "The skeleton crumbles to dust. The graveyard falls silent. The crypt entrance beckons — stone stairs descending into darkness.",
+            "choices": [
+                {
+                    "text": "Descend into the crypt",
+                    "next": "crypt_entrance"
+                }
+            ]
+        },
+        "skeleton_hit": {
+            "text": "The skeleton's bony fingers rake your arm before you smash it apart. It crumbles, but the scratch burns with an unnatural chill.",
+            "effects": {
+                "hp": -4
+            },
+            "choices": [
+                {
+                    "text": "Descend into the crypt",
+                    "next": "crypt_entrance"
+                }
+            ]
+        },
+        "nave": {
+            "text": "The chapel nave is cold, unnaturally so. Your breath mists. Pews are overturned. The altar at the far end holds an empty spot where something once rested — the Silver Chalice.\n\nA translucent figure appears near the altar: a woman in healer's robes. Saint Alma's ghost. She doesn't attack but points urgently downward — toward the crypt stairs behind the altar.\n\nHer mouth moves silently: 'Return... the chalice...'",
+            "choices": [
+                {
+                    "text": "Descend the crypt stairs behind the altar",
+                    "next": "crypt_entrance"
+                },
+                {
+                    "text": "Try to communicate with the ghost",
+                    "next": "talk_ghost",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 13,
+                        "successScene": "ghost_info",
+                        "failScene": "ghost_fade"
+                    }
+                },
+                {
+                    "text": "Search the nave for useful items",
+                    "next": "nave_search"
+                }
+            ]
+        },
+        "talk_ghost": {
+            "text": "You try to speak with the ghost...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ghost_info"
+                }
+            ]
+        },
+        "ghost_info": {
+            "text": "Saint Alma's ghost flickers and speaks in a whisper that echoes in your mind: 'Grave robbers... took my Chalice. One of them died below... rose again, corrupted. He holds it still, twisted by dark energy. The Chalice must return to the altar to break the curse.'\n\nShe fades, but you feel a warm blessing settle over you — her protection.",
+            "effects": {
+                "hp": 5
+            },
+            "choices": [
+                {
+                    "text": "Descend to the crypt to find the corrupted grave robber",
+                    "next": "crypt_entrance"
+                }
+            ]
+        },
+        "ghost_fade": {
+            "text": "The ghost flickers and fades before you can understand her words. Only the gesture remains clear — go down to the crypt.",
+            "choices": [
+                {
+                    "text": "Descend the crypt stairs",
+                    "next": "crypt_entrance"
+                }
+            ]
+        },
+        "nave_search": {
+            "text": "Searching the nave, you find a dusty silver candlestick that still holds a blessed candle. When lit, its flame burns steadily despite the supernatural cold. Undead may recoil from its light.",
+            "choices": [
+                {
+                    "text": "Take the candle and descend to the crypt",
+                    "next": "crypt_entrance"
+                }
+            ]
+        },
+        "crypt_entrance": {
+            "text": "The crypt is a maze of stone corridors and burial alcoves. Dusty sarcophagi line the walls. Some have been pried open — the work of grave robbers.\n\nAhead, the corridor forks. From the left, you hear a low moaning. From the right, a faint metallic glinting catches your eye.",
+            "choices": [
+                {
+                    "text": "Go left toward the moaning",
+                    "next": "crypt_left"
+                },
+                {
+                    "text": "Go right toward the glinting light",
+                    "next": "crypt_right"
+                },
+                {
+                    "text": "Listen carefully to determine which way is safer",
+                    "next": "crypt_listen",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 12,
+                        "successScene": "listen_success",
+                        "failScene": "listen_fail"
+                    }
+                }
+            ]
+        },
+        "crypt_listen": {
+            "text": "You listen carefully...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "listen_success"
+                }
+            ]
+        },
+        "listen_success": {
+            "text": "The moaning from the left is the wind through cracked stone — not undead. But you hear shuffling footsteps mixed in. The right corridor has faint sounds of dripping water and the metallic clink of... a chalice being set down.\n\nThe corrupted grave robber is to the right, guarding his stolen prize.",
+            "choices": [
+                {
+                    "text": "Go right to face the corrupted tomb robber",
+                    "next": "crypt_right"
+                },
+                {
+                    "text": "Go left to clear the path first",
+                    "next": "crypt_left"
+                }
+            ]
+        },
+        "listen_fail": {
+            "text": "The echoes make it impossible to tell what's where. You'll have to choose a direction.",
+            "choices": [
+                {
+                    "text": "Go left",
+                    "next": "crypt_left"
+                },
+                {
+                    "text": "Go right",
+                    "next": "crypt_right"
+                }
+            ]
+        },
+        "crypt_left": {
+            "text": "Three zombies shamble in the corridor — the missing villagers, reanimated by the curse. They lurch toward you with empty eyes.",
+            "choices": [
+                {
+                    "text": "Fight them with your weapon!",
+                    "next": "zombie_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 12,
+                        "successScene": "zombie_win",
+                        "failScene": "zombie_hurt"
+                    }
+                },
+                {
+                    "text": "Use holy water to destroy them",
+                    "next": "zombie_win"
+                }
+            ]
+        },
+        "zombie_fight": {
+            "text": "You fight the zombies...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "zombie_win"
+                }
+            ]
+        },
+        "zombie_win": {
+            "text": "The zombies collapse into peaceful rest, the curse releasing them. Among their belongings, you find a key — it looks like it fits a locked sarcophagus ahead. The corridor connects back to the right path.",
+            "choices": [
+                {
+                    "text": "Head toward the right corridor and the corrupted robber",
+                    "next": "crypt_right"
+                }
+            ]
+        },
+        "zombie_hurt": {
+            "text": "One zombie bites your arm before you dispatch them all. The wound burns with necrotic energy.",
+            "effects": {
+                "hp": -6
+            },
+            "choices": [
+                {
+                    "text": "Press on toward the right corridor",
+                    "next": "crypt_right"
+                }
+            ]
+        },
+        "crypt_right": {
+            "text": "At the end of the right corridor, Saint Alma's grand sarcophagus stands open. Before it kneels a figure — once human, now a wight with glowing green eyes. In his clawed hands, the Silver Chalice pulses with corrupt energy.\n\nHe turns. 'Mine... the power is MINE!' His voice is a death rattle.",
+            "choices": [
+                {
+                    "text": "Attack the wight head-on!",
+                    "next": "wight_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "wight_win",
+                        "failScene": "wight_struggle"
+                    }
+                },
+                {
+                    "text": "Try to snatch the Chalice from his hands",
+                    "next": "snatch_chalice",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 15,
+                        "successScene": "wight_win",
+                        "failScene": "wight_struggle"
+                    }
+                },
+                {
+                    "text": "Throw holy water at him",
+                    "next": "wight_win"
+                },
+                {
+                    "text": "Appeal to his remaining humanity",
+                    "next": "appeal",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 16,
+                        "successScene": "peaceful_end",
+                        "failScene": "wight_struggle"
+                    }
+                }
+            ]
+        },
+        "wight_fight": {
+            "text": "You attack!",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "wight_win"
+                }
+            ]
+        },
+        "snatch_chalice": {
+            "text": "You reach for the chalice...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "wight_win"
+                }
+            ]
+        },
+        "appeal": {
+            "text": "You try to reach his soul...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "peaceful_end"
+                }
+            ]
+        },
+        "wight_win": {
+            "text": "You strike the wight with all your might. Combined with the holy water's burn, the creature shrieks and releases the Chalice. As soon as it leaves his grip, his body dissolves into dust, the stolen life energy returning to the crypt.\n\nThe Silver Chalice glows with renewed holy light in your hands. You can feel Saint Alma's presence, warm and grateful.",
+            "effects": {
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Return the Chalice to the altar upstairs",
+                    "next": "victory"
+                }
+            ]
+        },
+        "wight_struggle": {
+            "text": "The wight is powerful — his necrotic touch burns your skin as you grapple. But determination drives you. You wrench the Chalice free and slam it into his face. Holy light erupts, searing the undead creature to ashes.",
+            "effects": {
+                "hp": -8,
+                "gold": 50
+            },
+            "choices": [
+                {
+                    "text": "Take the Chalice back to the altar",
+                    "next": "victory"
+                }
+            ]
+        },
+        "peaceful_end": {
+            "text": "Your words pierce the darkness around the wight's soul. For a moment, the green light in his eyes flickers to human blue. 'Help... me...' he whispers. He places the Chalice on the ground and kneels.\n\nAs you take the Chalice, holy light washes over him. He smiles — a genuine, human smile — and dissolves peacefully into golden motes of light.\n\nSaint Alma's voice whispers: 'Mercy is the greatest strength.'",
+            "effects": {
+                "gold": 75,
+                "hp": 5
+            },
+            "choices": [
+                {
+                    "text": "Return the Chalice to the altar",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "You place the Silver Chalice on the altar. Brilliant golden light floods the chapel, driving out every shadow. The ghostly wailing ceases. Saint Alma appears one final time, her face radiant with peace.\n\n'Thank you, brave one. The dead may rest now.'\n\nShe fades, and with her, all the undead energy dissipates. The chapel feels warm again. Sacred.\n\nFather Dominic weeps with joy at the entrance. 'You've purified this holy place! The village is in your debt.' He presents you with a reward collected from the grateful townsfolk.\n\nThe Chapel of Saint Alma stands restored, a beacon of hope at the crossroads.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 100
+            },
+            "choices": []
+        }
+    }
+}

@@ -1,0 +1,649 @@
+{
+    "title": "The Phylactery's Call",
+    "scenes": {
+        "start": {
+            "text": "An ancient prophecy speaks of the Arch-Lich Vorn, sealed away a thousand years ago. Now, an eclipse approaches — and with it, a surge of necromantic energy that will free Vorn unless his phylactery is destroyed.\n\nThe Archmage Council has sent you to Vorn's Obsidian Fortress — a hovering citadel above the Shattered Wastes. Its wards are weakening. You must infiltrate, find the phylactery, and shatter it before the eclipse.\n\nYour skyship circles the fortress. Three entry points are visible: a crumbling balcony, a sewer grate, and the main gate flanked by undead sentinels.",
+            "choices": [
+                {
+                    "text": "Land on the crumbling balcony — stealth approach",
+                    "next": "balcony"
+                },
+                {
+                    "text": "Enter through the sewer grate below",
+                    "next": "sewer"
+                },
+                {
+                    "text": "Assault the main gate head-on",
+                    "next": "main_gate",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "gate_breach",
+                        "failScene": "gate_repelled"
+                    }
+                },
+                {
+                    "text": "Circle once more to scout for weaknesses",
+                    "next": "scout",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 14,
+                        "successScene": "scout_success",
+                        "failScene": "scout_fail"
+                    }
+                }
+            ]
+        },
+        "scout": {
+            "text": "You circle the fortress...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "scout_success"
+                }
+            ]
+        },
+        "scout_success": {
+            "text": "Your keen eyes spot a pattern — the undead sentinels rotate on a fixed schedule. There's a 30-second gap at the main gate every five minutes. You also notice the balcony leads to what appears to be an old library.\n\nThe sewer grate connects to an underground reservoir — likely unguarded but potentially flooded.",
+            "choices": [
+                {
+                    "text": "Use the gate rotation gap to slip inside",
+                    "next": "gate_breach"
+                },
+                {
+                    "text": "Enter through the library balcony",
+                    "next": "balcony"
+                },
+                {
+                    "text": "Risk the sewer",
+                    "next": "sewer"
+                }
+            ]
+        },
+        "scout_fail": {
+            "text": "The fortress's dark aura makes your eyes water. You can't make out much more than the three entry points.",
+            "choices": [
+                {
+                    "text": "Go for the balcony",
+                    "next": "balcony"
+                },
+                {
+                    "text": "Try the sewer",
+                    "next": "sewer"
+                },
+                {
+                    "text": "Assault the gate",
+                    "next": "main_gate",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 16,
+                        "successScene": "gate_breach",
+                        "failScene": "gate_repelled"
+                    }
+                }
+            ]
+        },
+        "balcony": {
+            "text": "You leap from the skyship onto the crumbling balcony. Stone cracks underfoot but holds. Inside, a vast library — shelves of forbidden tomes, some still glowing with arcane energy.\n\nA spectral librarian floats between shelves, cataloguing endlessly. It hasn't noticed you yet.",
+            "choices": [
+                {
+                    "text": "Sneak past the specter",
+                    "next": "library_sneak",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "library_clear",
+                        "failScene": "specter_fight"
+                    }
+                },
+                {
+                    "text": "Search the library for information about the phylactery",
+                    "next": "library_search",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 15,
+                        "successScene": "phylactery_location",
+                        "failScene": "specter_fight"
+                    }
+                },
+                {
+                    "text": "Destroy the specter with holy magic",
+                    "next": "specter_fight"
+                }
+            ]
+        },
+        "library_sneak": {
+            "text": "You creep through the stacks...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "library_clear": {
+            "text": "You pass the specter unseen and find a door leading deeper into the fortress. A corridor stretches ahead — left toward sounds of clanking chains, right toward an ominous green glow.",
+            "choices": [
+                {
+                    "text": "Go left toward the chains",
+                    "next": "prison_wing"
+                },
+                {
+                    "text": "Go right toward the green glow",
+                    "next": "ritual_chamber"
+                }
+            ]
+        },
+        "library_search": {
+            "text": "You search the shelves...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "phylactery_location"
+                }
+            ]
+        },
+        "phylactery_location": {
+            "text": "A dusty tome reveals crucial information: 'The Phylactery of Vorn rests in the Sanctum of Binding, the fortress's deepest chamber, protected by three wards: the Ward of Bone, the Ward of Shadow, and the Ward of Soul. Each must be broken before the Sanctum can be entered.'",
+            "choices": [
+                {
+                    "text": "Head deeper to find the wards",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "specter_fight": {
+            "text": "The spectral librarian shrieks and attacks! Its ghostly touch chills your blood. You fight back and disperse it, but the commotion may have alerted others.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "Move deeper into the fortress quickly",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "sewer": {
+            "text": "The sewer is vile — stagnant water, the stench of death. You wade through thigh-deep muck. Bones float in the water — not just animals.\n\nA low growl echoes ahead. Something lives down here.",
+            "choices": [
+                {
+                    "text": "Press forward through the darkness",
+                    "next": "sewer_creature",
+                    "diceCheck": {
+                        "stat": "constitution",
+                        "dc": 14,
+                        "successScene": "sewer_clear",
+                        "failScene": "sewer_attack"
+                    }
+                },
+                {
+                    "text": "Move silently along the wall",
+                    "next": "sewer_clear"
+                }
+            ]
+        },
+        "sewer_creature": {
+            "text": "You push through...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "sewer_clear"
+                }
+            ]
+        },
+        "sewer_clear": {
+            "text": "You emerge into the fortress's sublevel — old dungeons and storage. Stairs lead up to the main corridors.",
+            "choices": [
+                {
+                    "text": "Climb to the main level",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "sewer_attack": {
+            "text": "A ghoul erupts from the water! Its paralyzing claws scrape your armor. You fight it off but the encounter drains you.",
+            "effects": {
+                "hp": -10
+            },
+            "choices": [
+                {
+                    "text": "Escape upward",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "main_gate": {
+            "text": "You charge the main gate...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "gate_breach"
+                }
+            ]
+        },
+        "gate_breach": {
+            "text": "You smash through the undead sentinels and force your way inside. The great hall is a cathedral of darkness — obsidian pillars, a floor of skulls, and a throne of bone at the far end. Empty, for now.",
+            "choices": [
+                {
+                    "text": "Search for the way deeper",
+                    "next": "library_clear"
+                }
+            ]
+        },
+        "gate_repelled": {
+            "text": "The undead sentinels overwhelm you! You're forced back, bloody and battered. You'll need another way in.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Try the balcony instead",
+                    "next": "balcony"
+                },
+                {
+                    "text": "Use the sewer entrance",
+                    "next": "sewer"
+                }
+            ]
+        },
+        "prison_wing": {
+            "text": "The prison wing holds ancient cells — most empty. But in one, a figure stirs: an old wizard, emaciated, chained with anti-magic shackles.\n\n'You... you're alive? Living? I'm Erasmus. Vorn captured me decades ago for my knowledge of ward-breaking. I can help you — if you free me.'",
+            "choices": [
+                {
+                    "text": "Free Erasmus",
+                    "next": "erasmus_free",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 13,
+                        "successScene": "erasmus_ally",
+                        "failScene": "erasmus_slow"
+                    }
+                },
+                {
+                    "text": "Leave him — could be a trap",
+                    "next": "ritual_chamber"
+                }
+            ]
+        },
+        "erasmus_free": {
+            "text": "You work on the shackles...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "erasmus_ally"
+                }
+            ]
+        },
+        "erasmus_ally": {
+            "text": "The shackles break! Erasmus stretches, and weak arcane light flickers around his fingers. 'My power returns. Give me time to recover and I'll help you break the wards. I know where all three are.'",
+            "choices": [
+                {
+                    "text": "Lead the way, Erasmus!",
+                    "next": "ward_bone"
+                }
+            ]
+        },
+        "erasmus_slow": {
+            "text": "The shackles are tough — you break them but it takes time. Erasmus is free but weak.",
+            "effects": {
+                "hp": -3
+            },
+            "choices": [
+                {
+                    "text": "Head to the wards together",
+                    "next": "ward_bone"
+                }
+            ]
+        },
+        "ritual_chamber": {
+            "text": "The ritual chamber glows with sickly green light. Necromantic circles are etched into the floor. A massive ward-stone — the Ward of Bone — pulses at the center, radiating dark energy. Skeletal warriors guard it.",
+            "choices": [
+                {
+                    "text": "Fight the skeletons and destroy the ward!",
+                    "next": "ward_bone_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 15,
+                        "successScene": "ward_bone_broken",
+                        "failScene": "ward_bone_hurt"
+                    }
+                },
+                {
+                    "text": "Try to disable the ward with magic/knowledge",
+                    "next": "ward_bone_intel",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 16,
+                        "successScene": "ward_bone_broken",
+                        "failScene": "ward_bone_hurt"
+                    }
+                }
+            ]
+        },
+        "ward_bone": {
+            "text": "Erasmus leads you to the Ward of Bone — a massive pillar of fused skeletons radiating dark energy. His knowledge helps immensely.\n\n'There — the keystone at the center. Shatter it and the ward falls. But the guardians won't let you.'",
+            "choices": [
+                {
+                    "text": "Erasmus distracts, you strike!",
+                    "next": "ward_bone_broken"
+                },
+                {
+                    "text": "Fight through the guardians head-on",
+                    "next": "ward_bone_fight",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 14,
+                        "successScene": "ward_bone_broken",
+                        "failScene": "ward_bone_hurt"
+                    }
+                }
+            ]
+        },
+        "ward_bone_fight": {
+            "text": "You engage the guardians...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_bone_broken"
+                }
+            ]
+        },
+        "ward_bone_intel": {
+            "text": "You study the ward...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_bone_broken"
+                }
+            ]
+        },
+        "ward_bone_broken": {
+            "text": "The Ward of Bone shatters! Bone fragments scatter as the dark energy dissipates. One ward down, two to go. The fortress shudders — Vorn's power weakens.\n\nThe eclipse is closer. The sky outside darkens.",
+            "choices": [
+                {
+                    "text": "Find the Ward of Shadow",
+                    "next": "ward_shadow"
+                }
+            ]
+        },
+        "ward_bone_hurt": {
+            "text": "The skeletal guardians are fierce. You finally break through and destroy the ward, but take heavy damage.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "Push on to the Ward of Shadow",
+                    "next": "ward_shadow"
+                }
+            ]
+        },
+        "ward_shadow": {
+            "text": "The Ward of Shadow is in the fortress's heart — a room of impenetrable darkness. Shadows coalesce into wraith-like forms. The ward-stone is invisible in the dark; you must find it by other means.",
+            "choices": [
+                {
+                    "text": "Light a radiant torch to burn away the shadows",
+                    "next": "shadow_light",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 15,
+                        "successScene": "ward_shadow_broken",
+                        "failScene": "shadow_overwhelm"
+                    }
+                },
+                {
+                    "text": "Navigate by sound — the ward-stone hums",
+                    "next": "shadow_sound",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 14,
+                        "successScene": "ward_shadow_broken",
+                        "failScene": "shadow_overwhelm"
+                    }
+                },
+                {
+                    "text": "Charge blindly and smash everything!",
+                    "next": "shadow_charge",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "ward_shadow_broken",
+                        "failScene": "shadow_overwhelm"
+                    }
+                }
+            ]
+        },
+        "shadow_light": {
+            "text": "You conjure light...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_shadow_broken"
+                }
+            ]
+        },
+        "shadow_sound": {
+            "text": "You listen carefully...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_shadow_broken"
+                }
+            ]
+        },
+        "shadow_charge": {
+            "text": "You charge into the darkness...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_shadow_broken"
+                }
+            ]
+        },
+        "ward_shadow_broken": {
+            "text": "The Ward of Shadow explodes in a burst of blinding light as you shatter the ward-stone! Shadows scream and dissolve. The room returns to normal — stone walls, torches reigniting.\n\nTwo wards down. One to go.",
+            "choices": [
+                {
+                    "text": "Find the final ward — the Ward of Soul",
+                    "next": "ward_soul"
+                }
+            ]
+        },
+        "shadow_overwhelm": {
+            "text": "The shadows are overwhelming — their cold drains your life force. But desperation empowers you. With a final, brutal blow, you find and shatter the ward-stone.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Stagger toward the final ward",
+                    "next": "ward_soul"
+                }
+            ]
+        },
+        "ward_soul": {
+            "text": "The Ward of Soul is the cruelest — it's powered by trapped souls, visible as screaming faces in a crystal sphere. Destroying it will free them, but the sphere fights back, assaulting your mind with their agony.\n\nA voice echoes: Vorn's voice. 'Foolish mortal. Turn back. My power is ETERNAL.'",
+            "choices": [
+                {
+                    "text": "Steel your mind and shatter the sphere!",
+                    "next": "soul_break",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 16,
+                        "successScene": "ward_soul_broken",
+                        "failScene": "soul_struggle"
+                    }
+                },
+                {
+                    "text": "Channel positive energy to free the souls gently",
+                    "next": "soul_free",
+                    "diceCheck": {
+                        "stat": "wisdom",
+                        "dc": 15,
+                        "successScene": "ward_soul_broken",
+                        "failScene": "soul_struggle"
+                    }
+                }
+            ]
+        },
+        "soul_break": {
+            "text": "You raise your weapon...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_soul_broken"
+                }
+            ]
+        },
+        "soul_free": {
+            "text": "You channel your inner light...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "ward_soul_broken"
+                }
+            ]
+        },
+        "ward_soul_broken": {
+            "text": "The crystal shatters! Freed souls stream upward through the fortress, their grateful whispers filling the air. The Ward of Soul is broken.\n\nAll three wards are down. The Sanctum of Binding is open.\n\nThe eclipse begins — a dark shadow eating the sun. Time is running out.",
+            "choices": [
+                {
+                    "text": "Enter the Sanctum and face the phylactery!",
+                    "next": "sanctum"
+                }
+            ]
+        },
+        "soul_struggle": {
+            "text": "The soul trap's psychic assault nearly breaks you. You scream as memories and emotions that aren't yours flood your mind. But you shatter the crystal.",
+            "effects": {
+                "hp": -12
+            },
+            "choices": [
+                {
+                    "text": "The Sanctum awaits — hurry!",
+                    "next": "sanctum"
+                }
+            ]
+        },
+        "sanctum": {
+            "text": "The Sanctum of Binding: a vast circular chamber of obsidian black. In its center, floating above an altar, a crystalline orb pulses with deathly green light — Vorn's Phylactery.\n\nAs you step forward, the air freezes. Vorn's spirit manifests — a towering specter of bones and dark robes, crown of iron on his skull, eyes burning with malice.\n\n'You cannot destroy what is eternal,' he hisses. 'I have waited a thousand years. The eclipse feeds my power. And YOU... will be my first servant in the new age.'",
+            "choices": [
+                {
+                    "text": "Strike the phylactery with everything you have!",
+                    "next": "phylactery_strike",
+                    "diceCheck": {
+                        "stat": "strength",
+                        "dc": 17,
+                        "successScene": "phylactery_cracked",
+                        "failScene": "vorn_blast"
+                    }
+                },
+                {
+                    "text": "Resist Vorn's magic and push through to the altar!",
+                    "next": "resist_vorn",
+                    "diceCheck": {
+                        "stat": "charisma",
+                        "dc": 16,
+                        "successScene": "phylactery_cracked",
+                        "failScene": "vorn_blast"
+                    }
+                },
+                {
+                    "text": "Use the knowledge from the library to exploit a weakness",
+                    "next": "exploit_weakness",
+                    "diceCheck": {
+                        "stat": "intelligence",
+                        "dc": 15,
+                        "successScene": "phylactery_cracked",
+                        "failScene": "vorn_blast"
+                    }
+                }
+            ]
+        },
+        "phylactery_strike": {
+            "text": "You charge at the phylactery...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "phylactery_cracked"
+                }
+            ]
+        },
+        "resist_vorn": {
+            "text": "Vorn unleashes his power...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "phylactery_cracked"
+                }
+            ]
+        },
+        "exploit_weakness": {
+            "text": "You recall the ancient texts...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "phylactery_cracked"
+                }
+            ]
+        },
+        "vorn_blast": {
+            "text": "Vorn's necrotic blast slams into you like a wall of ice and death. Your body screams. But you won't stop. Not now. With blood streaming from your nose, you reach the altar.",
+            "effects": {
+                "hp": -15
+            },
+            "choices": [
+                {
+                    "text": "Bring your weapon down on the phylactery!",
+                    "next": "phylactery_cracked"
+                }
+            ]
+        },
+        "phylactery_cracked": {
+            "text": "Your blow strikes the phylactery! A web of cracks spreads across its surface. Vorn SCREAMS — a sound that shakes the entire fortress.\n\n'NO! I AM ETERNAL! I AM—'\n\nYou strike again. And again. The phylactery SHATTERS.\n\nBlinding white light erupts from the fragments. Vorn's spirit is ripped apart, his essence dissolving into nothing. The green fire in his eyes goes dark forever.\n\nThe obsidian fortress groans and begins to fall. Without Vorn's power sustaining it, the citadel is collapsing from the sky.",
+            "choices": [
+                {
+                    "text": "Run for the skyship! The fortress is falling!",
+                    "next": "escape",
+                    "diceCheck": {
+                        "stat": "dexterity",
+                        "dc": 14,
+                        "successScene": "victory",
+                        "failScene": "close_call"
+                    }
+                }
+            ]
+        },
+        "escape": {
+            "text": "You sprint for the exit...",
+            "choices": [
+                {
+                    "text": "Continue",
+                    "next": "victory"
+                }
+            ]
+        },
+        "close_call": {
+            "text": "Corridors collapse around you. Rubble falls. You're hit but keep running. The skyship is ahead — you leap as the floor crumbles beneath you and catch the ladder.",
+            "effects": {
+                "hp": -8
+            },
+            "choices": [
+                {
+                    "text": "The skyship carries you to safety",
+                    "next": "victory"
+                }
+            ]
+        },
+        "victory": {
+            "text": "The Obsidian Fortress plummets from the sky and shatters on the Wastes below, raising a cloud of dark dust. The eclipse passes. Sunlight returns, golden and warm.\n\nVorn is destroyed. Forever. No phylactery to anchor his spirit, no fortress to house his power. The Arch-Lich's millennium of terror is truly over.\n\nThe Archmage Council hails you as the greatest hero of the age. Songs are written, statues erected. You receive a legendary artifact from the Council's vault — an item of immense power, a reward worthy of the one who slew the undying.\n\nBut more than treasure, you carry something priceless: the knowledge that the world's greatest evil is gone, and it was your hand that ended it.\n\nThe phylactery's call is silenced. Forever.",
+            "isEnding": true,
+            "endingType": "victory",
+            "effects": {
+                "gold": 1000
+            },
+            "choices": []
+        }
+    }
+}
