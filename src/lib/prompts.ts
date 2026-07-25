@@ -2,7 +2,7 @@ import { Character, InventoryItem, StoryLogEntry, Quest } from './types';
 
 /**
  * Build the Dungeon Master system prompt used by every AI provider
- * (DeepSeek, Gemini, server route, client direct). Keeping the prompt
+ * (DeepSeek, server route, client direct). Keeping the prompt
  * in one place makes it easy to tune tone, rules, and constraints
  * without hunting through three different call sites.
  */

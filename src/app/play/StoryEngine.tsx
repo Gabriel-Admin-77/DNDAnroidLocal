@@ -414,7 +414,7 @@ const StoryEngine = forwardRef<StoryEngineRef, StoryEngineProps>(({
                 ...prev,
                 {
                     sceneId: 'error',
-                    text: `The DM seems momentarily distracted. (Error: ${err.message || err}). Please check that the Gemini API key is configured correctly on the server.`,
+                    text: `The DM seems momentarily distracted. (Error: ${err.message || err}). Please check that the DeepSeek API key is configured correctly on the server.`,
                     choiceMade: action
                 }
             ]);

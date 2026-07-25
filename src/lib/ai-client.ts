@@ -14,24 +14,16 @@ function cleanAndParseJson(rawText: string) {
     }
 }
 
-// SECURITY: Client-side API key access is intentionally limited to localStorage
-// (user-set keys via Settings modal). Server-side env keys (DEEPSEEK_API_KEY,
-// GOOGLE_GENERATIVE_AI_API_KEY) are never exposed to the browser bundle —
-// those are consumed only by the /api/* route handlers.
-export function getGeminiApiKey(): string {
-    if (typeof window !== 'undefined') {
-        const stored = localStorage.getItem('dnd_app_gemini_key');
-        if (stored?.trim()) return stored.trim();
-    }
-    return '';
-}
+// The fallback key is embedded here for the Android APK (static export — no server available).
+// A user-entered key in Settings will always take priority over this default.
+const DEEPSEEK_DEFAULT_KEY = 'sk-04de390e8bf1468caa1f9573b0b0dbe3';
 
 export function getDeepSeekApiKey(): string {
     if (typeof window !== 'undefined') {
         const stored = localStorage.getItem('dnd_app_deepseek_key');
         if (stored?.trim()) return stored.trim();
     }
-    return '';
+    return DEEPSEEK_DEFAULT_KEY;
 }
 
 interface DmPayload {
@@ -61,7 +53,7 @@ async function callDeepSeekDm(payload: DmPayload): Promise<any> {
             'Authorization': `Bearer ${apiKey.trim()}`
         },
         body: JSON.stringify({
-            model: 'deepseek-chat',
+            model: 'deepseek-v4-flash',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt }
@@ -80,45 +72,13 @@ async function callDeepSeekDm(payload: DmPayload): Promise<any> {
     return cleanAndParseJson(content);
 }
 
-async function callGeminiDm(payload: DmPayload): Promise<any> {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error('Gemini API key missing.');
-    }
-    const { logs, userInput } = payload;
-    const systemPrompt = buildDmSystemPrompt(payload);
-    const userPrompt = buildDmUserPrompt({ logs, userInput });
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: `${systemPrompt}\n\n${userPrompt}` }] }],
-            generationConfig: { responseMimeType: 'application/json' }
-        })
-    });
-
-    if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`Gemini API Error (${res.status}): ${errText}`);
-    }
-    const data = await res.json();
-    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    return cleanAndParseJson(rawText);
-}
-
 /**
- * Direct client-side call to the AI DM.
- * Prefers DeepSeek if a DeepSeek key is in localStorage, otherwise Gemini.
- * Falls back to the server proxy only when neither is set.
+ * Direct client-side call to the AI DM using DeepSeek.
  */
 export async function callAiDmDirectly(payload: DmPayload) {
     const deepseekKey = getDeepSeekApiKey();
     if (deepseekKey) return callDeepSeekDm(payload);
-    const geminiKey = getGeminiApiKey();
-    if (geminiKey) return callGeminiDm(payload);
-    throw new Error('No AI API key configured. Open Settings to add your DeepSeek or Gemini key.');
+    throw new Error('No AI API key configured. Open Settings to add your DeepSeek key.');
 }
 
 interface QuestPayload {
@@ -148,7 +108,7 @@ export async function callDeepSeekDirectly(payload: QuestPayload): Promise<Quest
             'Authorization': `Bearer ${apiKey.trim()}`
         },
         body: JSON.stringify({
-            model: 'deepseek-chat',
+            model: 'deepseek-v4-flash',
             messages: [
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: userPrompt }
@@ -169,7 +129,7 @@ export async function callDeepSeekDirectly(payload: QuestPayload): Promise<Quest
 }
 
 /**
- * Simple text generation helper using available client keys or fallback server API.
+ * Simple text generation helper using available client key or fallback server API.
  */
 export async function generateTextDirectly(prompt: string): Promise<string> {
     const deepseekKey = getDeepSeekApiKey();
@@ -181,7 +141,7 @@ export async function generateTextDirectly(prompt: string): Promise<string> {
                 'Authorization': `Bearer ${deepseekKey.trim()}`
             },
             body: JSON.stringify({
-                model: 'deepseek-chat',
+                model: 'deepseek-v4-flash',
                 messages: [{ role: 'user', content: prompt }],
                 temperature: 0.8
             })
@@ -191,21 +151,6 @@ export async function generateTextDirectly(prompt: string): Promise<string> {
             return data.choices?.[0]?.message?.content || '';
         }
     }
-    const geminiKey = getGeminiApiKey();
-    if (geminiKey) {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`;
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }]
-            })
-        });
-        if (res.ok) {
-            const data = await res.json();
-            return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        }
-    }
-    throw new Error('No AI API key configured. Open Settings to add your DeepSeek or Gemini key.');
+    throw new Error('No AI API key configured. Open Settings to add your DeepSeek key.');
 }
 

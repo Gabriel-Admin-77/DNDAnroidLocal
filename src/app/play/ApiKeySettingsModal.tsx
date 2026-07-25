@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { X, Key, Save, Check, Volume2, Play, Square } from 'lucide-react';
-import { getGeminiApiKey, getDeepSeekApiKey } from '@/lib/ai-client';
+import { getDeepSeekApiKey } from '@/lib/ai-client';
 import {
     getTtsSettings,
     saveTtsSettings,
@@ -23,7 +23,6 @@ interface ApiKeySettingsModalProps {
 }
 
 export default function ApiKeySettingsModal({ isOpen, onClose }: ApiKeySettingsModalProps) {
-    const [geminiKey, setGeminiKey] = useState('');
     const [deepseekKey, setDeepseekKey] = useState('');
     const [savedNotice, setSavedNotice] = useState(false);
 
@@ -44,7 +43,6 @@ export default function ApiKeySettingsModal({ isOpen, onClose }: ApiKeySettingsM
 
     useEffect(() => {
         if (isOpen) {
-            setGeminiKey(getGeminiApiKey());
             setDeepseekKey(getDeepSeekApiKey());
             setSavedNotice(false);
             const tts = getTtsSettings();
@@ -67,7 +65,6 @@ export default function ApiKeySettingsModal({ isOpen, onClose }: ApiKeySettingsM
 
     const handleSave = (e: React.FormEvent) => {
         e.preventDefault();
-        localStorage.setItem('dnd_app_gemini_key', geminiKey.trim());
         localStorage.setItem('dnd_app_deepseek_key', deepseekKey.trim());
         saveTtsSettings({
             enabled: ttsEnabled,
@@ -120,26 +117,14 @@ export default function ApiKeySettingsModal({ isOpen, onClose }: ApiKeySettingsM
                     <section className="space-y-3">
                         <h2 className="text-sm font-serif font-bold text-stone-200 flex items-center gap-2">
                             <Key className="w-4 h-4 text-gold-400" />
-                            AI API Keys
+                            AI API Key
                         </h2>
                         <p className="text-stone-400 text-xs leading-relaxed">
-                            Optional. If unset, the server's <code className="text-stone-300">.env.local</code> keys are used.
+                            Optional. If unset, the server's <code className="text-stone-300">.env.local</code> key is used.
                         </p>
                         <div>
                             <label className="block text-xs font-medium text-stone-300 mb-1">
-                                Google Gemini API Key (Dungeon Master)
-                            </label>
-                            <input
-                                type="password"
-                                value={geminiKey}
-                                onChange={e => setGeminiKey(e.target.value)}
-                                placeholder="AIzaSy..."
-                                className="w-full bg-stone-950 border border-stone-800 rounded-xl px-3 py-2 text-xs text-stone-100 focus:outline-none focus:border-gold-500/50 font-mono"
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-xs font-medium text-stone-300 mb-1">
-                                DeepSeek API Key (Quest Creator)
+                                DeepSeek API Key
                             </label>
                             <input
                                 type="password"

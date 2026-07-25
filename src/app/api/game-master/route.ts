@@ -1,5 +1,3 @@
-import { google } from '@ai-sdk/google';
-import { generateText } from 'ai';
 import { NextResponse } from 'next/server';
 import { buildDmSystemPrompt, buildDmUserPrompt } from '@/lib/prompts';
 
@@ -12,39 +10,33 @@ export async function POST(req: Request) {
         const userPrompt = buildDmUserPrompt({ logs, userInput });
 
         const deepseekKey = process.env.DEEPSEEK_API_KEY;
-        let rawText = '';
-
-        if (deepseekKey) {
-            const dsRes = await fetch('https://api.deepseek.com/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${deepseekKey.trim()}`
-                },
-                body: JSON.stringify({
-                    model: 'deepseek-chat',
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user', content: userPrompt }
-                    ],
-                    temperature: 0.7,
-                    response_format: { type: 'json_object' }
-                })
-            });
-            if (!dsRes.ok) {
-                const err = await dsRes.text();
-                throw new Error(`DeepSeek API error ${dsRes.status}: ${err}`);
-            }
-            const dsData = await dsRes.json();
-            rawText = dsData.choices?.[0]?.message?.content || '{}';
-        } else {
-            const { text } = await generateText({
-                model: google('gemini-2.5-flash'),
-                prompt: userPrompt,
-                system: systemPrompt,
-            });
-            rawText = text;
+        if (!deepseekKey) {
+            throw new Error('DEEPSEEK_API_KEY is not set in environment variables.');
         }
+
+        const dsRes = await fetch('https://api.deepseek.com/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${deepseekKey.trim()}`
+            },
+            body: JSON.stringify({
+                model: 'deepseek-v4-flash',
+                messages: [
+                    { role: 'system', content: systemPrompt },
+                    { role: 'user', content: userPrompt }
+                ],
+                temperature: 0.7,
+                response_format: { type: 'json_object' }
+            })
+        });
+        if (!dsRes.ok) {
+            const err = await dsRes.text();
+            throw new Error(`DeepSeek API error ${dsRes.status}: ${err}`);
+        }
+        const dsData = await dsRes.json();
+        const rawText = dsData.choices?.[0]?.message?.content || '{}';
+
 
         // Robustly parse the JSON response
         let jsonResponse;
